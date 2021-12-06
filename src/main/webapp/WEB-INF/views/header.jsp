@@ -38,32 +38,6 @@
 	        </div>
 	    </nav>
 		
-		<section id="container">
-			<section class="home">
-				<div class="swiper mySwiper">
-					<div class="swiper-wrapper">
-						<div class="swiper-slide"></div>
-						<div class="swiper-slide"></div>
-						<div class="swiper-slide"></div>
-						<div class="swiper-slide"></div>
-					</div>
-					<div class="swiper-pagination"></div>
-				</div>
-			</section>
-		</section><!-- //cont -->
-	   	<div class="stk_btn">
-			<a href="#" class="room_rsvt main_rsvt">
-		    	<span class="rel">1:1 채팅</span> <img src="../images/main_arrow.png" alt="" class="rel">
-		    </a>
-		    <a href="#" class="community_rsvt main_rsvt" >
-		    	<span class="rel">창업 신청</span> <img src="../images/main_arrow.png" alt="" class="rel">
-		    </a>
-	    </div>
-		<footer>
-			<div class="container">
-				<p>Copyright © STUDYCAFE All Rights Reserved</p>
-			</div>
-		</footer>
-	</div>
-</body>
-</html>
+		<section id="container" class="subCon">
+			
+		

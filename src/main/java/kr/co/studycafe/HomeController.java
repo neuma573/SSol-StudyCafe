@@ -16,4 +16,11 @@ public class HomeController {
 		mav.setViewName("/index");
 		return mav;
 	}
+	
+	@RequestMapping("/notice.do")
+	public ModelAndView template() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/notice/noticeList");
+		return mav;
+	}
 }

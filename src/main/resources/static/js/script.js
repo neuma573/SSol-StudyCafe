@@ -16,6 +16,22 @@
 	        $('.nav').removeClass('affix');
 	    }
 	});
+	
+	var swiper = new Swiper(".mySwiper", {
+    	pagination: {
+      		el: ".swiper-pagination",
+      		clickable: true,
+    	},
+    	autoplay:true,
+    	speed:700
+  	});
 	 
  });
-
+ 
+ $(window).on('load',function(){
+	if($(".home").length != 0){
+ 		$(".nav").addClass("wh");
+ 	}else{
+ 		$(".nav").removeClass("wh");
+ 	}
+});
