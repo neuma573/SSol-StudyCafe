@@ -37,7 +37,10 @@
 	    </section>
 	    
 	    <a href="#" class="room_rsvt main_rsvt">
-	    	<span class="rel">스터디룸 예약</span> <img src="../images/main_arrow.png" alt="" class="rel">
+	    	<span class="rel">1:1 채팅</span> <img src="../images/main_arrow.png" alt="" class="rel">
+	    </a>
+	    <a href="#" class="community_rsvt main_rsvt" >
+	    	<span class="rel">창업 신청</span> <img src="../images/main_arrow.png" alt="" class="rel">
 	    </a>
 	   
 		<footer>
