@@ -29,9 +29,9 @@
  });
  
  $(window).on('load',function(){
-	if($(".home").length != 0){
- 		$(".nav").addClass("wh");
+	if($(".home").length == 0){
+ 		$(".nav").addClass("bk");
  	}else{
- 		$(".nav").removeClass("wh");
+ 		$(".nav").removeClass("bk");
  	}
 });
