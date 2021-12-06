@@ -16,7 +16,6 @@
 	<!-- partial:index.partial.html -->
 	<div id="wrap">
 		<nav class="nav">
-			
 	        <div class="container">
 	            <div id="mainListDiv" class="main_list">
 	                <ul class="navlinks">

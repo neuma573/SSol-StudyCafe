@@ -304,7 +304,7 @@ nav div.main_list ul li:last-child{margin-right:0;}
 .room_rsvt:before{border-right-width:320px;border-bottom-color:#001f2e;border-right-color:#001f2e;}
 .subTit{padding-top:230px;}
 .subTit h2{font-size:50px; text-align:center; color:#222;}
-
+.subCon .container{position:relative; width:100%;}
 
 
 footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spacing:-0.02em; text-align:center}

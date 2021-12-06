@@ -23,7 +23,7 @@
       		clickable: true,
     	},
     	autoplay:true,
-    	speed:700
+    	speed:700,
   	});
 	 
  });

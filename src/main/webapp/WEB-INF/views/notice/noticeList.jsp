@@ -6,6 +6,7 @@
 		<h2>타이틀</h2>
 	</div>
 	<div class="container">
+		
 	</div>
 <!-- 본문끝 -->
 <%@ include file="../footer.jsp" %>
