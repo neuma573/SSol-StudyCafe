@@ -21,6 +21,10 @@ body {
     text-align: center;
 }
 
+.nav .container{
+	margin:0 50px;
+}
+
 .nav div.logo {
     float: left;
     width: auto;
@@ -72,7 +76,7 @@ nav div.main_list ul li:nth-child(6){
     text-decoration: none;
     color: #fff;
     line-height: 65px;
-    font-size: 2.4rem;
+    font-size: 20px;
 }
 .nav div.main_list li.test1 a {
     padding-left:200px;
@@ -82,8 +86,7 @@ nav div.main_list ul li:nth-child(6){
 }
 
 .nav div.main_list ul li a:hover {
-    
-    color: #00E676;
+    color: #b1997a;
 }
 
 
@@ -92,7 +95,7 @@ nav div.main_list ul li:nth-child(6){
 .home {
     width: 100%;
     height: 100vh;
-    background-image: url(https://images.unsplash.com/photo-1498550744921-75f79806b8a7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b0f6908fa5e81286213c7211276e6b3d&auto=format&fit=crop&w=1500&q=80);
+    background-image: url(../images/visual_img2.jpg);
     background-position: center top;
 	background-size:cover;
 }
@@ -360,10 +363,6 @@ nav div.main_list ul li:nth-child(6){
 }
 
 
-
-
-
-
 .myH2 {
 	text-align:center;
 	font-size: 4rem;
@@ -374,6 +373,20 @@ nav div.main_list ul li:nth-child(6){
 	padding-right:15%;
 	font-size: 20px;
 }
+
+.main_rsvt{position:absolute;bottom:-1px;right:0;width:290px;height:90px;padding-left:8px;box-sizing:border-box; display:flex; flex-wrap:wrap; align-content:center; align-items:center;}
+.main_rsvt:before{content:'';position:absolute;top:0;left:-52px;border-width:0 290px 90px 52px;border-style:solid;border-bottom-color:#999;border-left-color:transparent}
+.main_rsvt > span{position:relative; display:inline-block; z-index:1; font-family:'NotoSansKR-Bold';font-size:22px;letter-spacing:-0.025em;line-height:90px;color:#fff}
+.main_rsvt > img{position:relative; display:inline-block; z-index:1; margin-bottom:16px;margin-left:48px}
+.community_rsvt{}
+.community_rsvt:before{border-bottom-color:#a78e6f;border-right-color:#a78e6f}
+.room_rsvt{width:320px;right:290px}
+.room_rsvt:before{border-right-width:320px;border-bottom-color:#001f2e;border-right-color:#001f2e;}
+
+
+footer{padding:10px 20px; background:#222; font-size:14px; color:#989898; letter-spacing:-0.02em; text-align:center}
+
+
 @media all and (max-width:700px){
 	.myP {
 		padding:2%;
