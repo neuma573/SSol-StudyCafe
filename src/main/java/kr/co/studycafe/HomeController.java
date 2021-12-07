@@ -24,10 +24,4 @@ public class HomeController {
 		return mav;
 	}
 	
-	@RequestMapping("/notice.do")
-	public ModelAndView template() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/notice/noticeList");
-		return mav;
-	}
 }
