@@ -23,7 +23,7 @@
 	                    <li><a href="#">실시간예약</a></li>
 	                    <li><a href="#">공지사항</a></li>
 	                    <li><a href="#">이벤트</a></li>
-	                    <li><a href="#">지점찾기</a></li>
+	                    <li><a href="/place.do">지점찾기</a></li>
 	                    <li><a href="#">로그인</a></li>
 	                    <li><a href="#">회원가입</a></li>
 	                </ul>

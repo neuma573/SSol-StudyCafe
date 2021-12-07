@@ -45,6 +45,34 @@
 		$(".layerPop").fadeOut(300);
 	});
 	
+	//파일업로드
+	var fileTarget = $(".filebox .uploadHid");
+	fileTarget.on("change", function(){
+		if(window.FileReader){
+			var filename = $(this)[0].files[0].name;
+		}else{ // old IE
+			var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출
+		}
+		$(this).parents("dd").find(".preview .file span").append(filename);
+		$(this).parents("dd").find(".preview").html("<p class='file'><span>"+ filename +"</span><a href='javascript:' class='del'>삭제</a></p>");
+	});
+
+	//파일삭제
+	$(".preview").on("click", ".file .del", function(){
+		var $input=$(".fileD .uploadHid");
+		var $preview = $(".fileD .preview");
+		resetInputFile($input, $preview);
+	});
+	
+	//별점
+	$(".click_score a").each(function(index){
+		$(".click_score a").eq(index).on("click", function(){
+			$(".click_score a").removeClass("check");
+			for(var i=0; i<=index; i++){
+				$(".click_score a").eq(i).addClass("check");				
+			}
+		});
+	});
 	
  });
  
@@ -54,6 +82,12 @@
  	}else{
  		$(".nav").removeClass("bk");
  	}
+ 	
+ 	/*if($(".subTit.bg").length != 0){
+ 		$(".nav").removeClass("bk");
+ 	}else{
+ 		$(".nav").addClass("bk");
+ 	}*/
 });
 
 // 팝업
@@ -73,5 +107,25 @@ function layerPop(popname, title, index){
 		$(".layerPop."+popname).find(".starP").append(num);
 	}
 }
+
+
+// 등록 이미지 삭제
+function resetInputFile($input, $preview){
+	var agent=navigator.userAgent.toLowerCase();
+	console.log(agent);
+	if((navigator.appName='Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ){
+		//ie일때
+		$input.replaceWith($input.clone(true));
+		$preview.empty();
+	}else{
+		$input.val("");
+		$preview.empty();
+	}
+
+}
+
+
+
+
 
 

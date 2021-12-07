@@ -11,9 +11,37 @@ public class PlaceCont {
 	}
 	
 	@RequestMapping("/place.do")
+	public ModelAndView placeMap() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/place/mapview");
+		return mav;
+	}
+	
+	@RequestMapping("/placelist.do")
+	public ModelAndView placeList() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/place/list");
+		return mav;
+	}
+	
+	@RequestMapping("/placeview.do")
 	public ModelAndView placeView() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/place/view");
+		return mav;
+	}
+	
+	@RequestMapping("/placewrite.do")
+	public ModelAndView placeWrite() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/place/write");
+		return mav;
+	}
+	
+	@RequestMapping("/placemodify.do")
+	public ModelAndView placeModify() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/place/modify");
 		return mav;
 	}
 }
