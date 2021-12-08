@@ -19,7 +19,7 @@
 	        <div class="container">
 	            <div id="mainListDiv" class="main_list">
 	                <ul class="navlinks">
-	                    <li class="logo"><a href="#"><span>SSOL. STUDYCAFE</span></a></li>
+	                    <li class="logo"><a href="/home.do"><span>SSOL. STUDYCAFE</span></a></li>
 	                    <li><a href="#">실시간예약</a></li>
 	                    <li><a href="#">공지사항</a></li>
 	                    <li><a href="#">이벤트</a></li>

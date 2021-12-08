@@ -417,8 +417,8 @@ footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spac
 .placeRev{padding:80px 0 150px; background:#fff;}
 .placeRev .reviewWrap .starP{margin:0 0 20px;}
 .placeRev .reviewWrap .reviewD{width:100%; padding:0;}
-.placeRev .reviewWrap .reviewD .revList{position:relative; top:0; overflow:hidden; transition:top 0.3s ease, box-shadow 0.3s ease;}
-.placeRev .reviewWrap .reviewD .revList:hover{top:-10px; box-shadow:4px 10px 20px rgba(0,0,0,0.2);}
+.placeRev .reviewWrap .reviewD .revList{position:relative; top:0; overflow:hidden; transition:box-shadow 0.3s ease;}
+.placeRev .reviewWrap .reviewD .revList:hover{box-shadow:4px 10px 20px rgba(0,0,0,0.2);}
 .placeRev .btnD{margin-top:60px;}
 
 /* view */
