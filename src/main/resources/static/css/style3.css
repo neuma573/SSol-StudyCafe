@@ -20,3 +20,6 @@
 
 .join .email_join {width:72%;} 
 .login .auth,.join .auth { width:26%; float:right; background:#FAFAFA; border:1px solid #D8D6DE; color:#B9B9C3; height:40px; border-radius:5px; font-size:15px; }
+.joinType{width:100%; display:flex; flex-wrap:wrap; justify-content:center; justify-items:center;}
+.joinType a{display:block;}
+.joinType a span{display:block; width:100%; text-align:center; margin-top:20px;}
