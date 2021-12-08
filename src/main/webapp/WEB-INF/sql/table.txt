@@ -17,7 +17,6 @@ en_email varchar(30) not null,
 en_pw varchar(30) not null,
 en_name varchar(30) not null,
 en_birth varchar(30) not null,
-en_email varchar(50) not null,
 en_no varchar(30) not null,
 primary key (en_email))
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -163,15 +162,15 @@ FOREIGN KEY (in_email) REFERENCES tb_member_in(in_email)
 -- 개인회원정보
 -- select * from tb_member_in;
 insert into tb_member_in 
-values('email1','password1','박윤영','1999.10.25','dbsdud1025@gmail.com');
-insert into tb_member_in values('email2','password2','장지현','1999.9.25','wlgus@gmail.com');
-insert into tb_member_in values('email3','password3','김여진','1999.8.25','duwls@gmail.com');
-insert into tb_member_in values('email4','password4','나호진','1999.7.25','ghwls@gmail.com');
+values('dbsdud1025@gmail.com','password1','박윤영','1999.10.25');
+insert into tb_member_in values('wlgus@gmail.com','password2','장지현','1999.9.25');
+insert into tb_member_in values('duwls@gmail.com','password3','김여진','1999.8.25');
+insert into tb_member_in values('ghwls@gmail.com','password4','나호진','1999.7.25');
 
 -- 사업자회원정보
 -- select * from tb_member_en;
-insert into tb_member_en values('enemail1','enpassword1','유재석','1980.12.1','wotjr@gmail.com','123-80-123124');
-insert into tb_member_en values('enemail2','enpassword2','조세호','1990.9.1','tpgh@gmail.com','234-25-3542');
+insert into tb_member_en values('wotjr@gmail.com','enpassword1','유재석','1980.12.1','123-80-123124');
+insert into tb_member_en values('tpgh@gmail.com','enpassword2','조세호','1990.9.1','234-25-3542');
 
 -- 매장정보
 -- select * from tb_store_info;
