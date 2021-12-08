@@ -24,8 +24,8 @@
 	                    <li><a href="#">공지사항</a></li>
 	                    <li><a href="#">이벤트</a></li>
 	                    <li><a href="/place.do">지점찾기</a></li>
-	                    <li><a href="#">로그인</a></li>
-	                    <li><a href="#">회원가입</a></li>
+	                    <li><a href="/login/login.do">로그인</a></li>
+	                    <li><a href="/join/join.do">회원가입</a></li>	      
 	                </ul>
 	            </div>
 	            <div class="logo mlogo"><a href="#">SSOL. STUDYCAFE</a></div>
