@@ -17,10 +17,11 @@ public class HomeController {
 		return mav;
 	}
 	
-	@RequestMapping("/notice.do")
-	public ModelAndView template() {
+	@RequestMapping("/popupguide.do")
+	public ModelAndView popupguide() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/notice/noticeList");
+		mav.setViewName("/popup_guide");
 		return mav;
 	}
+	
 }
