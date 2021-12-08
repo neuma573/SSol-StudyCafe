@@ -6,7 +6,7 @@
 	<h2>로그인</h2>
 </div>
 <div class="container">
-<div class="form">
+<div class="login">
 	<form  action="/" method="get">
 	<br>
 		<input type="text" class="email" name="email" placeholder="이메일" required><br> 

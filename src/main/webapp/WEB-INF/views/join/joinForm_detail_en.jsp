@@ -6,8 +6,7 @@
 	<h2>회원가입</h2>
 </div>
 <div class="container">
-	<br> <br>
-	<div class="form">
+<div class="join">
 		<h3>사업자회원 가입하기</h3>
 		<br>
 		<p>
@@ -43,9 +42,7 @@
 			<button class="auth">인증</button>
 			<br> <input type="submit" value="가입하기">
 		</form>
-
-
 	</div>
-</div>
+</div> <br><br>
 <!-- 본문끝 -->
 <%@ include file="../footer.jsp"%>

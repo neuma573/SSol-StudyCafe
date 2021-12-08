@@ -1,23 +1,22 @@
 
 
-.container  { text-align:center;}
-input { padding:10px 15px; border:1px solid #D8D6DE; border-radius:5px; height:60px; width:100%; margin-bottom:5px; outline:none; color:#495057; vertical-align:middle; }
+.join , .login  { text-align:center; width:400px; margin:0 auto;}
+.login  input.email,.login input.pwd ,.join input{ padding:10px 15px; border:1px solid #D8D6DE; border-radius:5px; height:40px; width:100%; margin-bottom:5px; outline:none; color:#495057; vertical-align:middle; }
 
-input[type=submit] { width:100%; border-radius:30px; background:#c0c0c0; color:#fff; font-size:20px; margin-top:45px; font-weight:bold; cursor:pointer;}
-.container .form{ width:400px; margin:0 auto;}
-.login_btn { text-align:center; margin:30px 0;}
-.login_btn li { display:inline-block; }
-.login_btn li a { color:#4B4B4B; font-size:16px; }
-.login_btn li:first-child::after,
-.login_btn li:first-child + li::after { content:"|"; display:inline-block; margin:0 10px; color:#B9B9C3; font-size:16px;}
+.join input[type=submit], .login input[type=submit] { width:100%; border-radius:30px; background:#c0c0c0; color:#fff; font-size:20px; margin-top:45px; font-weight:bold; cursor:pointer;}
+.login .login_btn { text-align:center; margin:30px 0;}
+.login .login_btn li { display:inline-block; }
+.login .login_btn li a { color:#4B4B4B; font-size:16px; }
+.login .login_btn li:first-child::after,
+.login .login_btn li:first-child + li::after { content:"|"; display:inline-block; margin:0 10px; color:#B9B9C3; font-size:16px;}
 
-.sns { text-align:center; margin:30px 0;}
-.sns li { float:left; width:25%;} 
-.sns li:last-child { margin-right:0px;}
-.sns li a { display:block; margin:0 auto; width:70px; height:70px; border:1px solid #CFCFCF; border-radius:50%; position:relative; }
-.sns li a img { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);}
-
+.login .sns { text-align:center; margin:30px 0;}
+.login .sns li { float:left; width:25%;} 
+.login .sns li:last-child { margin-right:0px;}
+.login .sns li a { display:block; margin:0 auto; width:70px; height:70px; border:1px solid #CFCFCF; border-radius:50%; position:relative; }
+.login .sns li a img { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);}
 
 
-.form .email_join {width:72%;} 
-.form .auth { width:26%; float:right; background:#FAFAFA; border:1px solid #D8D6DE; color:#B9B9C3; height:40px; border-radius:5px; font-size:15px; }
+
+.join .email_join {width:72%;} 
+.login .auth,.join .auth { width:26%; float:right; background:#FAFAFA; border:1px solid #D8D6DE; color:#B9B9C3; height:40px; border-radius:5px; font-size:15px; }
