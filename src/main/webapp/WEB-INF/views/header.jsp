@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<title>index.jsp</title>
+	<title>SSOL.STUDYCAFE</title> 
 	<meta content="width=device-width,user-scalable=no,maximum-scale=1.0,minimum-scale=1.0,target-densitydpi=medium-dpi,initial-scale=1.0" name="viewport"/>
 	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 	<link rel="stylesheet" href="../css/style.css">
@@ -19,13 +19,13 @@
 	        <div class="container">
 	            <div id="mainListDiv" class="main_list">
 	                <ul class="navlinks">
-	                    <li class="logo"><a href="#"><span>SSOL. STUDYCAFE</span></a></li>
+	                    <li class="logo"><a href="/home.do"><span>SSOL. STUDYCAFE</span></a></li>
 	                    <li><a href="#">실시간예약</a></li>
 	                    <li><a href="#">공지사항</a></li>
 	                    <li><a href="#">이벤트</a></li>
 	                    <li><a href="#">지점찾기</a></li>
-	                    <li><a href="#">로그인</a></li>
-	                    <li><a href="#">회원가입</a></li>
+	                    <li><a href="/login/login.do">로그인</a></li>
+	                    <li><a href="/join/join.do">회원가입</a></li>
 	                </ul>
 	            </div>
 	            <div class="logo mlogo"><a href="#">SSOL. STUDYCAFE</a></div>
