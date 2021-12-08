@@ -6,17 +6,15 @@
 	<h2>회원가입</h2>
 </div>
 <div class="container">
-	<div class="join">
-		<br>
-		<br>
-		<br> <span> <img src="../images/individual.png"
-			onclick="location.href='/join/join_detail.do?user=in'"> <span>개인
-				회원</span>
-		</span> <span> <img src="../images/entrepreneur.png"
-			onclick="location.href='/join/join_detail.do?user=en'"> <span>사업자
-				회원</span>
-		</span> <br>
-		<br>
+	<div class="joinType">
+		<a href="/join/join_detail.do?user=in">
+			<img src="../images/individual.png"> 
+			<span>개인회원</span>
+		</a>
+		<a href="/join/join_detail.do?user=en"> 
+			<img src="../images/entrepreneur.png"> 
+			<span>사업자 회원</span>
+		</a> 
 	</div>
 </div>
 
