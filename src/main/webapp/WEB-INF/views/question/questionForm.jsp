@@ -6,6 +6,8 @@
 	<h2>1:1 문의</h2>
 </div>
 <div class="container">
+<div class="inner">
+
 	<div class="question">
 		<h1>자주 묻는 질문</h1><br>
 
@@ -34,6 +36,7 @@
 		
 		
 	</div>
+</div>
 </div>
 <!-- 본문끝 -->
 <%@ include file="../footer.jsp"%>
