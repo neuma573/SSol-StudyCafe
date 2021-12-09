@@ -73,7 +73,62 @@
 			}
 		});
 	});
+
+	//실시간예약
+	$(".reserveDiv .accoD .accoBox .accoTit").each(function(index){
+		$(this).on("click", function(){
+			if($(this).parents(".accoBox").hasClass("on")){
+				$(this).parents(".accoBox").removeClass("on");
+				$(this).siblings(".accoCont").stop(true,true).slideUp(300);
+			}else{
+				$(this).parents(".accoBox").addClass("on");
+				$(this).siblings(".accoCont").stop(true,true).slideDown(300);
+				$(".reserveCont .tab a").eq(index).click();
+			}
+
+		});
+	});
 	
+	$(".reserveCont .tab a").each(function(index){
+		$(this).on("click", function(){
+			if(!$(this).hasClass("on")){
+				$(".reserveCont .tab a").removeClass("on");
+				$(".reserveCont .tabCont > div").removeClass("on");
+				$(this).addClass("on");
+				$(".reserveCont .tabCont > div").eq(index).addClass("on");
+			}
+
+		});
+	});
+
+	//실시간예약 - 좌석
+	$(".reserveCont .seatDiv .seat").each(function(index){
+		$(this).on("click", function(){
+			if(!$(this).hasClass("on")){
+				$(".reserveCont .seatDiv .seat").removeClass("on");
+				$(this).addClass("on");
+			}
+		});
+		
+		if($(".reserveCont .seatDiv .seat").eq(index).hasClass("no")){
+			$(".reserveCont .seatDiv .seat").eq(index).off("click");
+		}
+	});
+
+	//실시간예약 - 시간
+	$(".reserveCont .rightFix .tabD .tabCont .scrollD a").each(function(index){
+		$(this).on("click", function(){
+			if($(this).hasClass("on")){
+				$(this).removeClass("on");
+			}else{
+				$(this).addClass("on");
+			}
+		});
+
+		if($(".reserveCont .rightFix .tabD .tabCont .scrollD a").eq(index).hasClass("no")){
+			$(".reserveCont .rightFix .tabD .tabCont .scrollD a").eq(index).off("click");
+		}
+	});
  });
  
  $(window).on('load',function(){
@@ -82,12 +137,6 @@
  	}else{
  		$(".nav").removeClass("bk");
  	}
- 	
- 	/*if($(".subTit.bg").length != 0){
- 		$(".nav").removeClass("bk");
- 	}else{
- 		$(".nav").addClass("bk");
- 	}*/
 });
 
 // 팝업
