@@ -25,6 +25,14 @@
 .joinType a{display:block;}
 .joinType a span{display:block; width:100%; text-align:center; margin-top:20px;}
 
+.join .chkInput{position:relative;}
+.join .chkInput > input{padding-right:120px;}
+.join .chkInput > div{position:absolute; top:50%; right:15px; transform:translateY(-50%); width:100px;}
+.join .agree{margin-bottom:20px; text-align:center;}
+.join .agree input{margin-left:5px;}
+/* input checkbox */
+input[type="checkbox"]{-webkit-appearance: none; box-shadow: none; width:20px; height:20px; padding:0; border:1px solid #ddd; background:#fff;}
+input[type="checkbox"]:checked{background:url("../images/chk_icon.png") center no-repeat #fff;}
 
 --question
 
