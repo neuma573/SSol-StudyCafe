@@ -35,7 +35,7 @@
 			</section>
 		</section><!-- //cont -->
 	   	<div class="stk_btn">
-			<a href="#" class="room_rsvt main_rsvt">
+			<a href="/question/question.do" class="room_rsvt main_rsvt">
 		    	<span class="rel">1:1 문의</span> <img src="../images/main_arrow.png" alt="" class="rel">
 		    </a>
 		    <a href="#" class="community_rsvt main_rsvt" >

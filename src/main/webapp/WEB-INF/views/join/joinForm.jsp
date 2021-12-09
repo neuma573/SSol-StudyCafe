@@ -8,7 +8,7 @@
 <div class="container">
 	<div class="joinType">
 		<a href="/join/join_detail.do?user=in">
-			<img src="../images/individual.png"> 
+			<img src="../images/individual.png" class="in_img"> 
 			<span>개인회원</span>
 		</a>
 		<a href="/join/join_detail.do?user=en"> 
