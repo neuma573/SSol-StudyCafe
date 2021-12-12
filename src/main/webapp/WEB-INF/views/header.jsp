@@ -21,7 +21,7 @@
 	                <ul class="navlinks">
 	                    <li class="logo"><a href="/home.do"><span>SSOL. STUDYCAFE</span></a></li>
 	                    <li><a href="/reserve/reserve.do">실시간예약</a></li>
-	                    <li><a href="#">공지사항</a></li>
+	                    <li><a href="/notice/notice.do">공지사항</a></li>
 	                    <li><a href="#">이벤트</a></li>
 	                    <li><a href="/place.do">지점찾기</a></li>
 	                    <li><a href="/login/login.do">로그인</a></li>
