@@ -4,9 +4,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+
 @Controller
 public class LoginCont {
+	private LoginDAO dao = null;
+	
 	public LoginCont() {
+		dao = new LoginDAO();
 		System.out.println("LoginCont 객체 생성");
 	}
 	

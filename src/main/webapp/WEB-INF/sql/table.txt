@@ -1,6 +1,4 @@
-
-create database studycafe_web;
-use studycafe_web;
+use ssol;
 
 -- 개인회원T
 create table tb_member_in(
