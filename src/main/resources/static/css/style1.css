@@ -6,8 +6,10 @@
 .shDiv > div{margin:0 auto;}
 .shDiv .shList{width:90%; height:50px; background:#f5f5f5;}
 .shDiv .search{position:relative; width:calc(100% - 40px); margin:0 auto; border-bottom:1px solid #ccc;}
-.shDiv .search input{display:inline-block; width:calc(100% - 47px); height:30px; font-size:18px;}
+.shDiv .search input{display:inline-block; width:calc(100% - 130px); height:30px; font-size:18px;}
 .shDiv .search input.btn{position:absolute; right:0; top:50%; transform:translateY(-50%); width:47px; height:36px; padding:0; overflow:hidden; text-indent:-9999px;}
+.shDiv .search input.btn{position:absolute; right:0; top:50%; transform:translateY(-50%); width:47px; height:36px; padding:0;
+	background:url("../images/find_ico.png") center no-repeat; overflow:hidden; text-indent:-9999px;}
 .shDiv .search input.btn:hover{cursor:pointer;}
 .event_inner{width:100%; text-align:center; background:#f5f5f5;}
 .eventD{display:flex; flex-wrap:wrap; width:calc(100% - 80px); margin:0 auto; padding-bottom:50px; padding-top: 50px; margin-right: 20px;}

@@ -10,7 +10,6 @@
 		<div class="eventWrap">
 			<div class="shDiv">
 				<div class="shList">
-					<form onsubmit="return mapSearchChk();">
 						<div class="search">
 						<p>
 							<select class="situation">
@@ -20,7 +19,6 @@
 							</select> <input type="text" name="eventName" placeholder="검색어를 입력해주세요.">
 							<input type="submit" class="btn">
 						</div>
-					</form>
 				</div>
 			</div>
 			<div class="eventD">
