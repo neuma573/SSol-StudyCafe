@@ -1,34 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="../header.jsp" %>
 <!-- 본문시작 -->
 	<div class="subTit bg" style="background-image:url('../images/place_img1.jpg')">
-		<h2>종로직영점</h2>
+		<h2>${requestScope.store_name}</h2>
 	</div>
 	<div class="container placeRev"><!-- hidden 으로 매장코드 가져가기  -->
 		<div class="inner">
 			<div class="btnD type2 mt0"><!-- 작성자에게만 노출  -->
-				<a href="/placemodify.do" class="btn"><span>수정</span></a>
-				<a href="javascript:" class="btn del"><span>삭제</span></a>
+				<a href="/placemodify.do?store_name=${requestScope.store_name}&e_number=${dto.e_number}" class="btn"><span>수정</span></a>
+				<a href="javascript:void(0);" class="btn del" onclick="layerPop('delPop'); return false;"><span>삭제</span></a>
 			</div>
 			<div class="viewDiv">
-				<p class="tit">리뷰 제목 입니다.</p>
+				<p class="tit">${dto.e_title}</p>
 				<div class="info">
 					<p class="starP">
-						<span class="star for"></span><!-- class : one, two, thr, for, fiv -->
+						<c:choose>
+							<c:when test="${dto.e_end == 5}"><span class="star fiv"></span></c:when>
+							<c:when test="${dto.e_end == 4}"><span class="star for"></span></c:when>
+							<c:when test="${dto.e_end == 3}"><span class="star thr"></span></c:when>
+							<c:when test="${dto.e_end == 2}"><span class="star two"></span></c:when>
+							<c:when test="${dto.e_end == 1}"><span class="star one"></span></c:when>
+							<c:otherwise><span class="star"></span></c:otherwise>
+						</c:choose>
 					</p>
-					<p><span>작성자 :</span> 리뷰232</p><p class="date"><span>작성일 :</span> 2021-12-06</p>
+					<p><span>작성자 :</span> ${dto.in_email}</p><p class="date"><span>작성일 :</span> ${dto.rev_date.substring(0,10)}</p>
 				</div>
 				
 				<div class="con">
-					<p class="img"><img src="../images/review_img1.jpg" ></p>
-					리뷰 내용입니다. 리뷰 내용입니다. 리뷰 내용입니다. 리뷰 내용입니다.				
+					<p class="img"><c:if test="${dto.e_image != ''}"><img src="../storage/${dto.e_image}"></c:if></p>
+					${dto.e_content}				
 				</div>
 			</div><!-- //viewDiv  -->
 			<div class="btnD">
-				<a href="placelist.do" class="btn"><span>목록</span></a>
+				<a href="javascript:history.back();" class="btn"><span>목록</span></a>
 			</div>
 		</div><!-- // inner -->
+	</div>
+	
+	<div class="layerPop delPop">
+		<form name='placedelFrm' id="placedelFrm" method="post" action="/placedelete.do">
+			<input type="hidden" name="store_name" value="${requestScope.store_name}">
+			<input type="hidden" name="e_number" value="${dto.e_number}">
+			<input type="hidden" name="store_no" value="${dto.store_no}">
+			<div class="popDiv">
+				<p class="tit">리뷰 삭제</p>
+				<div class="popCont">
+					<p>리뷰를 삭제하시겠습니까? <br>관련 파일도 전체 삭제됩니다.</p>
+					<div class="btnD">
+						<a href="javascript:void(0)" class="btn" onclick="javascript:document.placedelFrm.submit();"><span>삭제</span></a>
+						<a href="javascript:" class="xbtn btn del"><span>취소</span></a>
+					</div>				
+				</div>
+			</div>
+		</form>
+		<a href="javascript:" class="xbtn">닫기</a>
 	</div>
 <!-- 본문끝 -->
 <%@ include file="../footer.jsp" %>

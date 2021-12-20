@@ -71,6 +71,7 @@ $(document).ready(function() {
 			for (var i = 0; i <= index; i++) {
 				$(".click_score a").eq(i).addClass("check");
 			}
+			$("input#e_end").val(i);
 		});
 	});
 
@@ -330,7 +331,12 @@ $(document).ready(function() {
 
 		//예약추가 클릭 시 
 		var $reserveDetail=[];
+		var $payment=0;
+		var $seatSize=0;
+		var $lockerSize=0;
+		var $html="";
 		$(".reserveCont .slcDeTail .resBtn").on("click", function(){
+			$payment=0, $seatSize=0, $lockerSize=0;;
 			if($timeArr.length != 0 || $dayTxt != null){
 				//리셋
 				resReset();
@@ -339,26 +345,38 @@ $(document).ready(function() {
 				
 				if($timeArr.length != 0){ //좌석 시간 하나이상 선택 시 
 					for(var i=$timeArr.length; i>0; i--){
-						$reserveDetail.push(
-							"<p class='location'>"+$location+"</p><p class='store'>"+$store+"</p><p class='seat'>"
-							+$seat+"</p><p class='date'>2021-12-09</p><p class='time'>"+$timeArr[i-1]+"</p><p class='pay'>"+numberWithCommas($pay)+"원</p>"
-						);	
+						$reserveDetail.push({location:$location, store:$store, seat:$seat, time:$timeArr[i-1], pay:$pay});	
 					}
+					$timeArr=[];
 				}
 	
 				if($dayTxt != null){ // 사물함 날짜 선택 시 
-					$reserveDetail.push(
-						"<p class='location'>"+$location+"</p><p class='store'>"+$store+"</p><p class='seat'>"
-						+$locker+"</p><p class='date'>2021-12-09</p><p class='time'>"+$dayTxt+"</p><p class='pay'>"+numberWithCommas($pay)+"원</p>"
-					);
+					$reserveDetail.push({location:$location, store:$store, locker:$locker, time:'2021-12-09', pay:$pay});
+					$dayTxt=null;
 				}
 
 				for(var j=$reserveDetail.length; j>0; j--){
-					$(".reserveCont .resCheck .listD").append(
-						"<div class='list'><div><p class='num'>"+j+"</p>"+$reserveDetail[j-1]+"</div><a href='javascript:' class='del'>삭제</a></div>"
-					);	
+					$html+="<div class='list'><div><p class='num'>"+j+"</p>";
+					$html+="<p class='location'>"+$reserveDetail[j-1].location+"</p>";
+					$html+="<p class='store'>"+$reserveDetail[j-1].store+"</p>";
+					if($reserveDetail[j-1].seat){//좌석
+						$html+="<p class='seat'>"+$reserveDetail[j-1].seat+"</p>";
+						$seatSize++;
+					}else{// 사물함 
+						$html+="<p class='seat'>"+$reserveDetail[j-1].locker+"</p>";
+						$lockerSize++;
+					}
+					$html+="<p class='date'>"+$reserveDetail[j-1].time+"</p>";
+					$html+="<p class='pay'>"+numberWithCommas($reserveDetail[j-1].pay)+"원</p>";
+					$html+="</div><a href='javascript:' class='del'>삭제</a></div>";
+					$(".reserveCont .resCheck .listD").append($html);
+					
+					$payment+=$reserveDetail[j-1].pay;
 				}
-
+				console.log($lockerSize);
+				console.log($seatSize);
+				$(".reserveCont .totalPay .num").html($reserveDetail.length);
+				$(".reserveCont .totalPay .pay").html($payment);
 			}
 		});
 	}
@@ -398,7 +416,6 @@ function layerPop(popname, title, index) {
 		$(".layerPop." + popname).find(".starP").append(num);
 	}
 }
-
 
 // 등록 이미지 삭제
 function resetInputFile($input, $preview) {
@@ -473,7 +490,5 @@ function numberWithCommas(pay) {
 function withoutCommas(pay) {
 	return pay.toString().replace(",", '');
 }
-
-
 
 
