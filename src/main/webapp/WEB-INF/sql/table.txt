@@ -178,7 +178,7 @@ INSERT INTO tb_store_info(en_email, store_name, store_address, operating_hours, 
 VALUES('wotjr@gmail.com', '종각점', '서울 종로구 종로12길 15', '08:00-24:00', 4, 30, 20, 'store1.jpg', 37.56947854892087, 126.98597441116262, '02-1234-4567');
 
 INSERT INTO tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude, tel)
-VALUES('wotjr@gmail.com', '홍대점', '서울 마포구 양화로 165', '08:00-24:00', 3, 20, 20, 'store2.jpg', 37.557654557627586, 126.92444543999783, '02-2222-3333');
+VALUES('wotjr@gmail.com', '홍대점', '서울 마포구 양화로 165', '08:00-24:00', 4, 30, 20, 'store2.jpg', 37.557654557627586, 126.92444543999783, '02-2222-3333');
 
 INSERT INTO tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude, tel)
 VALUES('tpgh@gmail.com', '신정점', '서울 양천구 오목로 155', '08:00-24:00', 4, 31, 20, 'store3.jpg', 37.484378623657555, 126.9297866265025, '02-3333-5555');

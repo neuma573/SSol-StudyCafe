@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="../header.jsp" %>
+<script src="../js/res_script.js"></script>
 <!-- 본문시작 -->
 	<div class="subTit">
 		<h2>실시간예약</h2>
@@ -229,7 +230,6 @@
 <!-- 본문끝 -->
 <script>
 	$(function(){
-		//store_no, store_name, store_address, room_count, desk_count, box_count
 		var resStoreArr = [];
 		var resLocArr=[];
 		<c:forEach var="dto" items="${storeList}">
@@ -245,7 +245,6 @@
 			if(resLocArr.indexOf("${dto.store_address.substring(0,2)}")!=0){
 				resLocArr.push("${dto.store_address.substring(0,2)}");
 			}
-			//resLoc.push()
 		</c:forEach>
 		
 		
@@ -269,6 +268,7 @@
 			if($(this).val() !== "none"){
 				$(".reserveCont .seatDiv .deskD").empty();
 				$(".reserveCont .seatDiv .roomD").empty();
+				$(".reserveCont .lockerDiv .lockerD").empty();
 				
 				for(var i=0; i<resStoreArr.length; i++){
 					if(resStoreArr[i].store_no == $(this).val()){
@@ -277,11 +277,17 @@
 						}
 						
 						for(var n=0; n<resStoreArr[i].rcnt; n++){ // ROOM
-							//$(".reserveCont .seatDiv .roomD")			
+							$(".reserveCont .seatDiv .roomD").append("<a href='javascript:' class='room seat' data-val='room_"+(n+1)+"'><span>ROOM"+(n+1)+"</span></a>");			
+						}
+						
+						for(var n=0; n<resStoreArr[i].bcnt; n++){ // 사물함 
+							$(".reserveCont .lockerDiv .lockerD").append("<a href='javascript:' class='locker' data-val='locker_"+(n+1)+"'><span>사물함"+(n+1)+"</span></a>");			
 						}
 					}	
 				}
 				
+				resScript.seatClick(); //좌석 선택 
+				resScript.lockerClick(); //사물함 선택 			
 			}
 		});
 			
