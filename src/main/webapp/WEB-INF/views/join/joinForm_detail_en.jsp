@@ -13,40 +13,40 @@
 이 약관은 SSOL.STUDYCAFE이 운영하는 홈페이지에서 제공하는 인터넷 관련 서비스(이하 "서비스"라 한다)를 이용함에 있어 SSOL.STUDYCAFE와 이용자의 권리·의무 및 책임사항을 규정함을 목적으로 합니다.
 ※ 「PC통신 등을 이용하는 전자거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다」...
        </textarea>
-		<br> 이용약관 동의(필수)<label><input type="checkbox"
-			name="state" value="remain" checked></label><br> <br>
-		<form action="#" method="post">
-			<input type="text" class="email_join" placeholder="이메일" required>
-			<button class="auth">중복체크</button>
-		</form>
-		<form action="#" method="post">
-			<div class="chkInput">
-				<input type="text" placeholder="인증번호" required>
-				<div>
-					<img src="../images/certification_check.png"> 인증완료
-				</div>
+		<p class="agree">
+			이용약관 동의(필수)<label><input type="checkbox" name="state"
+				value="remain" checked></label>
+		<p>
+		<form action="../join/join_detail_in.do" method="post" onsubmit="return Check()">
+			<input type="text" class="email_join" name="in_email"
+				placeholder="이메일" required>
+			<button type="button" class="auth">인증</button>
+			<div class="mail_check_input_box" id="mail check input box false">
+				<input class="mail_check_input" disabled="disabled" type="text"
+					placeholder="인증번호" required>
 			</div>
+			<div id="mail_check_input_box_warn"></div>
+
 
 			<div style="margin-bottom: 30px;"></div>
-			<input type="password" placeholder="비밀번호 영문, 숫자, 특수문자 포함 8~34자"
-				required>
-			<div class="chkInput">
-				<input type="password" placeholder="비밀번호 확인" required>
-				<div>
-					<img src="../images/certification_check.png"> 확인완료
-				</div>
-			</div>
-			<input type="text" placeholder="이름" required> 생년월일 <input
-				type="date" class="email_join" value="1990-01-01" required>
-			<input type="text" class="email_join" placeholder="휴대폰 번호" required>
-			<button class="auth">인증</button>
-			<input type="text" class="email_join" placeholder="사업자 번호" required>
-			<button class="auth">인증</button>
-			<br> <input type="submit" value="가입하기">
+			<input type="password" name="in_pw" class="pw_input"
+				placeholder="비밀번호" required>
+				<div id="pw_check_input_box_warn"></div>
+				 <input
+				type="password" class="pwck_input" placeholder="비밀번호 확인" disabled="disabled" required>
+			<div class="pwck_input_re_1">비밀번호가 일치합니다.</div>
+			<div class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</div>
+			<input type="text" placeholder="이름" name="in_name" required>
+			생년월일 <input type="date" class="email_join" value="1990-01-01"
+				name="in_birth" required> 
+				<input type="text"  placeholder="사업자 번호" required>
+			<br> <input type="submit" class="join_button" value="가입하기">
 		</form>
 	</div>
 </div>
 <br>
 <br>
+<br>
 <!-- 본문끝 -->
+
 <%@ include file="../footer.jsp"%>
