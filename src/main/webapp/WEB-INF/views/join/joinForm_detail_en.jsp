@@ -6,7 +6,7 @@
 	<h2>회원가입</h2>
 </div>
 <div class="container">
-	<div class="join">
+	<div class="join joinCont">
 		<h3>사업자 회원 가입하기</h3>
 		<br> <br>
 		<textarea class="terms">제1조(목적)
@@ -17,9 +17,9 @@
 			이용약관 동의(필수)<label><input type="checkbox" name="state"
 				value="remain" checked></label>
 		<p>
-		<form action="../join/join_detail_in.do" method="post" onsubmit="return Check()">
-			<input type="text" class="email_join" name="in_email"
-				placeholder="이메일" required>
+		<form action="../join/join_detail_en.do" method="post"
+			onsubmit="return Check(mail_duCheck, mailnumCheck, pwckcorCheck, pwformCheck);">
+			<input type="text" class="email_join" name="en_email" placeholder="이메일" required>
 			<button type="button" class="auth">인증</button>
 			<div class="mail_check_input_box" id="mail check input box false">
 				<input class="mail_check_input" disabled="disabled" type="text"
@@ -29,18 +29,18 @@
 
 
 			<div style="margin-bottom: 30px;"></div>
-			<input type="password" name="in_pw" class="pw_input"
+			<input type="password" name="en_pw" class="pw_input"
 				placeholder="비밀번호" required>
-				<div id="pw_check_input_box_warn"></div>
-				 <input
-				type="password" class="pwck_input" placeholder="비밀번호 확인" disabled="disabled" required>
+			<div id="pw_check_input_box_warn"></div>
+			<input type="password" class="pwck_input" placeholder="비밀번호 확인"
+				disabled="disabled" required>
 			<div class="pwck_input_re_1">비밀번호가 일치합니다.</div>
 			<div class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</div>
-			<input type="text" placeholder="이름" name="in_name" required>
+			<input type="text" placeholder="이름" name="en_name" required>
+			<input type="text" name="en_no" placeholder="사업자 번호" required>
 			생년월일 <input type="date" class="email_join" value="1990-01-01"
-				name="in_birth" required> 
-				<input type="text"  placeholder="사업자 번호" required>
-			<br> <input type="submit" class="join_button" value="가입하기">
+				name="en_birth" required> <br> <input type="submit"
+				class="join_button" value="가입하기">
 		</form>
 	</div>
 </div>
@@ -48,5 +48,5 @@
 <br>
 <br>
 <!-- 본문끝 -->
-
 <%@ include file="../footer.jsp"%>
+

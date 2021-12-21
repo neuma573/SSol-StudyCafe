@@ -20,20 +20,35 @@ public class JoinDAO {
         con=dbopen.getConnection();
     }//end
     
-    public int emailCheck(String email) {
-    	 int check=1;
+    public int emailCheck(String email, String user) {
+    	 int check=1; 
          try {
-           con=dbopen.getConnection();          
-           sql=new StringBuilder();
-           sql.append(" SELECT * ");
-           sql.append(" FROM tb_member_in");
-           sql.append(" WHERE in_email=?");
-           pstmt=con.prepareStatement(sql.toString());
-           pstmt.setString(1, email);
-           rs=pstmt.executeQuery();
-           if(rs.next()) {
-               check=0;
-           }//if end
+        	 if(user.equals("in")) {
+        		 con=dbopen.getConnection();          
+                 sql=new StringBuilder();
+                 sql.append(" SELECT * ");
+                 sql.append(" FROM tb_member_in");
+                 sql.append(" WHERE in_email=?");
+                 pstmt=con.prepareStatement(sql.toString());
+                 pstmt.setString(1, email);
+                 rs=pstmt.executeQuery();
+                 if(rs.next()) {
+                     check=0;
+                 }//if end
+        	 }else {
+        		 con=dbopen.getConnection();          
+                 sql=new StringBuilder();
+                 sql.append(" SELECT * ");
+                 sql.append(" FROM tb_member_en");
+                 sql.append(" WHERE en_email=?");
+                 pstmt=con.prepareStatement(sql.toString());
+                 pstmt.setString(1, email);
+                 rs=pstmt.executeQuery();
+                 if(rs.next()) {
+                     check=0;
+                 }//if end
+        	 }
+           
          }catch (Exception e) {
              System.out.println("Email 중복 확인 실패 : " + e);
          }finally {

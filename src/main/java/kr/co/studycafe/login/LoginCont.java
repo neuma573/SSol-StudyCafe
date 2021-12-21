@@ -15,7 +15,7 @@ import kr.co.studycafe.join.JoinCont;
 @Controller
 public class LoginCont {
 	private LoginDAO dao = null;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(JoinCont.class);
 
 	public LoginCont() {
@@ -31,14 +31,23 @@ public class LoginCont {
 	@RequestMapping(value = "/login/login.do", method = RequestMethod.POST)
 	public ModelAndView loginProc(LoginDTO dto, HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
-		String in_email = dao.loginProc(dto);
-		if (in_email == null) {
-
+		LoginDTO Dto=null;
+		Dto = dao.loginProc(dto);
+		System.out.println(Dto);
+		if (Dto == null) {
 			mav.addObject("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
 			mav.addObject("url", "/login/login.do");
 		} else {
+			//체크했다면
+			 /* 세션 생성 */
+		    HttpSession session = req.getSession();
+		    if(session.getAttribute("member")!=null){
+				session.removeAttribute("member");
+			}
+		    session.setAttribute("member", Dto);
+		    
 			mav.addObject("msg", "로그인 성공하셨습니다.");
-			mav.addObject("url", "/home.do?in_email=" + in_email);
+			mav.addObject("url", "/home.do?user="+Dto.getUser()+"&email=" + Dto.getEmail());
 		}
 		mav.setViewName("redirect");
 		return mav;
