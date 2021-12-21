@@ -62,7 +62,7 @@ FOREIGN KEY (store_no) REFERENCES tb_store_info(store_no))
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 좌석예약T 2021-12-21 수정 
+-- 좌석예약T 2021-12-21 장지현 수정 
 create table tb_seat_res(
 sres_no int(10) not null auto_increment,
 in_email varchar(30) not null,
@@ -140,7 +140,7 @@ FOREIGN KEY (in_email) REFERENCES tb_member_in(in_email)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 리뷰 2021-12-21
+-- 리뷰 2021-12-21 장지현 수정 
 CREATE TABLE tb_review(
   rev_number int(10) NOT NULL AUTO_INCREMENT,
   store_no int(10) NOT NULL,
@@ -171,14 +171,21 @@ insert into tb_member_in values('ghwls@gmail.com','password4','나호진','1999.
 insert into tb_member_en values('wotjr@gmail.com','enpassword1','유재석','1980.12.1','123-80-123124');
 insert into tb_member_en values('tpgh@gmail.com','enpassword2','조세호','1990.9.1','234-25-3542');
 
--- 매장정보
+
+-- 매장정보 2021-12-21 장지현 수정 
 -- select * from tb_store_info;
-insert into tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, tel, latitude, longitude)
-values('wotjr@gmail.com','종각점','종로구 종로12길','08:00-24:00',4,30,20,'image/jonggak/store.png', '02-1234-4567', 37.3452435264,126.4896515464);
-insert into tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, tel, latitude, longitude)
-values('wotjr@gmail.com','홍대점','홍대','08:00-24:00',4,30,20,'image/hongdae/store.png', '02-2222-3333',37.557654557627586,126.92444543999783);
-insert into tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, tel, latitude, longitude)
-values('tpgh@gmail.com','신림점','신림','08:00-24:00',4,30,20,'image/sinrim/store.png', '02-3333-5555',37.484378623657555, 126.9297866265025);
+INSERT INTO tb_store_info(en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude, tel)
+VALUES('wotjr@gmail.com', '종각점', '서울 종로구 종로12길 15', '08:00-24:00', 4, 30, 20, 'store1.jpg', 37.56947854892087, 126.98597441116262, '02-1234-4567');
+
+INSERT INTO tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude, tel)
+VALUES('wotjr@gmail.com', '홍대점', '서울 마포구 양화로 165', '08:00-24:00', 3, 20, 20, 'store2.jpg', 37.557654557627586, 126.92444543999783, '02-2222-3333');
+
+INSERT INTO tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude, tel)
+VALUES('tpgh@gmail.com', '신정점', '서울 양천구 오목로 155', '08:00-24:00', 4, 31, 20, 'store3.jpg', 37.484378623657555, 126.9297866265025, '02-3333-5555');
+
+INSERT INTO tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude, tel)
+VALUES('tpgh@gmail.com', '목동점', '서울 양천구 신정동 오목로 238 LOND사옥', '08:00-24:00', 4, 30, 20, 'store4.jpg', 37.52602943586907, 126.86381820006488, '02-3434-3434');
+
 
 
 
@@ -257,6 +264,26 @@ insert into tb_notice(en_email, n_title, n_content)
 values ('wotjr@gmail.com', '[종각점] 신규오픈', '종각점 신규오픈합니다. 이벤트 페이지 확인해 주시고 많은 참여 부탁드립니다!');
 insert into tb_notice(en_email, n_title, n_content)
 values ('tpgh@gmail.com', '운영시간 변경', '코로나 확진자 수 증가로 인해 10시까지 운영합니다!');
+
+
+-- 리뷰insert 2021-12-21 장지현 추가
+INSERT INTO tb_review (store_no, rev_title, rev_content, rev_image, in_email, rev_score, rev_date)
+VALUES (1, '좋아요', '오랜만에 공부하려고 간건데 조용하고 시설도 깨끗했어요! 문의 드렸을 때 답변도 정말 빨라서 좋았습니다~', 'review_img1.jpg', 'dbsdud1025@gmail.com', 5, '2021-12-20 09:51:50');
+
+INSERT INTO tb_review (store_no, rev_title, rev_content, rev_image, in_email, rev_score, rev_date)
+VALUES (3, '추천합니다.', '시설 깨끗함', 'review_img3.jpg', 'duwls@gmail.com', 4, '2021-12-20 09:51:50');
+	
+INSERT INTO tb_review (store_no, rev_title, rev_content, rev_image, in_email, rev_score, rev_date)
+VALUES (3, '조용하고 좋아요~', '조용하고 따뜻하고 칸막이가 높아서 좋아요~ 이용도 간단해서 편리했습니다.', 'review_img4.jpg', 'ghwls@gmail.com', 5, '2021-12-20 09:51:50');
+
+INSERT INTO tb_review (store_no, rev_title, rev_content, rev_image, in_email, rev_score, rev_date)
+VALUES (1, '좋았습니당!', '조용한 분위기고 공부하기 좋은 환경인 거 같아요~\r\n다른 분들도 한 번쯤 와보셔도 후회는 안 할듯싶어요', 'review_img2.jpg', 'wlgus@gmail.com', 5, '2021-12-20 09:56:04');
+	
+INSERT INTO tb_review (store_no, rev_title, rev_content, rev_image, in_email, rev_score, rev_date)
+VALUES (4, '좋아요~', '깔끔하고 괜찮네여', '(0)review_img3.jpg', 'wlgus@gmail.com', 5, '2021-12-20 10:09:57');
+	
+INSERT INTO tb_review (store_no, rev_title, rev_content, rev_image, in_email, rev_score, rev_date)
+VALUES (2, '좋아요', '집중하기 좋네요 ', 'review_img4.jpeg', 'wlgus@gmail.com', 4, '2021-12-20 22:22:44');
 
 
 

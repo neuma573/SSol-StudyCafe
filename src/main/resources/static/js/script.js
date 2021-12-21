@@ -387,7 +387,6 @@ $(document).ready(function() {
 
 	//회원가입 
 	if($(".joinCont").length != 0){
-		console.log(1);
 		mail_duCheck = false; //이메일 중복 확인
 		pwckcorCheck = false; //비번 확인 일치 확인
 		pwformCheck = false; //비번 형태 확인
