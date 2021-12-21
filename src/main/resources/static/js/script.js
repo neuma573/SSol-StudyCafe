@@ -97,6 +97,11 @@ $(document).ready(function() {
 		pwformCheck = false; //비번 형태 확인
 		mailnumCheck = false; //이메일 인증번호 확인
 		var code = "";
+		
+		const url =new URL(document.location.href);
+		const urlParams =url.searchParams;
+		var user = urlParams.getAll('user');
+		console.log("user : " + user);
 		$(".auth").click(function() {
 			var email = $('.email_join').val();
 			var checkBox = $(".mail_check_input"); // 인증번호 입력란
@@ -104,13 +109,13 @@ $(document).ready(function() {
 			var checkResult = $("#mail_check_input_box_warn"); // 비교 결과 
 			$.ajax({
 				type: "GET",
-				url: "../mail_du_Check?email=" + email,
+				url: "../mail_du_Check?email=" + email+ "&user="+user,
 				success: function(data) {
 					console.log("data : " + data);
 					mail_duCheck = data;
 
 					if (mail_duCheck == "1") {
-						checkResult.html("가입 가능한 이메일 입니다.");
+						checkResult.html("해당 이메일로 인증번호를 전송했습니다.");
 						checkResult.attr("class", "correct");
 						mail_duCheck = true;
 						$.ajax({
