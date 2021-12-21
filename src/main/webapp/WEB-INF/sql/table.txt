@@ -145,10 +145,10 @@ e_number int(10) not null auto_increment,
 store_no int(10) NOT NULL,
 e_title varchar(50) NOT NULL,
 e_content varchar(500) NOT NULL,
-e_image varchar(20) NOT NULL,
+e_image varchar(200),
 in_email varchar(30) NOT NULL,
 e_end double NOT NULL,
-e_place timestamp NOT NULL DEFAULT now(),
+rev_date timestamp NOT NULL DEFAULT now(),
 primary key (e_number),
 FOREIGN KEY (store_no) REFERENCES tb_store_info(store_no),
 FOREIGN KEY (in_email) REFERENCES tb_member_in(in_email)
@@ -159,8 +159,7 @@ FOREIGN KEY (in_email) REFERENCES tb_member_in(in_email)
 -- insert test
 -- 개인회원정보
 -- select * from tb_member_in;
-insert into tb_member_in 
-values('dbsdud1025@gmail.com','password1','박윤영','1999.10.25');
+insert into tb_member_in values('dbsdud1025@gmail.com','password1','박윤영','1999.10.25');
 insert into tb_member_in values('wlgus@gmail.com','password2','장지현','1999.9.25');
 insert into tb_member_in values('duwls@gmail.com','password3','김여진','1999.8.25');
 insert into tb_member_in values('ghwls@gmail.com','password4','나호진','1999.7.25');
@@ -172,12 +171,14 @@ insert into tb_member_en values('tpgh@gmail.com','enpassword2','조세호','1990
 
 -- 매장정보
 -- select * from tb_store_info;
-insert into tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude)
-values('enemail1','종각점','종로구 종로12길','08:00-24:00',4,50,30,'image/jonggak/store.png',37.3452435264,126.4896515464);
-insert into tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude)
-values('enemail1','홍대점','홍대','08:00-24:00',6,50,20,'image/hongdae/store.png',37465264,126.4342234);
-insert into tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude)
-values('enemail2','신림점','신림','08:00-24:00',4,30,20,'image/sinrim/store.png',37465264,126.4342234);
+insert into tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, tel, latitude, longitude)
+values('wotjr@gmail.com','종각점','종로구 종로12길','08:00-24:00',4,30,20,'image/jonggak/store.png', '02-1234-4567', 37.3452435264,126.4896515464);
+insert into tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, tel, latitude, longitude)
+values('wotjr@gmail.com','홍대점','홍대','08:00-24:00',4,30,20,'image/hongdae/store.png', '02-2222-3333',37.557654557627586,126.92444543999783);
+insert into tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, tel, latitude, longitude)
+values('tpgh@gmail.com','신림점','신림','08:00-24:00',4,30,20,'image/sinrim/store.png', '02-3333-5555',37.484378623657555, 126.9297866265025);
+
+
 
 -- 요금
 -- select * from tb_pay;
@@ -200,41 +201,42 @@ insert into tb_pay values('b12w',24000);
 -- 이벤트
 -- select * from tb_event;
 insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, store_no, e_winners, e_money)
-values ('enemail1', '[신규오픈]종각점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event01_png', '2019-08-13', '2019-09-13', 1, 2, 1000);
+values ('wotjr@gmail.com', '[신규오픈]종각점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event01_png', '2019-08-13', '2019-09-13', 1, 2, 1000);
 insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, store_no, e_winners, e_money)
-values ('enemail1', '[신규오픈]홍대점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event02_png', '2020-03-22', '2020-04-22', 2, 1, 2000);
+values ('wotjr@gmail.com', '[신규오픈]홍대점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event02_png', '2020-03-22', '2020-04-22', 2, 1, 2000);
 insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, store_no, e_winners, e_money)
-values ('enemail2', '[신규오픈]신림점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event03_png', '2021-05-19', '2021-06-19', 3, 1, 1000);
+values ('tpgh@gmail.com', '[신규오픈]신림점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event03_png', '2021-05-19', '2021-06-19', 3, 1, 1000);
 
 -- 이벤트 당첨자
 -- select * from tb_event_prizewinner;
 insert into tb_event_prizewinner(e_number, in_email)
-values(1, 'email1');
+values(1, 'dbsdud1025@gmail.com');
 insert into tb_event_prizewinner(e_number, in_email)
-values(1, 'email2');
+values(1, 'wlgus@gmail.com');
 insert into tb_event_prizewinner(e_number, in_email)
-values(2, 'email2');
+values(2, 'duwls@gmail.com');
 insert into tb_event_prizewinner(e_number, in_email)
-values(3, 'email1');
+values(3, 'ghwls@gmail.com');
 
 
 -- 좌석예약정보
 -- select * from tb_seat_res;
 insert into tb_seat_res (in_email, store_no, seat_code, res_date, s_time, e_time, pay_code, e_number, total, pay_prog, prog)
-values('email1', 1, 'desk_1', '2021-12-01', '08:00', '12:00', 'd4h', 1, 4000, 'Y',2);
+values('dbsdud1025@gmail.com', 1, 'desk_1', '2021-12-01', '08:00', '12:00', 'd4h', 1, 4000, 'Y',2);
 insert into tb_seat_res (in_email, store_no, seat_code, res_date, s_time, e_time, pay_code, e_number, total, pay_prog, prog)
-values('email2', 2, 'desk_2', '2021-12-01', '11:00', '14:00', 'd1h', null, 4500, 'C',0);
+values('wlgus@gmail.com', 2, 'desk_2', '2021-12-01', '11:00', '14:00', 'd1h', null, 4500, 'C',0);
 insert into tb_seat_res (in_email, store_no, seat_code, res_date, s_time, e_time, pay_code, e_number, total, pay_prog, prog)
-values('email3', 3, 'desk_1', '2021-12-02', '13:00', '19:00', 'd6h', null, 6000, 'Y',1);
+values('duwls@gmail.com', 3, 'desk_1', '2021-12-02', '13:00', '19:00', 'd6h', null, 6000, 'Y',1);
 insert into tb_seat_res (in_email, store_no, seat_code, res_date, s_time, e_time, pay_code, e_number, total, pay_prog, prog)
-values('email1', 1, 'room_1', '2021-12-01', '08:00', '12:00', 'r4h', null, 20000, 'Y',2);
+values('ghwls@gmail.com', 1, 'room_1', '2021-12-01', '08:00', '12:00', 'r4h', null, 20000, 'Y',2);
 
 -- 사물함예약정보
 -- select * from tb_locker_res;
 insert into tb_locker_res(in_email, store_no, locker_code, s_date, e_date, pay_code, e_number, total, pay_prog, prog)
-values ('email1',1,'locker_1','2021-11-30','2021-12-28', 'b4w', null, 9000, 'Y', 1);
+values ('dbsdud1025@gmail.com',1,'locker_1','2021-11-30','2021-12-28', 'b4w', null, 9000, 'Y', 1);
 insert into tb_locker_res(in_email, store_no, locker_code, s_date, e_date, pay_code, e_number, total, pay_prog, prog)
-values ('email2',2,'locker_2','2021-12-07','2022-02-01', 'b8w', null, 16000, 'Y', 0);
+values ('wlgus@gmail.com',2,'locker_2','2021-12-07','2022-02-01', 'b8w', null, 16000, 'Y', 0);
+
 
 -- 결제
 -- select * from tb_buy;
@@ -248,21 +250,30 @@ values ('2021-12-01', 4, 20000);
 -- 공지사항
 -- select * from tb_notice;
 insert into tb_notice(en_email, n_title, n_content)
-values ('enemail1', '홈페이지 안내', '홈페이지 오픈했습니다. 예약 확인, 취소, 문의는 따로 채팅을 통해 부탁드리며....');
+values ('wotjr@gmail.com', '홈페이지 안내', '홈페이지 오픈했습니다. 예약 확인, 취소, 문의는 따로 채팅을 통해 부탁드리며....');
 insert into tb_notice(en_email, n_title, n_content)
-values ('enemail1', '[종각점] 신규오픈', '종각점 신규오픈합니다. 이벤트 페이지 확인해 주시고 많은 참여 부탁드립니다!');
+values ('wotjr@gmail.com', '[종각점] 신규오픈', '종각점 신규오픈합니다. 이벤트 페이지 확인해 주시고 많은 참여 부탁드립니다!');
 insert into tb_notice(en_email, n_title, n_content)
-values ('enemail2', '운영시간 변경', '코로나 확진자 수 증가로 인해 10시까지 운영합니다!');
+values ('tpgh@gmail.com', '운영시간 변경', '코로나 확진자 수 증가로 인해 10시까지 운영합니다!');
 
 -- 리뷰
 -- select * from tb_review;
 insert into tb_review(store_no, e_title, e_content, e_image, in_email, e_end)
-values(1, '좋아요', '오랜만에 공부하려고 간건데 조용하고 시설도 깨끗했어요! 문의 드렸을 때 답변도 정말 빨라서 좋았습니다~', 'review_img1.jpg', 'email2', 5);
+values(1, '좋아요', '오랜만에 공부하려고 간건데 조용하고 시설도 깨끗했어요! 문의 드렸을 때 답변도 정말 빨라서 좋았습니다~', 'review_img1.jpg', 'dbsdud1025@gmail.com', 5);
 insert into tb_review(store_no, e_title, e_content, e_image, in_email, e_end)
-values(2, '별로네요', '불친절함', 'review_img2.jpg', 'email1', 2.2);
+values(2, '별로네요', '불친절함', 'review_img2.jpg', 'wlgus@gmail.com', 2);
 insert into tb_review(store_no, e_title, e_content, e_image, in_email, e_end)
-values(3, '추천합니다.', '시설 깨끗함', 'review_img3.jpg', 'email1', 4.5);
+values(3, '추천합니다.', '시설 깨끗함', 'review_img3.jpg', 'duwls@gmail.com', 4);
+insert into tb_review(store_no, e_title, e_content, e_image, in_email, e_end)
+values(3, '조용하고 좋아요~', '조용하고 따뜻하고 칸막이가 높아서 좋아요~ 이용도 간단해서 편리했습니다.', 'review_img4.jpg', 'ghwls@gmail.com', 5);
 
 
 
+--////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-- 매장정보 컬럼 추가 
+alter table tb_store_info add tel varchar(20) not null;
+
+-- 매장정보 자료형 수정 
+alter table tb_store_info modify store_address varchar(100) not null;
+update tb_store_info set latitude=37.56947854892087, longitude=126.98597441116262 where store_no=1;
 

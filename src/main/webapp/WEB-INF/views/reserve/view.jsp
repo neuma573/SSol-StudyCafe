@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="../header.jsp" %>
 <!-- 본문시작 -->
 	<div class="subTit">
@@ -13,22 +15,12 @@
 						<span>지역</span>
 						<select class="location">
 							<option value="none">지역을 선택해주세요</option>
-							<option>서울</option>
-							<option>인천</option>
-							<option>경기</option>
-							<option>부산</option>
-							<option>대구</option>
 						</select>
 					</div>	
 					<div class="nameSlc">
 						<span>지점명</span>
 						<select class="store">
 							<option value="none">지점을 선택해주세요</option>
-							<option>노원직영점</option>
-							<option>강남직영점</option>
-							<option>천호점</option>
-							<option>사당역점</option>
-							<option>공릉점</option>
 						</select>
 					</div>	
 				</div><!-- //slcD -->
@@ -43,38 +35,37 @@
 							</div>
 							<div class="seatDiv">
 								<div class="deskD">
-									<a href="javascript:" class="desk seat"><span>좌석1</span></a>
-									<a href="javascript:" class="desk no"><span>좌석2</span></a><!-- 클래스 no 붙으면 선택 불가 -->
-									<a href="javascript:" class="desk seat"><span>좌석3</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석4</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석5</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석6</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석7</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석8</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석9</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석10</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석11</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석12</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석13</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석14</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석15</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석16</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석17</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석18</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석19</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석20</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석21</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석22</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석23</span></a>
-									
-									<a href="javascript:" class="desk seat"><span>좌석24</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석25</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석26</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석27</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석28</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석29</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석30</span></a>
-									<a href="javascript:" class="desk seat"><span>좌석31</span></a>
+									<a href="javascript:" data-val="desk_1" class="desk seat"><span>좌석1</span></a><!-- 클래스 no 붙으면 선택 불가 / max 31 -->
+									<a href="javascript:" data-val="desk_2" class="desk seat"><span>좌석2</span></a>
+									<a href="javascript:" data-val="desk_3" class="desk seat"><span>좌석3</span></a>
+									<a href="javascript:" data-val="desk_4" class="desk seat"><span>좌석4</span></a>
+									<a href="javascript:" data-val="desk_5" class="desk seat"><span>좌석5</span></a>
+									<a href="javascript:" data-val="desk_6" class="desk seat"><span>좌석6</span></a>
+									<a href="javascript:" data-val="desk_7" class="desk seat"><span>좌석7</span></a>
+									<a href="javascript:" data-val="desk_8" class="desk seat"><span>좌석8</span></a>
+									<a href="javascript:" data-val="desk_9" class="desk seat"><span>좌석9</span></a>
+									<a href="javascript:" data-val="desk_10" class="desk seat"><span>좌석10</span></a>
+									<a href="javascript:" data-val="desk_11" class="desk seat"><span>좌석11</span></a>
+									<a href="javascript:" data-val="desk_12" class="desk seat"><span>좌석12</span></a>
+									<a href="javascript:" data-val="desk_13" class="desk seat"><span>좌석13</span></a>
+									<a href="javascript:" data-val="desk_14" class="desk seat"><span>좌석14</span></a>
+									<a href="javascript:" data-val="desk_15" class="desk seat"><span>좌석15</span></a>
+									<a href="javascript:" data-val="desk_16" class="desk seat"><span>좌석16</span></a>
+									<a href="javascript:" data-val="desk_17" class="desk seat"><span>좌석17</span></a>
+									<a href="javascript:" data-val="desk_18" class="desk seat"><span>좌석18</span></a>
+									<a href="javascript:" data-val="desk_19" class="desk seat"><span>좌석19</span></a>
+									<a href="javascript:" data-val="desk_20" class="desk seat"><span>좌석20</span></a>
+									<a href="javascript:" data-val="desk_21" class="desk seat"><span>좌석21</span></a>
+									<a href="javascript:" data-val="desk_22" class="desk seat"><span>좌석22</span></a>
+									<a href="javascript:" data-val="desk_23" class="desk seat"><span>좌석23</span></a>
+									<a href="javascript:" data-val="desk_24" class="desk seat"><span>좌석24</span></a>
+									<a href="javascript:" data-val="desk_25" class="desk seat"><span>좌석25</span></a>
+									<a href="javascript:" data-val="desk_26" class="desk seat"><span>좌석26</span></a>
+									<a href="javascript:" data-val="desk_27" class="desk seat"><span>좌석27</span></a>
+									<a href="javascript:" data-val="desk_28" class="desk seat"><span>좌석28</span></a>
+									<a href="javascript:" data-val="desk_29" class="desk seat"><span>좌석29</span></a>
+									<a href="javascript:" data-val="desk_30" class="desk seat"><span>좌석30</span></a>
+									<a href="javascript:" data-val="desk_31" class="desk seat"><span>좌석31</span></a>
 								</div>
 								<div class="roomD">
 									<a href="javascript:" class="room seat no"><span>ROOM1</span></a>
@@ -208,6 +199,23 @@
 					<a href="javascript:" class="del">삭제</a>
 				</div> -->
 			</div>
+			<div class="resTotD">
+				<p class="tit">결제금액 확인</p>
+				<div class="resTot seatT">
+					<p>좌석 총 개수 : <span class="num">0</span></p>
+					<p>총 금액(기본가 시간당 1,500원) : <span class="pay">0</span>원</p>
+					<p>할인 적용된 총 금액 : <span class="disPay">0</span>원</p>
+				</div>
+				<div class="resTot roomT">
+					<p>ROOM 총 개수 : <span class="num">0</span></p>
+					<p>총 금액(기본가 시간당 6,000원) : <span class="pay">0</span>원</p>
+					<p>할인 적용된 총 금액 : <span class="disPay">0</span>원</p>
+				</div>
+				<div class="resTot lockerT">
+					<p>사물함 총 개수 : <span class="num">0</span></p>
+					<p>총 금액 : <span class="pay">0</span>원</p>
+				</div>
+			</div>
 		</div><!-- //resCheck -->
 		
 		<div class="totalPay">
@@ -217,5 +225,67 @@
 			</a>
 		</div>
 	</div><!-- //reserveCont -->
+	
 <!-- 본문끝 -->
+<script>
+	$(function(){
+		//store_no, store_name, store_address, room_count, desk_count, box_count
+		var resStoreArr = [];
+		var resLocArr=[];
+		<c:forEach var="dto" items="${storeList}">
+			resStoreArr.push({
+				store_no:${dto.store_no},
+				store_name:"${dto.store_name}",
+				addr:"${dto.store_address.substring(0,2)}",
+				rcnt:${dto.room_count},
+				dcnt:${dto.desk_count},
+				bcnt:${dto.box_count}
+			});
+			
+			if(resLocArr.indexOf("${dto.store_address.substring(0,2)}")!=0){
+				resLocArr.push("${dto.store_address.substring(0,2)}");
+			}
+			//resLoc.push()
+		</c:forEach>
+		
+		
+		for(var j=0; j<resLocArr.length; j++){
+			$(".reserveCont select.location").append("<option>"+resLocArr[j]+"</option>");
+		}
+		
+		$(".reserveCont select.location").change(function(){// 지역 선택하면
+			if($(this).val() !== "none"){
+				$(".reserveCont select.store").empty();
+				$(".reserveCont select.store").append("<option value='none'>지점을 선택해주세요</option>");
+				for(var i=0; i<resStoreArr.length; i++){
+					if(resStoreArr[i].addr.indexOf($(this).val())==0){
+						$(".reserveCont select.store").append("<option value="+resStoreArr[i].store_no+">"+resStoreArr[i].store_name+"</option>");
+					}	
+				}
+			}
+		});
+		
+		$(".reserveCont select.store").change(function(){// 지점명을 선택하면
+			if($(this).val() !== "none"){
+				$(".reserveCont .seatDiv .deskD").empty();
+				$(".reserveCont .seatDiv .roomD").empty();
+				
+				for(var i=0; i<resStoreArr.length; i++){
+					if(resStoreArr[i].store_no == $(this).val()){
+						for(var n=0; n<resStoreArr[i].dcnt; n++){ // 좌석 
+							$(".reserveCont .seatDiv .deskD").append("<a href='javascript:' class='desk seat' data-val='desk_"+(n+1)+"'><span>좌석"+(n+1)+"</span></a>");			
+						}
+						
+						for(var n=0; n<resStoreArr[i].rcnt; n++){ // ROOM
+							//$(".reserveCont .seatDiv .roomD")			
+						}
+					}	
+				}
+				
+			}
+		});
+			
+	});
+
+</script>
 <%@ include file="../footer.jsp" %>

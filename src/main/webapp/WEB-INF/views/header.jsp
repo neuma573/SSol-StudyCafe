@@ -23,7 +23,7 @@
 	                    <li><a href="/reserve/reserve.do">실시간예약</a></li>
 	                    <li><a href="/notice/notice.do">공지사항</a></li>
 	                    <li><a href="/event.do">이벤트</a></li>
-	                    <li><a href="/place.do">지점찾기</a></li>
+	                    <li><a href="/place.do?keyword=">지점찾기</a></li>
 						<%
 						if (request.getParameter("in_email") == null) {
 						%>

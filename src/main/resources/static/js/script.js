@@ -8,7 +8,7 @@ $(document).ready(function() {
 	});
 
 	$(window).scroll(function() {
-		if ($(document).scrollTop() > 50) {
+		if($(document).scrollTop() > 50) {
 			$('.nav').addClass('affix');
 		} else {
 			$('.nav').removeClass('affix');
@@ -71,11 +71,12 @@ $(document).ready(function() {
 			for (var i = 0; i <= index; i++) {
 				$(".click_score a").eq(i).addClass("check");
 			}
+			$("input#rev_score").val(i);
 		});
 	});
 
 	// 실시간예약 rightFix
-	if ($(".reserveCont").length != 0) {
+	if($(".reserveCont").length != 0){
 		var $leftF, $topF, $topF2;
 		var $location, $store, $seat, $locker;
 		var $pay;
@@ -84,25 +85,25 @@ $(document).ready(function() {
 		//실시간예약
 		$(".reserveDiv .accoD .accoBox .accoTit").each(function(index) {
 			$(this).on("click", function() {
-				setTimeout(function() {
-					$leftF = ($(window).innerWidth() - $(".reserveCont .inner").width()) / 2 + $(".reserveCont .reserveDiv").width() + 15;
+				setTimeout(function(){
+					$leftF = ($(window).innerWidth() - $(".reserveCont .inner").width())/2 + $(".reserveCont .reserveDiv").width() + 15;
 					$topF = $(".reserveCont .inner").offset().top - $(".nav").height();
 					$topF2 = $(".resCheck").offset().top - 35;
-					if ($(window).scrollTop() > $topF) {
+					if($(window).scrollTop() > $topF){
 						$(".reserveCont .rightFix").addClass("fixed");
-						$(".reserveCont .rightFix").css({ top: $(".nav").height(), left: $leftF, bottom: "auto" });
-					} else {
+						$(".reserveCont .rightFix").css({top:$(".nav").height(), left:$leftF, bottom:"auto"});
+					}else{
 						$(".reserveCont .rightFix").removeClass("fixed");
-						$(".reserveCont .rightFix").css({ top: "", left: "", bottom: "auto" });
+						$(".reserveCont .rightFix").css({top:"", left:"", bottom:"auto"});
 					}
-					if (($(window).scrollTop() + $(window).height()) >= $topF2) {
+					if(($(window).scrollTop() + $(window).height()) >= $topF2){
 						$(".reserveCont .rightFix").removeClass("fixed");
-						$(".reserveCont .rightFix").css({ top: "auto", left: "", bottom: 0 });
+						$(".reserveCont .rightFix").css({top:"auto", left:"", bottom:0});
 					}
 
 					resFixed();
-				}, 300);
-
+				},300);
+				
 				if ($(this).parents(".accoBox").hasClass("on")) {
 					$(this).parents(".accoBox").removeClass("on");
 					$(this).siblings(".accoCont").stop(true, true).slideUp(0);
@@ -128,69 +129,71 @@ $(document).ready(function() {
 		});
 
 		//실시간예약 - 지역 select 
-		$(".reserveCont select.location").change(function() {
+		$(".reserveCont select.location").change(function(){
 			//초기화
 			resReset();
-			$(".reserveCont select.store").val("none").prop("selected", true);
+			$(".reserveCont select.store").val("none").prop("selected",true);
 			$(".reserveCont .slcDeTail .data").empty();
-			$("form#pay_data input").attr("value", "");
+			$("form#pay_data input").attr("value","");
 
-			if ($(this).val() !== "none") {
+			if($(this).val() !== "none"){
 				$location = $(this).val();
 				$(".reserveCont .slcDeTail .location .data").empty();
 				$(".reserveCont .slcDeTail .location .data").append($location);
 
-				$("form#pay_data #location").attr("value", "");
-				$("form#pay_data #location").attr("value", $location); //나중에 수정 
+				$("form#pay_data #location").attr("value","");
+				$("form#pay_data #location").attr("value",$location); //나중에 수정 
+
+				
 			}
 		});
-
+		
 		//실시간예약 - 지점 select 
-		$(".reserveCont select.store").change(function() {
+		$(".reserveCont select.store").change(function(){
 			//초기화
 			resReset();
 			$(".reserveCont .slcDeTail p").not(".location").find(".data").empty();
-			$("form#pay_data input").not("#location").attr("value", "");
-
-			if ($(this).val() !== "none") {
-				$store = $(this).val();
+			$("form#pay_data input").not("#location").attr("value","");
+			
+			if($(this).val() !== "none"){
+				$store = $(".reserveCont select.store option:checked").text();
 				$(".reserveCont .slcDeTail .store .data").empty();
-				$(".reserveCont .slcDeTail .store .data").append($store);
+				$(".reserveCont .slcDeTail .store .data").html($store);
 
-				$("form#pay_data #store").attr("value", "");
-				$("form#pay_data #store").attr("value", $store); //나중에 수정 
+				$("form#pay_data #store").attr("value","");
+				$("form#pay_data #store").attr("value",$store); //나중에 수정 
 			}
 		});
 
 		//실시간예약 - 좌석
 		$(".reserveCont .seatDiv .seat").each(function(index) {
 			$(this).on("click", function() {
-				if ($(".reserveCont select.location").val() == "none" || $(".reserveCont select.store").val() == "none") {
+				if($(".reserveCont select.location").val() == "none" || $(".reserveCont select.store").val() == "none"){
 					alert("지역, 지점명을 선택해주세요!");
-				} else {
+				}else{
 					if (!$(this).hasClass("on")) {
 						$seat = $(this).children("span").text();
 						$(".reserveCont .seatDiv .seat").removeClass("on");
 						$(this).addClass("on");
-
+						
 						//초기화
-						$dayTxt = null;
-						$timeArr = [];
+						$dayTxt=null;
+						$timeArr=[];
 						$(".reserveCont .rightFix .resTime .scrollD a").removeClass("on");
 						$(".reserveCont .slcDeTail .total .pay").html("0"); //총 금액 0
 						$(".reserveCont .slcDeTail p").not(".location").not(".store").find(".data").empty();
 						$(".reserveCont .slcDeTail .seat .data").append($seat);
-						$("form#pay_data #seat").attr("value", "");
-						$("form#pay_data #seat").attr("value", $seat); //나중에 수정 
+						$("form#pay_data #seat").attr("value","");
+						$("form#pay_data #seat").attr("value",$seat); //나중에 수정 
 
 						// 좌석 선택 시 예약시간 노출
-						if (!$(".reserveCont .rightFix .tabD .tab a").eq(0).hasClass("on")) {
+						if(!$(".reserveCont .rightFix .tabD .tab a").eq(0).hasClass("on")){
 							$(".reserveCont .rightFix .tabD .tab a").eq(0).click();
 						}
 						$(".reserveCont .rightFix .resTime .none").hide();
 						$(".reserveCont .rightFix .resTime .scrollD").show();
 					}
-				}
+				}	
 			});
 
 			if ($(".reserveCont .seatDiv .seat").eq(index).hasClass("no")) {
@@ -201,14 +204,14 @@ $(document).ready(function() {
 		//실시간예약 - 사물함 
 		$(".reserveCont .lockerD .locker").each(function(index) {
 			$(this).on("click", function() {
-				if ($(".reserveCont select.location").val() == "none" || $(".reserveCont select.store").val() == "none") {
+				if($(".reserveCont select.location").val() == "none" || $(".reserveCont select.store").val() == "none"){
 					alert("지역, 지점명을 선택해주세요!");
-				} else {
+				}else{
 					if (!$(this).hasClass("on")) {
 						$locker = $(this).children("span").text();
 						$(".reserveCont .lockerD .locker").removeClass("on");
 						$(this).addClass("on");
-
+						
 						//초기화
 						$(".reserveCont .rightFix .resDay .scrollD a").removeClass("on");
 						$(".reserveCont .slcDeTail .total .pay").html("0"); //총 금액 0
@@ -219,11 +222,11 @@ $(document).ready(function() {
 						$(".reserveCont .rightFix .resDay .none").hide();
 						$(".reserveCont .rightFix .resDay .scrollD").show();
 
-						if (!$(".reserveCont .rightFix .tabD .tab a").eq(1).hasClass("on")) {
+						if(!$(".reserveCont .rightFix .tabD .tab a").eq(1).hasClass("on")){
 							$(".reserveCont .rightFix .tabD .tab a").eq(1).click();
 						}
 					}
-				}
+				}	
 			});
 
 			if ($(".reserveCont .lockerD .locker").eq(index).hasClass("no")) {
@@ -233,66 +236,66 @@ $(document).ready(function() {
 
 		//요금 =============================================================
 		//실시간예약 - 좌석,룸 시간
-		var $timeArr = [];
+		var $timeArr=[];
 		var $timeIdx;
-		var $totalPay = 0;
-		$(".reserveCont .rightFix .resTime .scrollD a").each(function(index) {
+		var $totalPay=0;
+		$(".reserveCont .rightFix .resTime .scrollD a").each(function(index) {	
 			$(this).on("click", function() {
 				var timeTxt = $(this).find("span").eq(1).text();
 				if ($(this).hasClass("on")) {
 					$(this).removeClass("on");
 					$timeIdx = $timeArr.indexOf(timeTxt);
-					$timeArr.splice($timeIdx, 1);
+					$timeArr.splice($timeIdx,1);
 				} else {
 					$(this).addClass("on");
 					$timeArr.push(timeTxt);
 				}
-
-				if ($timeArr.length > 1) {
-					$(".reserveCont .slcDeTail .time .data").html($timeArr[0] + " 외 " + ($timeArr.length - 1) + "건");
-				} else if ($timeArr.length == 1) {
-					$(".reserveCont .slcDeTail .time .data").html($timeArr[0]);
-				} else if ($timeArr.length == 0) {
+				
+				if($timeArr.length > 1){
+					$(".reserveCont .slcDeTail .time .data").html($timeArr[0] + " 외 " +($timeArr.length - 1)+"건");
+				}else if($timeArr.length == 1){
+					$(".reserveCont .slcDeTail .time .data").html($timeArr[0]);	
+				}else if($timeArr.length == 0){
 					$(".reserveCont .slcDeTail .time .data").empty();
-
+					
 				}
 
-				if ($timeArr.length == 0) {
+				if($timeArr.length == 0){
 					$(".reserveCont .slcDeTail .total .pay").html("0");
-				} else {
-					if ($seat.indexOf("좌석") == 0) {
+				}else{
+					if($seat.indexOf("좌석")==0){
 						//좌석
 						$pay = 1500;
-						if ($timeArr.length == 4) {
+						if($timeArr.length == 4){
 							$totalPay = 5000;
-						} else if ($timeArr.length == 6) {
+						}else if($timeArr.length == 6){
 							$totalPay = 6000;
-						} else if ($timeArr.length == 12) {
+						}else if($timeArr.length == 12){
 							$totalPay = 10000;
-						} else if ($timeArr.length == 24) {
+						}else if($timeArr.length == 24){
 							$totalPay = 20000;
-						} else {
+						}else{
 							$totalPay = $pay * $timeArr.length;
 						}
-					} else {
+					}else{
 						//ROOM
 						$pay = 6000;
-						if ($timeArr.length == 4) {
+						if($timeArr.length == 4){
 							$totalPay = 20000;
-						} else if ($timeArr.length == 6) {
+						}else if($timeArr.length == 6){
 							$totalPay = 24000;
-						} else if ($timeArr.length == 12) {
+						}else if($timeArr.length == 12){
 							$totalPay = 40000;
-						} else if ($timeArr.length == 24) {
+						}else if($timeArr.length == 24){
 							$totalPay = 80000;
-						} else {
+						}else{
 							$totalPay = $pay * $timeArr.length;
 						}
 					}
 
 					$(".reserveCont .slcDeTail .total .pay").html(numberWithCommas($totalPay));
 				}
-
+				
 			}); //click
 
 			if ($(".reserveCont .rightFix .resTime .scrollD a").eq(index).hasClass("no")) {
@@ -301,67 +304,72 @@ $(document).ready(function() {
 		});
 
 		//실시간예약 - 사물함 날짜 
-		var $dayTxt = null;
-		$(".reserveCont .rightFix .resDay .scrollD a").each(function(index) {
-			$(this).on("click", function() {
-				if (!$(this).hasClass("on")) {
-					$timeArr = [];
+		var $dayTxt=null;
+		$(".reserveCont .rightFix .resDay .scrollD a").each(function(index) {	
+			$(this).on("click", function(){
+				if(!$(this).hasClass("on")){
+					$timeArr=[];
 					$dayTxt = $(this).find("span").eq(1).text();
 					$(".reserveCont .rightFix .resDay .scrollD a").removeClass("on");
 					$(this).addClass("on");
 
 					$(".reserveCont .slcDeTail .time .data").html($dayTxt);
 
-					if ($dayTxt.indexOf("4주") == 0) {
+					if($dayTxt.indexOf("4주")==0){
 						$pay = 9000;
-					} else if ($dayTxt.indexOf("8주") == 0) {
+					}else if($dayTxt.indexOf("8주")==0){
 						$pay = 16000;
-					} else if ($dayTxt.indexOf("12주") == 0) {
+					}else if($dayTxt.indexOf("12주")==0){
 						$pay = 24000;
 					}
 					$(".reserveCont .slcDeTail .total .pay").html(numberWithCommas($pay));
 				}
 			});
 
-			if ($(".reserveCont .rightFix .resDay .scrollD a").eq(index).hasClass("no")) {
+			if($(".reserveCont .rightFix .resDay .scrollD a").eq(index).hasClass("no")) {
 				$(".reserveCont .rightFix .resDay .scrollD a").eq(index).off("click");
 			}
 		});
 
 		//예약추가 클릭 시 
-		var $reserveDetail = [];
-		$(".reserveCont .slcDeTail .resBtn").on("click", function() {
-			if ($timeArr.length != 0 || $dayTxt != null) {
+		var $reserveDetail=[];
+		var $lockerpayment=0, $seatpayment=0, $roompayment=0;
+		var $seatSize=0, $roomSize=0, $lockerSize=0;
+		var $html="";
+		$(".reserveCont .slcDeTail .resBtn").on("click", function(){
+			
+			if($timeArr.length != 0 || $dayTxt != null){
 				//리셋
 				resReset();
 				$(".reserveCont .slcDeTail p").not(".location").not(".store").find(".data").empty();
 				$(".reserveCont .resCheck .listD").empty();
-
-				if ($timeArr.length != 0) { //좌석 시간 하나이상 선택 시 
-					for (var i = $timeArr.length; i > 0; i--) {
-						$reserveDetail.push(
-							"<p class='location'>" + $location + "</p><p class='store'>" + $store + "</p><p class='seat'>"
-							+ $seat + "</p><p class='date'>2021-12-09</p><p class='time'>" + $timeArr[i - 1] + "</p><p class='pay'>" + numberWithCommas($pay) + "원</p>"
-						);
+				
+				if($timeArr.length != 0){ //좌석 시간 하나이상 선택 시 
+					for(var i=$timeArr.length; i>0; i--){
+						$reserveDetail.push({location:$location, store:$store, seat:$seat, time:$timeArr[i-1], pay:$pay});	
 					}
+					$timeArr=[];
+				}
+	
+				if($dayTxt != null){ // 사물함 날짜 선택 시 
+					$reserveDetail.push({location:$location, store:$store, seat:$locker, time:$dayTxt, pay:$pay});
+					$dayTxt=null;
 				}
 
-				if ($dayTxt != null) { // 사물함 날짜 선택 시 
-					$reserveDetail.push(
-						"<p class='location'>" + $location + "</p><p class='store'>" + $store + "</p><p class='seat'>"
-						+ $locker + "</p><p class='date'>2021-12-09</p><p class='time'>" + $dayTxt + "</p><p class='pay'>" + numberWithCommas($pay) + "원</p>"
-					);
-				}
-
-				for (var j = $reserveDetail.length; j > 0; j--) {
-					$(".reserveCont .resCheck .listD").append(
-						"<div class='list'><div><p class='num'>" + j + "</p>" + $reserveDetail[j - 1] + "</div><a href='javascript:' class='del'>삭제</a></div>"
-					);
-				}
-
+				liveRev($reserveDetail);
 			}
 		});
-	}
+
+		$(document).on("click", ".reserveCont .resCheck .list .del", function(e){
+			$reserveDetail.splice($(this).parents(".list").index(),1);
+			liveRev($reserveDetail);
+		});
+		
+
+
+	}// 실시간 예약 
+
+	
 
 	//1:1 문의 자주묻는 질문 아코디언
 	$(".que").on("click", function() {
@@ -370,14 +378,7 @@ $(document).ready(function() {
 		$(this).toggleClass('on').siblings().removeClass('on');
 		$(this).next(".anw").siblings(".anw").slideUp(300); // 1개씩 펼치기
 	});
-
-	
-	
-
-
-
 });
-
 
 $(window).on('load', function() {
 	if ($(".home").length == 0) {
@@ -405,7 +406,6 @@ function layerPop(popname, title, index) {
 	}
 }
 
-
 // 등록 이미지 삭제
 function resetInputFile($input, $preview) {
 	var agent = navigator.userAgent.toLowerCase();
@@ -422,9 +422,9 @@ function resetInputFile($input, $preview) {
 }
 
 // 예약 리셋
-function resReset() {
-	$timeArr = [];
-	$dayTxt = null;
+function resReset(){
+	$timeArr=[];
+	$dayTxt=null;
 	//$datArr=[];
 	$(".reserveCont .seatDiv .seat").removeClass("on");
 	$(".reserveCont .lockerD .locker").removeClass("on");
@@ -438,40 +438,40 @@ function resReset() {
 }
 
 // 실시간예약 fixed 
-function resFixed() {
-	$leftF = ($(window).innerWidth() - $(".reserveCont .inner").width()) / 2 + $(".reserveCont .reserveDiv").width() + 15;
+function resFixed(){
+	$leftF = ($(window).innerWidth() - $(".reserveCont .inner").width())/2 + $(".reserveCont .reserveDiv").width() + 15;
 	$topF = $(".reserveCont .inner").offset().top - $(".nav").height();
 	$topF2 = $(".resCheck").offset().top - 35;
 	$(window).scroll(function() {
-		if ($(window).scrollTop() > $topF) {
+		if($(window).scrollTop() > $topF){
 			$(".reserveCont .rightFix").addClass("fixed");
-			$(".reserveCont .rightFix").css({ top: $(".nav").height(), left: $leftF, bottom: "auto" });
-		} else {
+			$(".reserveCont .rightFix").css({top:$(".nav").height(), left:$leftF, bottom:"auto"});
+		}else{
 			$(".reserveCont .rightFix").removeClass("fixed");
-			$(".reserveCont .rightFix").css({ top: "", left: "", bottom: "auto" });
+			$(".reserveCont .rightFix").css({top:"", left:"", bottom:"auto"});
 		}
 
-		if (($(window).scrollTop() + $(window).height()) >= $topF2) {
+		if(($(window).scrollTop() + $(window).height()) >= $topF2){
 			$(".reserveCont .rightFix").removeClass("fixed");
-			$(".reserveCont .rightFix").css({ top: "auto", left: "", bottom: 0 });
+			$(".reserveCont .rightFix").css({top:"auto", left:"", bottom:0});
 		}
 	});
-
+	
 	// 실시간예약 - 탭 height 
 	$(".reserveCont .rightFix .tabD .tabCont > div").height($(window).innerHeight() - $(".nav").height() - $(".reserveCont .rightFix .cal").height() - $(".reserveCont .rightFix .tabD .tab").height() - 10);
 	$(".reserveCont .reserveDiv").css("min-height", $(".reserveCont .rightFix").outerHeight());
-	$(window).resize(function() {
-		$leftF = ($(window).innerWidth() - $(".reserveCont .inner").width()) / 2 + $(".reserveCont .reserveDiv").width() + 15;
+	$(window).resize(function(){
+		$leftF = ($(window).innerWidth() - $(".reserveCont .inner").width())/2 + $(".reserveCont .reserveDiv").width() + 15;
 		$topF = $(".reserveCont .inner").offset().top - $(".nav").height();
 		$topF2 = $(".resCheck").offset().top - 35;
 		$(".reserveCont .rightFix .tabD .tabCont > div").height($(window).innerHeight() - $(".nav").height() - $(".reserveCont .rightFix .cal").height() - $(".reserveCont .rightFix .tabD .tab").height() - 10);
 		$(".reserveCont .reserveDiv").css("min-height", $(".reserveCont .rightFix").outerHeight());
 	});
-
+	
 }
 
 // 돈 천단위마다 콤마(,)
-function numberWithCommas(pay) {
+function numberWithCommas(pay) { 
 	return pay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
@@ -481,8 +481,110 @@ function withoutCommas(pay) {
 }
 
 
+function liveRev($reserveDetail){
+	$lockerpayment=0, $seatpayment=0, $roompayment=0, $seatSize=0, $roomSize=0, $lockerSize=0, $html="";
+	$(".reserveCont .resCheck .listD").empty();
 
+	for(var j=0; j<$reserveDetail.length; j++){
+		$html="";
+		$html+="<div class='list'><div><p class='num'>"+(j+1)+"</p>";
+		$html+="<p class='location'>"+$reserveDetail[j].location+"</p>";
+		$html+="<p class='store'>"+$reserveDetail[j].store+"</p>";
+		$html+="<p class='store'>"+$reserveDetail[j].seat+"</p>";
+		$html+="<p class='date'>"+$reserveDetail[j].time+"</p>";
+		$html+="<p class='pay'>"+numberWithCommas($reserveDetail[j].pay)+"원</p>";
+		$html+="</div><a href='javascript:' class='del'>삭제</a></div>";
+		$(".reserveCont .resCheck .listD").append($html);
+		
+		if($reserveDetail[j].seat.indexOf("좌석") == 0){
+			$seatSize++;
+		}else if($reserveDetail[j].seat.indexOf("ROOM") == 0){
+			$roomSize++;
+		}else if($reserveDetail[j].seat.indexOf("사물함") == 0){
+			$lockerSize++;
+			$lockerpayment+=$reserveDetail[j].pay;
+		}
+	}
 
+	// 좌석 요금 
+	if($seatSize < 4){
+		$seatpayment=(1500*$seatSize);
+	}else if($seatSize>=4 && $seatSize<6){
+		$seatpayment=(5000+(1500*($seatSize-4)));
+	}else if($seatSize>=6 && $seatSize<10){
+		$seatpayment=(6000+(1500*($seatSize-6)));
+	}else if($seatSize>=10 && $seatSize<12){
+		$seatpayment=(6000+5000+(1500*($seatSize-10)));
+	}else if($seatSize>=12 && $seatSize<16){
+		$seatpayment=(10000+(1500*($seatSize-12)));
+	}else if($seatSize>=16 && $seatSize<18){
+		$seatpayment=(10000+5000+(1500*($seatSize-16)));
+	}else if($seatSize>=18 && $seatSize<24){
+		$seatpayment=(10000+6000+(1500*($seatSize-18)));
+	}else if($seatSize==24){
+		$seatpayment=20000;
+	}
 
+	// room 요금 
+	if($roomSize < 4){
+		$roompayment=(6000*$roomSize);
+	}else if($roomSize>=4 && $roomSize<6){
+		$roompayment=(20000+(6000*($roomSize-4)));
+	}else if($roomSize>=6 && $roomSize<10){
+		$roompayment=(24000+(6000*($roomSize-6)));
+	}else if($roomSize>=10 && $roomSize<12){
+		$roompayment=(24000+20000+(6000*($roomSize-10)));
+	}else if($roomSize>=12 && $roomSize<16){
+		$roompayment=(40000+(6000*($roomSize-12)));
+	}else if($roomSize>=16 && $roomSize<18){
+		$roompayment=(40000+20000+(6000*($roomSize-16)));
+	}else if($roomSize>=18 && $roomSize<24){
+		$roompayment=(40000+24000+(6000*($roomSize-18)));
+	}else if($roomSize==24){
+		$roompayment=80000;
+	}
 
+	if($seatSize>0 || $roomSize>0 || $lockerSize>0){
+		$(".resTotD").show();
+	}else if($seatSize==0 && $roomSize==0 && $lockerSize==0){
+		$(".resTotD").hide();
+	}
+	
 
+	if($seatSize>0){//좌석을 1개 이상 선택했을때 
+		$(".resTotD .resTot").show();
+		$(".reserveCont .resCheck .resTot.seatT .num").html($seatSize);
+		$(".reserveCont .resCheck .resTot.seatT .pay").html(numberWithCommas($seatSize*1500));
+		$(".reserveCont .resCheck .resTot.seatT .disPay").html(numberWithCommas($seatpayment));
+	}else{
+		$(".resTotD .resTot").hide();
+		$(".reserveCont .resCheck .resTot.seatT .num").html(0);
+		$(".reserveCont .resCheck .resTot.seatT .pay").html(0);
+		$(".reserveCont .resCheck .resTot.seatT .disPay").html(0);
+	}
+
+	if($roomSize>0){//ROOM 1개 이상 선택했을때 
+		$(".resTotD .roomT").show();
+		$(".reserveCont .resCheck .resTot.roomT .num").html($roomSize);
+		$(".reserveCont .resCheck .resTot.roomT .pay").html(numberWithCommas($roomSize*6000));
+		$(".reserveCont .resCheck .resTot.roomT .disPay").html(numberWithCommas($roompayment));
+	}else{
+		$(".resTotD .roomT").hide();
+		$(".reserveCont .resCheck .resTot.roomT .num").html(0);
+		$(".reserveCont .resCheck .resTot.roomT .pay").html(0);
+		$(".reserveCont .resCheck .resTot.roomT .disPay").html(0);
+	}
+
+	if($lockerSize>0){//사물함 1개 이상 선택했을때 
+		$(".resTotD .lockerT").show();
+		$(".reserveCont .resCheck .resTot.lockerT .num").html($lockerSize);
+		$(".reserveCont .resCheck .resTot.lockerT .pay").html(numberWithCommas($lockerpayment));
+	}else{
+		$(".resTotD .lockerT").hide();
+		$(".reserveCont .resCheck .resTot.lockerT .num").html(0);
+		$(".reserveCont .resCheck .resTot.lockerT .pay").html(0);
+	}
+
+	$(".reserveCont .totalPay .num").html($reserveDetail.length);
+	$(".reserveCont .totalPay .pay").html(numberWithCommas($seatpayment+$roompayment+$lockerpayment));
+}
