@@ -27,12 +27,12 @@
 									<a href="javascript:"><span class="off"></span><span class="on"></span></a>
 									<a href="javascript:"><span class="off"></span><span class="on"></span></a>
 								</div>
-								<input type="hidden" name="e_end" id="e_end" value="" >
+								<input type="hidden" name="rev_score" id="rev_score" value="" >
 							</dd>
 						</dl>
 						<dl>
 							<dt>제목</dt>
-							<dd><input type="text" name="e_title" placeholder="제목을 입력해주세요" ></dd>
+							<dd><input type="text" name="rev_title" placeholder="제목을 입력해주세요" ></dd>
 						</dl>
 						<dl>
 							<dt>이메일</dt>
@@ -41,7 +41,7 @@
 						<dl>
 							<dt>내용</dt>
 							<dd>
-								<textarea name="e_content" placeholder="후기를 남겨주세요."></textarea>
+								<textarea name="rev_content" placeholder="후기를 남겨주세요."></textarea>
 							</dd>
 						</dl>
 						<dl>

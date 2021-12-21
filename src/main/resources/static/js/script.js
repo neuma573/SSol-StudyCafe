@@ -71,7 +71,7 @@ $(document).ready(function() {
 			for (var i = 0; i <= index; i++) {
 				$(".click_score a").eq(i).addClass("check");
 			}
-			$("input#e_end").val(i);
+			$("input#rev_score").val(i);
 		});
 	});
 
@@ -143,6 +143,8 @@ $(document).ready(function() {
 
 				$("form#pay_data #location").attr("value","");
 				$("form#pay_data #location").attr("value",$location); //나중에 수정 
+
+				
 			}
 		});
 		
@@ -154,9 +156,9 @@ $(document).ready(function() {
 			$("form#pay_data input").not("#location").attr("value","");
 			
 			if($(this).val() !== "none"){
-				$store = $(this).val();
+				$store = $(".reserveCont select.store option:checked").text();
 				$(".reserveCont .slcDeTail .store .data").empty();
-				$(".reserveCont .slcDeTail .store .data").append($store);
+				$(".reserveCont .slcDeTail .store .data").html($store);
 
 				$("form#pay_data #store").attr("value","");
 				$("form#pay_data #store").attr("value",$store); //나중에 수정 
@@ -331,12 +333,11 @@ $(document).ready(function() {
 
 		//예약추가 클릭 시 
 		var $reserveDetail=[];
-		var $payment=0;
-		var $seatSize=0;
-		var $lockerSize=0;
+		var $lockerpayment=0, $seatpayment=0, $roompayment=0;
+		var $seatSize=0, $roomSize=0, $lockerSize=0;
 		var $html="";
 		$(".reserveCont .slcDeTail .resBtn").on("click", function(){
-			$payment=0, $seatSize=0, $lockerSize=0;;
+			
 			if($timeArr.length != 0 || $dayTxt != null){
 				//리셋
 				resReset();
@@ -351,35 +352,24 @@ $(document).ready(function() {
 				}
 	
 				if($dayTxt != null){ // 사물함 날짜 선택 시 
-					$reserveDetail.push({location:$location, store:$store, locker:$locker, time:'2021-12-09', pay:$pay});
+					$reserveDetail.push({location:$location, store:$store, seat:$locker, time:$dayTxt, pay:$pay});
 					$dayTxt=null;
 				}
 
-				for(var j=$reserveDetail.length; j>0; j--){
-					$html+="<div class='list'><div><p class='num'>"+j+"</p>";
-					$html+="<p class='location'>"+$reserveDetail[j-1].location+"</p>";
-					$html+="<p class='store'>"+$reserveDetail[j-1].store+"</p>";
-					if($reserveDetail[j-1].seat){//좌석
-						$html+="<p class='seat'>"+$reserveDetail[j-1].seat+"</p>";
-						$seatSize++;
-					}else{// 사물함 
-						$html+="<p class='seat'>"+$reserveDetail[j-1].locker+"</p>";
-						$lockerSize++;
-					}
-					$html+="<p class='date'>"+$reserveDetail[j-1].time+"</p>";
-					$html+="<p class='pay'>"+numberWithCommas($reserveDetail[j-1].pay)+"원</p>";
-					$html+="</div><a href='javascript:' class='del'>삭제</a></div>";
-					$(".reserveCont .resCheck .listD").append($html);
-					
-					$payment+=$reserveDetail[j-1].pay;
-				}
-				console.log($lockerSize);
-				console.log($seatSize);
-				$(".reserveCont .totalPay .num").html($reserveDetail.length);
-				$(".reserveCont .totalPay .pay").html($payment);
+				liveRev($reserveDetail);
 			}
 		});
-	}
+
+		$(document).on("click", ".reserveCont .resCheck .list .del", function(e){
+			$reserveDetail.splice($(this).parents(".list").index(),1);
+			liveRev($reserveDetail);
+		});
+		
+
+
+	}// 실시간 예약 
+
+	
 
 	//1:1 문의 자주묻는 질문 아코디언
 	$(".que").on("click", function() {
@@ -389,7 +379,6 @@ $(document).ready(function() {
 		$(this).next(".anw").siblings(".anw").slideUp(300); // 1개씩 펼치기
 	});
 });
-
 
 $(window).on('load', function() {
 	if ($(".home").length == 0) {
@@ -492,3 +481,110 @@ function withoutCommas(pay) {
 }
 
 
+function liveRev($reserveDetail){
+	$lockerpayment=0, $seatpayment=0, $roompayment=0, $seatSize=0, $roomSize=0, $lockerSize=0, $html="";
+	$(".reserveCont .resCheck .listD").empty();
+
+	for(var j=0; j<$reserveDetail.length; j++){
+		$html="";
+		$html+="<div class='list'><div><p class='num'>"+(j+1)+"</p>";
+		$html+="<p class='location'>"+$reserveDetail[j].location+"</p>";
+		$html+="<p class='store'>"+$reserveDetail[j].store+"</p>";
+		$html+="<p class='store'>"+$reserveDetail[j].seat+"</p>";
+		$html+="<p class='date'>"+$reserveDetail[j].time+"</p>";
+		$html+="<p class='pay'>"+numberWithCommas($reserveDetail[j].pay)+"원</p>";
+		$html+="</div><a href='javascript:' class='del'>삭제</a></div>";
+		$(".reserveCont .resCheck .listD").append($html);
+		
+		if($reserveDetail[j].seat.indexOf("좌석") == 0){
+			$seatSize++;
+		}else if($reserveDetail[j].seat.indexOf("ROOM") == 0){
+			$roomSize++;
+		}else if($reserveDetail[j].seat.indexOf("사물함") == 0){
+			$lockerSize++;
+			$lockerpayment+=$reserveDetail[j].pay;
+		}
+	}
+
+	// 좌석 요금 
+	if($seatSize < 4){
+		$seatpayment=(1500*$seatSize);
+	}else if($seatSize>=4 && $seatSize<6){
+		$seatpayment=(5000+(1500*($seatSize-4)));
+	}else if($seatSize>=6 && $seatSize<10){
+		$seatpayment=(6000+(1500*($seatSize-6)));
+	}else if($seatSize>=10 && $seatSize<12){
+		$seatpayment=(6000+5000+(1500*($seatSize-10)));
+	}else if($seatSize>=12 && $seatSize<16){
+		$seatpayment=(10000+(1500*($seatSize-12)));
+	}else if($seatSize>=16 && $seatSize<18){
+		$seatpayment=(10000+5000+(1500*($seatSize-16)));
+	}else if($seatSize>=18 && $seatSize<24){
+		$seatpayment=(10000+6000+(1500*($seatSize-18)));
+	}else if($seatSize==24){
+		$seatpayment=20000;
+	}
+
+	// room 요금 
+	if($roomSize < 4){
+		$roompayment=(6000*$roomSize);
+	}else if($roomSize>=4 && $roomSize<6){
+		$roompayment=(20000+(6000*($roomSize-4)));
+	}else if($roomSize>=6 && $roomSize<10){
+		$roompayment=(24000+(6000*($roomSize-6)));
+	}else if($roomSize>=10 && $roomSize<12){
+		$roompayment=(24000+20000+(6000*($roomSize-10)));
+	}else if($roomSize>=12 && $roomSize<16){
+		$roompayment=(40000+(6000*($roomSize-12)));
+	}else if($roomSize>=16 && $roomSize<18){
+		$roompayment=(40000+20000+(6000*($roomSize-16)));
+	}else if($roomSize>=18 && $roomSize<24){
+		$roompayment=(40000+24000+(6000*($roomSize-18)));
+	}else if($roomSize==24){
+		$roompayment=80000;
+	}
+
+	if($seatSize>0 || $roomSize>0 || $lockerSize>0){
+		$(".resTotD").show();
+	}else if($seatSize==0 && $roomSize==0 && $lockerSize==0){
+		$(".resTotD").hide();
+	}
+	
+
+	if($seatSize>0){//좌석을 1개 이상 선택했을때 
+		$(".resTotD .resTot").show();
+		$(".reserveCont .resCheck .resTot.seatT .num").html($seatSize);
+		$(".reserveCont .resCheck .resTot.seatT .pay").html(numberWithCommas($seatSize*1500));
+		$(".reserveCont .resCheck .resTot.seatT .disPay").html(numberWithCommas($seatpayment));
+	}else{
+		$(".resTotD .resTot").hide();
+		$(".reserveCont .resCheck .resTot.seatT .num").html(0);
+		$(".reserveCont .resCheck .resTot.seatT .pay").html(0);
+		$(".reserveCont .resCheck .resTot.seatT .disPay").html(0);
+	}
+
+	if($roomSize>0){//ROOM 1개 이상 선택했을때 
+		$(".resTotD .roomT").show();
+		$(".reserveCont .resCheck .resTot.roomT .num").html($roomSize);
+		$(".reserveCont .resCheck .resTot.roomT .pay").html(numberWithCommas($roomSize*6000));
+		$(".reserveCont .resCheck .resTot.roomT .disPay").html(numberWithCommas($roompayment));
+	}else{
+		$(".resTotD .roomT").hide();
+		$(".reserveCont .resCheck .resTot.roomT .num").html(0);
+		$(".reserveCont .resCheck .resTot.roomT .pay").html(0);
+		$(".reserveCont .resCheck .resTot.roomT .disPay").html(0);
+	}
+
+	if($lockerSize>0){//사물함 1개 이상 선택했을때 
+		$(".resTotD .lockerT").show();
+		$(".reserveCont .resCheck .resTot.lockerT .num").html($lockerSize);
+		$(".reserveCont .resCheck .resTot.lockerT .pay").html(numberWithCommas($lockerpayment));
+	}else{
+		$(".resTotD .lockerT").hide();
+		$(".reserveCont .resCheck .resTot.lockerT .num").html(0);
+		$(".reserveCont .resCheck .resTot.lockerT .pay").html(0);
+	}
+
+	$(".reserveCont .totalPay .num").html($reserveDetail.length);
+	$(".reserveCont .totalPay .pay").html(numberWithCommas($seatpayment+$roompayment+$lockerpayment));
+}

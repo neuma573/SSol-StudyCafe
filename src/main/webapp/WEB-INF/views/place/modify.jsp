@@ -10,7 +10,7 @@
 			<form name="modifyFrm" action="placemodify.do" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 			<input type="hidden" name="store_name" value="${requestScope.store_name}">
 			<input type="hidden" name="store_no" value="${dto.store_no}">	
-			<input type="hidden" name="e_number" value="${dto.e_number}">	
+			<input type="hidden" name="rev_number" value="${dto.rev_number}">	
 			<div class="revWrite">
 				<div class="left">
 					<h3>리뷰 수정</h3>
@@ -28,17 +28,17 @@
 									<a href="javascript:"><span class="off"></span><span class="on"></span></a>
 									<a href="javascript:"><span class="off"></span><span class="on"></span></a>
 								</div>
-								<input type="hidden" name="e_end" id="e_end" value="${dto.e_end}" >
+								<input type="hidden" name="rev_score" id="rev_score" value="${dto.rev_score}" >
 							</dd>
 						</dl>
 						<dl>
 							<dt>제목</dt>
-							<dd><input type="text" name="e_title" placeholder="제목을 입력해주세요" value="${dto.e_title}" ></dd>
+							<dd><input type="text" name="rev_title" placeholder="제목을 입력해주세요" value="${dto.rev_title}" ></dd>
 						</dl>
 						<dl>
 							<dt>내용</dt>
 							<dd>
-								<textarea name="e_content" placeholder="후기를 남겨주세요.">${dto.e_content}</textarea>
+								<textarea name="rev_content" placeholder="후기를 남겨주세요.">${dto.rev_content}</textarea>
 							</dd>
 						</dl>
 						<dl>
@@ -49,7 +49,7 @@
 									<label for="revimgMF">파일선택</label>
 								</p>
 								<div class="preview">
-									<p class="file"><span>${dto.e_image}</span><a href="javascript:" class="del">삭제</a></p>
+									<p class="file"><span>${dto.rev_image}</span><a href="javascript:" class="del">삭제</a></p>
 								</div>
 								<p class="infoTxt">※ JPG, PNG, GIF 파일만 추가 가능</p>
 							</dd>
@@ -66,7 +66,7 @@
 	</div>
 <script>
 	$(function(){
-		for(var i=0; i<${dto.e_end}; i++){
+		for(var i=0; i<${dto.rev_score}; i++){
 			$(".click_score a").eq(i).addClass("check");			
 		}
 		

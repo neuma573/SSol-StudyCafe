@@ -27,19 +27,19 @@ public class PlaceDAO {
 			keyword=keyword.trim();
 			System.out.println(keyword);
 			if(keyword.length() == 0) { //검색하지 않은 경우
-				sql.append(" SELECT store_no, en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, tel, latitude, longitude, IFNULL(ROUND(avg(e_end)),0) AS score_avg, COUNT(e_end) AS review_tot ");
+				sql.append(" SELECT store_no, en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, tel, latitude, longitude, IFNULL(ROUND(avg(rev_score)),0) AS score_avg, COUNT(rev_score) AS review_tot ");
 				sql.append(" FROM( ");
 				sql.append(" 	SELECT ST.store_no, ST.en_email, ST.store_name, ST.store_address, ST.operating_hours, ST.room_count, ST.desk_count, "); 
-				sql.append("		ST.box_count, ST.store_img, ST.tel, ST.latitude, ST.longitude, RE.e_end ");
+				sql.append("		ST.box_count, ST.store_img, ST.tel, ST.latitude, ST.longitude, RE.rev_score ");
 				sql.append("		FROM tb_store_info ST LEFT JOIN tb_review RE ");
 				sql.append("		on ST.store_no = RE.store_no ");
 				sql.append("	)tb_STRE ");
 				sql.append(" group by store_no ");
 			}else {
-				sql.append(" SELECT store_no, en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, tel, latitude, longitude, IFNULL(ROUND(avg(e_end)),0) AS score_avg, COUNT(e_end) AS review_tot ");
+				sql.append(" SELECT store_no, en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, tel, latitude, longitude, IFNULL(ROUND(avg(rev_score)),0) AS score_avg, COUNT(rev_score) AS review_tot ");
 				sql.append(" FROM( ");
 				sql.append(" 	SELECT ST.store_no, ST.en_email, ST.store_name, ST.store_address, ST.operating_hours, ST.room_count, ST.desk_count, "); 
-				sql.append("		ST.box_count, ST.store_img, ST.tel, ST.latitude, ST.longitude, RE.e_end ");
+				sql.append("		ST.box_count, ST.store_img, ST.tel, ST.latitude, ST.longitude, RE.rev_score ");
 				sql.append("		FROM tb_store_info ST LEFT JOIN tb_review RE ");
 				sql.append("		on ST.store_no = RE.store_no ");
 				sql.append("	)tb_STRE ");
@@ -84,10 +84,10 @@ public class PlaceDAO {
 		try {
 			con=dbopen.getConnection();
 			sql=new StringBuilder();
-			sql.append(" SELECT e_number, store_no, e_title, e_content, e_image, in_email, e_end, rev_date ");
+			sql.append(" SELECT rev_number, store_no, rev_title, rev_content, rev_image, in_email, rev_score, rev_date ");
 			sql.append(" FROM tb_review ");
 			sql.append(" WHERE store_no = ? ");
-			sql.append(" ORDER BY e_number DESC ");
+			sql.append(" ORDER BY rev_number DESC ");
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setInt(1, store_no);
 			rs=pstmt.executeQuery();
@@ -96,12 +96,12 @@ public class PlaceDAO {
 				do {
 					PlaceDTO dto = new PlaceDTO();
 					dto.setStore_no(rs.getInt("store_no"));
-					dto.setE_number(rs.getInt("e_number"));
-					dto.setE_title(rs.getString("e_title"));
-					dto.setE_content(rs.getString("e_content"));
-					dto.setE_image(rs.getString("e_image"));
+					dto.setRev_number(rs.getInt("rev_number"));
+					dto.setRev_title(rs.getString("rev_title"));
+					dto.setRev_content(rs.getString("rev_content"));
+					dto.setRev_image(rs.getString("rev_image"));
 					dto.setIn_email(rs.getString("in_email"));
-					dto.setE_end(rs.getInt("e_end"));
+					dto.setRev_score(rs.getInt("rev_score"));
 					dto.setRev_date(rs.getString("rev_date"));
 					revlist.add(dto);
 				}while(rs.next());
@@ -119,15 +119,15 @@ public class PlaceDAO {
 		try {
 			con=dbopen.getConnection();
 			sql=new StringBuilder();
-			sql.append(" INSERT INTO tb_review(store_no, e_title, e_content, e_image, in_email, e_end, rev_date) ");
+			sql.append(" INSERT INTO tb_review(store_no, rev_title, rev_content, rev_image, in_email, rev_score, rev_date) ");
 			sql.append(" VALUES(?, ?, ?, ?, ?, ?, now()); ");
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setInt(1, dto.getStore_no());
-			pstmt.setString(2, dto.getE_title());
-			pstmt.setString(3, dto.getE_content());
-			pstmt.setString(4, dto.getE_image());
+			pstmt.setString(2, dto.getRev_title());
+			pstmt.setString(3, dto.getRev_content());
+			pstmt.setString(4, dto.getRev_image());
 			pstmt.setString(5, dto.getIn_email());
-			pstmt.setInt(6, dto.getE_end());
+			pstmt.setInt(6, dto.getRev_score());
 			
 			cnt=pstmt.executeUpdate();
 		}catch (Exception e) {
@@ -138,27 +138,27 @@ public class PlaceDAO {
 		return cnt;
 	}// write()
 	
-	public PlaceDTO read(int e_number) {
+	public PlaceDTO read(int rev_number) {
 		PlaceDTO dto = null;
 		try {
 			con=dbopen.getConnection();
 			sql=new StringBuilder();
-			sql.append(" SELECT e_number, store_no, e_title, e_content, e_image, in_email, e_end, rev_date ");
+			sql.append(" SELECT rev_number, store_no, rev_title, rev_content, rev_image, in_email, rev_score, rev_date ");
 			sql.append(" FROM tb_review ");
-			sql.append(" WHERE e_number=? ");
-			sql.append(" ORDER BY e_number DESC ");
+			sql.append(" WHERE rev_number=? ");
+			sql.append(" ORDER BY rev_number DESC ");
 			pstmt=con.prepareStatement(sql.toString());
-			pstmt.setInt(1, e_number);
+			pstmt.setInt(1, rev_number);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				dto = new PlaceDTO();
-				dto.setE_number(rs.getInt("e_number"));
+				dto.setRev_number(rs.getInt("rev_number"));
 				dto.setStore_no(rs.getInt("store_no"));
-				dto.setE_title(rs.getString("e_title"));
-				dto.setE_content(rs.getString("e_content"));
-				dto.setE_image(rs.getString("e_image"));
+				dto.setRev_title(rs.getString("rev_title"));
+				dto.setRev_content(rs.getString("rev_content"));
+				dto.setRev_image(rs.getString("rev_image"));
 				dto.setIn_email(rs.getString("in_email"));
-				dto.setE_end(rs.getInt("e_end"));
+				dto.setRev_score(rs.getInt("rev_score"));
 				dto.setRev_date(rs.getString("rev_date"));
 			}
 			
@@ -176,13 +176,13 @@ public class PlaceDAO {
 		try {
 			con=dbopen.getConnection();
 			sql=new StringBuilder();
-			sql.append(" UPDATE tb_review SET e_title=?, e_content=?, e_image=? ");
-			sql.append(" WHERE e_number = ? ");
+			sql.append(" UPDATE tb_review SET rev_title=?, rev_content=?, rev_image=? ");
+			sql.append(" WHERE rev_number = ? ");
 			pstmt=con.prepareStatement(sql.toString());
-			pstmt.setString(1, dto.getE_title());
-			pstmt.setString(2, dto.getE_content());
-			pstmt.setString(3, dto.getE_image());
-			pstmt.setInt(4, dto.getE_number());
+			pstmt.setString(1, dto.getRev_title());
+			pstmt.setString(2, dto.getRev_content());
+			pstmt.setString(3, dto.getRev_image());
+			pstmt.setInt(4, dto.getRev_number());
 			cnt=pstmt.executeUpdate();
 		}catch (Exception e) {
 			System.out.println("place modify 실패 : "+e);
@@ -194,15 +194,15 @@ public class PlaceDAO {
 		
 	}
 	
-	public int delete(int e_number) {
+	public int delete(int rev_number) {
 		int cnt=0;
 		try {
 			con=dbopen.getConnection();
 			sql=new StringBuilder();
 			sql.append(" DELETE FROM tb_review ");
-			sql.append(" WHERE e_number = ? ");
+			sql.append(" WHERE rev_number = ? ");
 			pstmt=con.prepareStatement(sql.toString());
-			pstmt.setInt(1, e_number);
+			pstmt.setInt(1, rev_number);
 			cnt=pstmt.executeUpdate();
 		}catch (Exception e) {
 			System.out.println("place delete 실패 : "+e);

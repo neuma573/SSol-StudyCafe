@@ -624,7 +624,7 @@ footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spac
 .reserveCont .slcDeTail .resBtn > div{width:100%; text-align: center;}
 .reserveCont .slcDeTail .resBtn span{display:block; width:100%; margin-top:5px; text-align:center; font-size:13px; color:#fff;}
 .reserveCont .resCheck{margin-top:35px !important;}
-.reserveCont .resCheck .tit{width:100%; padding-bottom:15px; font-size:20px; color:#222; font-weight: 700; border-bottom:1px solid #222}
+.reserveCont .resCheck .tit{width:100%; padding-bottom:15px; font-size:20px; color:#222; font-weight: 700; border-bottom:1px solid #222;}
 .reserveCont .resCheck .list{position:relative; padding:0 50px; border-bottom: 1px solid #ddd;}
 .reserveCont .resCheck .list a{position:absolute; right:40px; top:50%; transform:translateY(-50%); display: block; width: 12px; height: 13px; background:url("../images/list_box_cancel.png") center no-repeat; text-indent: -9999px; overflow: hidden;}
 .reserveCont .resCheck .list > div{position:relative; display:flex; flex-wrap: wrap; align-content: center; align-items: center; width:100%; height:70px; }
@@ -655,6 +655,18 @@ background:url("../images/view_close.png") center no-repeat; text-indent:-9999px
 .resultDiv{width:100%; padding:160px 0 100px;}
 .resultDiv p{text-align:center; font-size:20px; color:#333; font-weight:500;}
 .resultDiv .btnD{margin-top:150px;}
+
+.resTotD{display:none; margin-top:40px;}
+.resTotD .tit{border-bottom: 1px solid #222;}
+.resTot{display:none; position:relative; display:flex; flex-wrap:wrap; width:100%; height:70px; padding:0 40px; align-content:center; align-items:center; border-bottom:1px solid #ddd;}
+.resTot:after{content:''; display:block; position:absolute; top:32px; left:25px; width:3px; height:3px; background:#840000;}
+.resTot:last-child{margin-bottom: 0;}
+.resTot p {position:relative; margin-right:15px; padding-right:15px; font-size:18px; color:#333;}
+.resTot p:after{content:''; display:block; position:absolute; top:50%; right:0; transform:translateY(-50%); width:1px; height:17px; background:#ddd;}
+.resTot p span{font-weight:500;}
+.resTot p:last-child{padding-right:0; margin-right:0;}
+.resTot p:last-child:after{display:none;}
+
 /* Media qurey section */
 @media all and (max-width:1400px){
 	.nav div.main_list ul li{margin-right:50px;}
