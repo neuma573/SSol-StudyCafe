@@ -17,10 +17,23 @@ public class NoticeCont {
 		mav.setViewName("notice/notice");
 		return mav;
 	}
-
-	
-	
-	
+	@RequestMapping("/notice/notice_view.do")
+	public ModelAndView noticeView() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("notice/notice_view");
+		return mav;
+	}
+	/*
+	 * @RequestMapping("/notice/notice_write.do") public ModelAndView noticeWrite()
+	 * { ModelAndView mav = new ModelAndView();
+	 * mav.setViewName("notice/notice_write"); return mav; }
+	 * 
+	 * @RequestMapping("/notice/notice_modify.do") public ModelAndView
+	 * noticeModify() { ModelAndView mav = new ModelAndView();
+	 * mav.setViewName("notice/notice_modify"); return mav; }
+	 * 
+	 * 
+	 */
 	
 	
 }
