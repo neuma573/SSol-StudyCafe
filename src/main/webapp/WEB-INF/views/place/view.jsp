@@ -10,19 +10,19 @@
 	<div class="container placeRev"><!-- hidden 으로 매장코드 가져가기  -->
 		<div class="inner">
 			<div class="btnD type2 mt0"><!-- 작성자에게만 노출  -->
-				<a href="/placemodify.do?store_name=${requestScope.store_name}&e_number=${dto.e_number}" class="btn"><span>수정</span></a>
+				<a href="/placemodify.do?store_name=${requestScope.store_name}&rev_number=${dto.rev_number}" class="btn"><span>수정</span></a>
 				<a href="javascript:void(0);" class="btn del" onclick="layerPop('delPop'); return false;"><span>삭제</span></a>
 			</div>
 			<div class="viewDiv">
-				<p class="tit">${dto.e_title}</p>
+				<p class="tit">${dto.rev_title}</p>
 				<div class="info">
 					<p class="starP">
 						<c:choose>
-							<c:when test="${dto.e_end == 5}"><span class="star fiv"></span></c:when>
-							<c:when test="${dto.e_end == 4}"><span class="star for"></span></c:when>
-							<c:when test="${dto.e_end == 3}"><span class="star thr"></span></c:when>
-							<c:when test="${dto.e_end == 2}"><span class="star two"></span></c:when>
-							<c:when test="${dto.e_end == 1}"><span class="star one"></span></c:when>
+							<c:when test="${dto.rev_score == 5}"><span class="star fiv"></span></c:when>
+							<c:when test="${dto.rev_score == 4}"><span class="star for"></span></c:when>
+							<c:when test="${dto.rev_score == 3}"><span class="star thr"></span></c:when>
+							<c:when test="${dto.rev_score == 2}"><span class="star two"></span></c:when>
+							<c:when test="${dto.rev_score == 1}"><span class="star one"></span></c:when>
 							<c:otherwise><span class="star"></span></c:otherwise>
 						</c:choose>
 					</p>
@@ -30,8 +30,8 @@
 				</div>
 				
 				<div class="con">
-					<p class="img"><c:if test="${dto.e_image != ''}"><img src="../storage/${dto.e_image}"></c:if></p>
-					${dto.e_content}				
+					<p class="img"><c:if test="${dto.rev_image != ''}"><img src="../storage/${dto.rev_image}"></c:if></p>
+					${dto.rev_content}				
 				</div>
 			</div><!-- //viewDiv  -->
 			<div class="btnD">
@@ -43,7 +43,7 @@
 	<div class="layerPop delPop">
 		<form name='placedelFrm' id="placedelFrm" method="post" action="/placedelete.do">
 			<input type="hidden" name="store_name" value="${requestScope.store_name}">
-			<input type="hidden" name="e_number" value="${dto.e_number}">
+			<input type="hidden" name="rev_number" value="${dto.rev_number}">
 			<input type="hidden" name="store_no" value="${dto.store_no}">
 			<div class="popDiv">
 				<p class="tit">리뷰 삭제</p>

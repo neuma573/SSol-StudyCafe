@@ -20,24 +20,24 @@
 				</div>
 				<div class="reviewD">
 					<c:forEach var="dto" items="${revlist}">
-						<a href="placeview.do?store_name=${requestScope.store_name}&e_number=${dto.e_number}" class="revList">
+						<a href="placeview.do?store_name=${requestScope.store_name}&rev_number=${dto.rev_number}" class="revList">
 							<p class="img">
-								<c:if test="${dto.e_image != ''}"><img src="../storage/${dto.e_image}"></c:if>
+								<c:if test="${dto.rev_image != ''}"><img src="../storage/${dto.rev_image}"></c:if>
 							</p>
 							<div class="txtD"> 
-								<p class="revtit">${dto.e_title}</p>
+								<p class="revtit">${dto.rev_title}</p>
 								<p class="info"><span class="mem">${dto.in_email}</span><span class="date">${dto.rev_date.substring(0,10)}</span></p>
 								<p class="revstar">
 									<c:choose>
-										<c:when test="${dto.e_end == 5}"><span class="star fiv"></span></c:when>
-										<c:when test="${dto.e_end == 4}"><span class="star for"></span></c:when>
-										<c:when test="${dto.e_end == 3}"><span class="star thr"></span></c:when>
-										<c:when test="${dto.e_end == 2}"><span class="star two"></span></c:when>
-										<c:when test="${dto.e_end == 1}"><span class="star one"></span></c:when>
+										<c:when test="${dto.rev_score == 5}"><span class="star fiv"></span></c:when>
+										<c:when test="${dto.rev_score == 4}"><span class="star for"></span></c:when>
+										<c:when test="${dto.rev_score == 3}"><span class="star thr"></span></c:when>
+										<c:when test="${dto.rev_score == 2}"><span class="star two"></span></c:when>
+										<c:when test="${dto.rev_score == 1}"><span class="star one"></span></c:when>
 										<c:otherwise><span class="star"></span></c:otherwise>
 									</c:choose>
 								</p>
-								<div class="revCon">${dto.e_content}</div>
+								<div class="revCon">${dto.rev_content}</div>
 							</div>
 						</a>
 					</c:forEach>
@@ -53,13 +53,21 @@
 	$(document).ready(function(){
 		var scoreTot=0;
 		var scoreAvg=0; 
-		var revTot = parseInt(${fn:length(revlist)});
-		<c:forEach var="dto" items="${revlist}">
-			scoreTot += parseInt(${dto.e_end});
-		</c:forEach>
+		var revTot = 0;
+		
+		if(${fn:length(revlist)}!=0){
+			revTot = parseInt(${fn:length(revlist)});
+			<c:forEach var="dto" items="${revlist}">
+				scoreTot += parseInt(${dto.rev_score});
+			</c:forEach>
+			
+			$(".starP .num").html("<strong>"+(scoreTot/revTot).toFixed(1)+"</strong>/5");
+		}else{
+			$(".starP .num").html("<strong>0</strong>/5");
+		}
 		
 		scoreAvg = Math.round(scoreTot/revTot);
-		$(".starP .num").html("<strong>"+(scoreTot/revTot).toFixed(1)+"</strong>/5");
+		
 		if(scoreAvg == 5){
 			$(".reviewWrap .starP .star").addClass("fiv");	
 		}else if(scoreAvg == 4){

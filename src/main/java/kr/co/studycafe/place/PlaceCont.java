@@ -47,12 +47,12 @@ public class PlaceCont {
 	@RequestMapping(value="/placeview.do", method=RequestMethod.GET)
 	public ModelAndView placeView(HttpServletRequest req) {
 		String store_name=req.getParameter("store_name");
-		int e_number=Integer.parseInt(req.getParameter("e_number"));
-		PlaceDTO dto = dao.read(e_number);
+		int rev_number=Integer.parseInt(req.getParameter("rev_number"));
+		PlaceDTO dto = dao.read(rev_number);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/place/view");
 		mav.addObject("store_name", store_name);
-		mav.addObject("e_number", e_number);
+		mav.addObject("rev_number", rev_number);
 		mav.addObject("dto", dto);
 		return mav;
 	}
@@ -80,8 +80,8 @@ public class PlaceCont {
 		
 		// 파일 가져오기 
 		MultipartFile revimgMF = dto.getRevimgMF();
-		String e_image = UploadSaveManager.saveFileSpring30(revimgMF, basePath);
-		dto.setE_image(e_image);// 리네임된 파일명 dto 객체에 담기 
+		String rev_image = UploadSaveManager.saveFileSpring30(revimgMF, basePath);
+		dto.setRev_image(rev_image);// 리네임된 파일명 dto 객체에 담기 
 		
 		int cnt=dao.write(dto);
 		if(cnt==0) {
@@ -101,8 +101,8 @@ public class PlaceCont {
 	public ModelAndView placeModify(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
 		String store_name=req.getParameter("store_name");
-		int e_number=Integer.parseInt(req.getParameter("e_number"));
-		PlaceDTO dto = dao.read(e_number);
+		int rev_number=Integer.parseInt(req.getParameter("rev_number"));
+		PlaceDTO dto = dao.read(rev_number);
 		mav.setViewName("/place/modify");
 		mav.addObject("store_name", store_name);
 		mav.addObject("dto", dto);
@@ -114,20 +114,20 @@ public class PlaceCont {
 	public ModelAndView placeModifyProc(@ModelAttribute PlaceDTO dto, HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
 		String store_name=req.getParameter("store_name");
-		int e_number = Integer.parseInt(req.getParameter("e_number"));
+		int rev_number = Integer.parseInt(req.getParameter("rev_number"));
 		mav.addObject("store_name", store_name);
 		mav.addObject("store_no", dto.getStore_no());
 		
 		String basePath=req.getRealPath("/storage");
-		PlaceDTO oldDTO=dao.read(dto.getE_number()); //기존 저장된 정보
+		PlaceDTO oldDTO=dao.read(dto.getRev_number()); //기존 저장된 정보
 
 		MultipartFile revimgMF = dto.getRevimgMF();
 		if(revimgMF.getSize()>0) {//새로운 이미지 파일이 첨부되서 전송됐는지?
-			UploadSaveManager.deleteFile(basePath, oldDTO.getE_image());
-			String e_image=UploadSaveManager.saveFileSpring30(revimgMF, basePath);
-			dto.setE_image(e_image);
+			UploadSaveManager.deleteFile(basePath, oldDTO.getRev_image());
+			String rev_image=UploadSaveManager.saveFileSpring30(revimgMF, basePath);
+			dto.setRev_image(rev_image);
 		}else {
-			dto.setE_image(oldDTO.getE_image()); //기존에 저장된 파일명 
+			dto.setRev_image(oldDTO.getRev_image()); //기존에 저장된 파일명 
 		}// if end
 		
 		
@@ -145,7 +145,7 @@ public class PlaceCont {
 	}
 	
 	@RequestMapping(value="/placedelete.do", method=RequestMethod.POST)
-	public ModelAndView deleteProc(int e_number, HttpServletRequest req) {
+	public ModelAndView deleteProc(int rev_number, HttpServletRequest req) {
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("/place/placeIns");
 		String store_name=req.getParameter("store_name");
@@ -154,8 +154,8 @@ public class PlaceCont {
 		mav.addObject("store_name", store_name);
 		mav.addObject("store_no", store_no);
 		
-		PlaceDTO oldDTO = dao.read(e_number);
-		int cnt = dao.delete(e_number);
+		PlaceDTO oldDTO = dao.read(rev_number);
+		int cnt = dao.delete(rev_number);
 		if(cnt==0) {
 			String msg="리뷰 삭제에 실패했습니다.";
 			mav.addObject("msg", msg);
@@ -164,7 +164,7 @@ public class PlaceCont {
 			mav.addObject("msg", msg);
 			
 			String basePath = req.getRealPath("/storage");
-			UploadSaveManager.deleteFile(basePath, oldDTO.getE_image());
+			UploadSaveManager.deleteFile(basePath, oldDTO.getRev_image());
 		}
 		
 		return mav;

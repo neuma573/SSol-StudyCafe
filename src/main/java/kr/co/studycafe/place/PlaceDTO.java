@@ -20,12 +20,12 @@ public class PlaceDTO {
 	private int review_tot;
 	
 	// 리뷰 테이블 
-	private int e_number;
-	private String e_title;
-	private String e_content;
-	private String e_image;
+	private int rev_number;
+	private String rev_title;
+	private String rev_content;
+	private String rev_image;
 	private String in_email;
-	private int e_end;
+	private int rev_score;
 	private String rev_date;
 	private MultipartFile revimgMF;
 	
@@ -168,36 +168,36 @@ public class PlaceDTO {
 		this.review_tot = review_tot;
 	}
 
-	public int getE_number() {
-		return e_number;
+	public int getRev_number() {
+		return rev_number;
 	}
 
-	public void setE_number(int e_number) {
-		this.e_number = e_number;
+	public void setRev_number(int rev_number) {
+		this.rev_number = rev_number;
 	}
 
-	public String getE_title() {
-		return e_title;
+	public String getRev_title() {
+		return rev_title;
 	}
 
-	public void setE_title(String e_title) {
-		this.e_title = e_title;
+	public void setRev_title(String rev_title) {
+		this.rev_title = rev_title;
 	}
 
-	public String getE_content() {
-		return e_content;
+	public String getRev_content() {
+		return rev_content;
 	}
 
-	public void setE_content(String e_content) {
-		this.e_content = e_content;
+	public void setRev_content(String rev_content) {
+		this.rev_content = rev_content;
 	}
 
-	public String getE_image() {
-		return e_image;
+	public String getRev_image() {
+		return rev_image;
 	}
 
-	public void setE_image(String e_image) {
-		this.e_image = e_image;
+	public void setRev_image(String rev_image) {
+		this.rev_image = rev_image;
 	}
 
 	public String getIn_email() {
@@ -208,12 +208,12 @@ public class PlaceDTO {
 		this.in_email = in_email;
 	}
 
-	public int getE_end() {
-		return e_end;
+	public int getRev_score() {
+		return rev_score;
 	}
 
-	public void setE_end(int e_end) {
-		this.e_end = e_end;
+	public void setRev_score(int rev_score) {
+		this.rev_score = rev_score;
 	}
 
 	public String getRev_date() {

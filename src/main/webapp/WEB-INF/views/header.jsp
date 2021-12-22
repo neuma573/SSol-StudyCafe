@@ -24,9 +24,21 @@
 	                    <li><a href="/notice/notice.do">공지사항</a></li>
 	                    <li><a href="/event.do">이벤트</a></li>
 	                    <li><a href="/place.do?keyword=">지점찾기</a></li>
-	                    <li><a href="/login/login.do">로그인</a></li>
-	                    <li><a href="/join/join.do">회원가입</a></li>	      
-	                </ul>
+						<%
+						if (request.getParameter("email") == null) {
+						%>
+						<li><a href="/login/login.do">로그인</a></li>
+						<li><a href="/join/join.do">회원가입</a></li>
+						<%
+						} else {
+						%>
+						<li><a href="/logout.do">로그아웃</a></li>
+						<li><a href="#">마이페이지</a></li>
+						<%
+						}
+						%>
+
+					</ul>
 	            </div>
 	            <div class="logo mlogo"><a href="#">SSOL. STUDYCAFE</a></div>
 	            <a href="javascript:" class="navTrigger">
