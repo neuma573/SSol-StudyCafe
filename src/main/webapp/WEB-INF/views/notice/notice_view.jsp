@@ -3,25 +3,6 @@
 <%@ include file="../header.jsp"%>
 <!-- 본문시작 -->
 <style>
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6,
-	hr, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del,
-	dfn, em, img, ins, kbd, q, s, samp, small, span, strike, strong, tt,
-	var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label,
-	legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside,
-	canvas, details, embed, figure, figcaption, footer, header, hgroup,
-	menu, nav, output, ruby, section, summary, time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: inherit;
-	font-size: 100%;
-	font-family: inherit;
-	vertical-align: baseline;
-	line-height: 100%;
-}
-
 .share_view {
 	padding-top: 68px;
 }
@@ -63,7 +44,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6,
 	color: #666;
 }
 
-.share_view_cont .share_btn {
+.share_btn {
 	display: block;
 	margin: 45px auto 0;
 	width: 200px;
@@ -82,17 +63,19 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6,
 <div class="share_view">
 	<div class="share_view_cont">
 		<div class="share_view_head t_center">
-			<h4>홈페이지 오픈 안내</h4>
-			<p class="share_date">2021.12.13</p>
+			<h4>제목</h4>
+			<p class="share_date">2021.12.23</p>
 		</div>
 		<div class="share_view_body">
 			<div class="share_view_body_txt">
 				<p style="text-align: center">본문</p>
 			</div>
 		</div>
-		<div class="share_view_foot"></div>
-		<a href="/notice/notice.do" class="share_btn">목록</a>
-
+		<table>
+			<th><a href="/notice/notice.do" class="share_btn">목록</a></th>
+			<th><a href="/notice/notice_write.do" class="share_btn">글쓰기</a></th>
+			<th><a href="/notice/notice_modify.do" class="share_btn">수정</a></th>
+		</table>
 	</div>
 </div>
 <!-- 본문끝 -->
