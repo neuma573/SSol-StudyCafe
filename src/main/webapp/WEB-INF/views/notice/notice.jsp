@@ -211,17 +211,17 @@ a {
 				<tbody>
 					<tr>
 						<td class="num t_center"><span class="label">NOTICE</span></td>
-						<td><a href="#" class="ellipsis">홈페이지 오픈</a></td>
+						<td><a href="/notice/notice_view.do" class="ellipsis">홈페이지 오픈</a></td>
 						<td class="date t_center">2021.12.13</td>
 					</tr>
 					<tr>
 						<td class="num t_center"><span class="label">NOTICE</span></td>
-						<td><a href="#" class="ellipsis">홈페이지 오픈 환영</a></td>
+						<td><a href="/notice/notice_view.do" class="ellipsis">홈페이지 오픈 환영</a></td>
 						<td class="date t_center">2021.12.13</td>
 					</tr>
 					<tr>
 						<td class="num t_center"><span class="label">NOTICE</span></td>
-						<td><a href="#" class="ellipsis">홈페이지 오픈 기념 이벤트</a></td>
+						<td><a href="/notice/notice_view.do" class="ellipsis">홈페이지 오픈 기념 이벤트</a></td>
 						<td class="date t_center">2021.12.13</td>
 					</tr>
 				</tbody>
