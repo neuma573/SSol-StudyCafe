@@ -164,6 +164,7 @@ insert into tb_member_in values('dbsdud1025@gmail.com','password1','박윤영','
 insert into tb_member_in values('wlgus@gmail.com','password2','장지현','1999.9.25');
 insert into tb_member_in values('duwls@gmail.com','password3','김여진','1999.8.25');
 insert into tb_member_in values('ghwls@gmail.com','password4','나호진','1999.7.25');
+insert into tb_member_in values('admin','1111','운영자','1994.10.13');
 
 -- 사업자회원정보
 -- select * from tb_member_en;
