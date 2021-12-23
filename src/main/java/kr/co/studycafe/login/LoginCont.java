@@ -34,20 +34,21 @@ public class LoginCont {
 		LoginDTO Dto=null;
 		Dto = dao.loginProc(dto);
 		System.out.println(Dto);
-		if (Dto == null) {
+		if (Dto == null) { //한 사람이 개인, 사업자 회원가입할 때 같은 이메일 사용 금지
 			mav.addObject("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
 			mav.addObject("url", "/login/login.do");
 		} else {
-			//체크했다면
 			 /* 세션 생성 */
 		    HttpSession session = req.getSession();
-		    if(session.getAttribute("member")!=null){
-				session.removeAttribute("member");
+		    if(session.getAttribute("uid")!=null ){
+				session.removeAttribute("uid");
 			}
-		    session.setAttribute("member", Dto);
+		    session.setAttribute("uid", Dto.getEmail());
 		    
 			mav.addObject("msg", "로그인 성공하셨습니다.");
-			mav.addObject("url", "/home.do?user="+Dto.getUser()+"&email=" + Dto.getEmail());
+			mav.addObject("url", "/home.do");
+			
+			//체크안했다면 addObject로 이메일 넣어서 전송
 		}
 		mav.setViewName("redirect");
 		return mav;

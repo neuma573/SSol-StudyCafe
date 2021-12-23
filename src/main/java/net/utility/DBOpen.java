@@ -16,7 +16,7 @@ public class DBOpen {
             String driver  ="org.mariadb.jdbc.Driver"; 
             Class.forName(driver);
             con=DriverManager.getConnection(url, user, password);
-            System.out.println("mariaDB연결 성공");
+         
         }catch (Exception e) {
             System.out.println("mariaDB연결 실패:" + e);
         }//end

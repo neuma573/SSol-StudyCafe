@@ -15,7 +15,7 @@
        </textarea>
 		<p class="agree">
 			이용약관 동의(필수)<label><input type="checkbox" name="state"
-				value="remain" checked></label>
+				value="remain" checked="checked" disabled="disabled"></label>
 		<p>
 		<form action="../join/join_detail_en.do" method="post"
 			onsubmit="return Check(mail_duCheck, mailnumCheck, pwckcorCheck, pwformCheck);">
