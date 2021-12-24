@@ -71,13 +71,13 @@ public class JoinCont {
 	/* 이메일 중복 */
 	@RequestMapping(value = "/mail_du_Check", method = RequestMethod.GET)
 	@ResponseBody
-	public int mail_du_CheckGET(String email) throws Exception {
+	public int mail_du_CheckGET(String email, String user) throws Exception {
 	
 		/* 뷰(View)로부터 넘어온 데이터 확인 */
        logger.info("이메일 데이터 전송 확인");
        logger.info("인증번호 : " + email);
        
-       int check=dao.emailCheck(email);
+       int check=dao.emailCheck(email, user);
 		return check;
 	}
 	

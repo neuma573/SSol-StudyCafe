@@ -7,11 +7,13 @@
 </div>
 <div class="container">
 <div class="login">
-	<form  action="/login/login.do" method="post" >
+	<form  action="/login/login.do" method="post">
 	<br>
-		<input type="text" class="email" name="in_email" placeholder="이메일" required><br> 
-		<input type="password" class="pwd" name="in_pw" placeholder="비밀번호" required><br> 
-		 <label><input type="checkbox" name="state" value="remain" checked> 로그인 상태 유지</label><br>
+		<input type="text" class="email" name="email" placeholder="이메일" required><br> 
+		<input type="password" class="pwd" name="pw" placeholder="비밀번호" required><br> 
+		<div class="pwck_input_re_2">아이디 또는 비밀번호가 일치하지 않습니다.</div>
+		 <label><input type="checkbox" name="login_state" checked="checked" disabled="disabled"> 로그인 상태 유지</label><br>
+		 
 		 <input type="submit" value="로그인">
 	</form>
 

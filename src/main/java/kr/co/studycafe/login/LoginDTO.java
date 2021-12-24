@@ -1,30 +1,30 @@
 package kr.co.studycafe.login;
 
 public class LoginDTO {
-	private String in_email;
-	private String in_pw;
-
-	LoginDTO() {}
-
-	public String getIn_email() {
-		return in_email;
+	private String email;
+	private String pw;
+	private String user;
+	public String getEmail() {
+		return email;
 	}
-
-	public void setIn_email(String in_email) {
-		this.in_email = in_email;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-
-	public String getIn_pw() {
-		return in_pw;
+	public String getPw() {
+		return pw;
 	}
-
-	public void setIn_pw(String in_pw) {
-		this.in_pw = in_pw;
+	public void setPw(String pw) {
+		this.pw = pw;
 	}
-
+	public String getUser() {
+		return user;
+	}
+	public void setUser(String user) {
+		this.user = user;
+	}
 	@Override
 	public String toString() {
-		return "LoginDTO [in_email=" + in_email + ", in_pw=" + in_pw + "]";
+		return "LoginDTO [email=" + email + ", pw=" + pw + ", user=" + user + "]";
 	}
 
 }

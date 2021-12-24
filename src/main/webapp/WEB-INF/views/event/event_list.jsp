@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="../header.jsp"%>
 <!-- 본문시작 -->
 <div class="subTit">
@@ -8,84 +10,35 @@
 <div class="container eventlis">
 	<div class="inner">
 		<div class="eventWrap">
-			<div class="shDiv">
-				<div class="shList">
-						<div class="search">
-						<p>
-							<select class="situation">
-								<option>전체</option>
-								<option>진행중</option>
-								<option>마감</option>
-							</select> <input type="text" name="eventName" placeholder="검색어를 입력해주세요.">
-							<input type="submit" class="btn">
-						</div>
-				</div>
-			</div>
-			<div class="eventD">
-				<a href="/eventview.do" class="eveList">
-					<p class="img">
-						<img src="../images/event1.jpg" />
-					</p>
-					<div class="event_cont">
-						<div class="event_cont_top">
-							<p class="event_name">이벤트 제목이 입력됩니다.</p>
-						</div>
-						<div class="event_cont_bot clearfix">
-							<p class="event_date f_left">2021.10.01 ~ 2022.04.30</p>
-							<div class="state f_right on">진행 중</div>
-						</div>
-					</div>
-
-				</a> <a href="/eventview.do" class="eveList">
-					<p class="img">
-						<img src="../images/event1.jpg" />
-					</p>
-					<div class="event_cont">
-						<div class="event_cont_top">
-							<p class="event_name">이벤트 제목이 입력됩니다.</p>
-						</div>
-						<div class="event_cont_bot clearfix">
-							<p class="event_date f_left">2021.10.01 ~ 2022.04.30</p>
-							<div class="state f_right on">진행 중</div>
-						</div>
-					</div>
-
-				</a> <a href="/eventview.do" class="eveList">
-					<p class="img">
-						<img src="../images/event1.jpg" />
-					</p>
-					<div class="event_cont">
-						<div class="event_cont_top">
-							<p class="event_name">이벤트 제목이 입력됩니다.</p>
-						</div>
-						<div class="event_cont_bot clearfix">
-							<p class="event_date f_left">2020.10.01 ~ 2021.04.30</p>
-							<div class="state f_right off">마감</div>
-						</div>
-					</div>
-
-				</a>
-				</a> <a href="/eventview.do" class="eveList">
-					<p class="img">
-						<img src="../images/event1.jpg" />
-					</p>
-					<div class="event_cont">
-						<div class="event_cont_top">
-							<p class="event_name">이벤트 제목이 입력됩니다.</p>
-						</div>
-						<div class="event_cont_bot clearfix">
-							<p class="event_date f_left">2019.10.01 ~ 2020.04.30</p>
-							<div class="state f_right off">마감</div>
-						</div>
-					</div>
-
-				</a>
-				<div class="btnD">
-					<a href="/eventwrite.do" class="btn"><span>리뷰쓰기</span></a>
-				</div>
-			</div>
+			<ul class="tabmenu fs_def inner">
+				<li class="on"><a href="#">전체</a></li>
+				<li><a href="#">진행중</a></li>
+				<li><a href="#">마감</a></li>
+			</ul>
 		</div>
-
+		<div class="eventD">
+			<c:forEach var="dto" items="${event_list}">
+				<a href="/eventview.do?e_number=${dto.e_number}" class="eveList">
+					<p class="img">
+						<c:if test="${dto.e_image != ''}">
+							<img src="../storage/${dto.e_image}">
+						</c:if>
+					</p>
+					<div class="event_cont">
+						<div class="event_cont_top">
+							<p class="event_name">${dto.e_title}</p>
+						</div>
+						<div class="event_cont_bot clearfix">
+							<p class="event_date f_left">${dto.e_start.substring(0,10)}~${dto.e_end.substring(0,10)}</p>
+							<div class="state f_right on">진행중</div>
+						</div>
+					</div>
+				</a>
+			</c:forEach>
+		</div>
+		<div class="btnD">
+			<a href="/eventwrite.do" class="btn"><span>리뷰쓰기</span></a>
+		</div>
 	</div>
 </div>
 
