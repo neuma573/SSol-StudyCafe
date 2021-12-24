@@ -1,13 +1,16 @@
+<%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="../header.jsp" %>
 <script src="../js/res_script.js"></script>
+
 <!-- 본문시작 -->
 	<div class="subTit">
 		<h2>실시간예약</h2>
-	</div>
+	</div>	
+
 	<div class="container reserveCont">
 		<div class="inner">
 			<div class="reserveDiv">
@@ -134,13 +137,92 @@
 					<div>
 						<p class="total">총<span class="pay">0</span>원</p>
 					</div>
-					<button type="button" name="button" class="resBtn" id="resBtn">
+					<button type="button" name="button" class="resBtn" id="resBtn" onclick="javascript:resScript.resAddClick(); return false;">
 						<div><img src="../images/cart_img.png" alt=""><span>예약추가</span></div>
 					</button>
 				</div>
 			</div><!-- //reserveDiv -->
 			<div class="rightFix">
-				<div class="cal"><img src="../images/cal_img.png"></div>
+				<div class="cal">
+					<input type="hidden" name="today" value="" id="today">
+					<div class="calSel">
+						<select id="year" name="year">
+						</select>
+						<select id="month" name="month">
+						</select> 
+					</div>						
+					<div class="calTable">
+						<table>
+							<thead>
+								<tr>
+									<th class="red">일</th>
+									<th>월</th>
+									<th>화</th>
+									<th>수</th>
+									<th>목</th>
+									<th>금</th>
+									<th>토</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+								</tr>
+								<tr>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+								</tr>
+								<tr>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+								</tr>
+								<tr>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+								</tr>
+								<tr>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+								</tr>
+								<tr>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>	
+				</div><!-- // cal -->
 				<div class="tabD">
 					<div class="tab">
 						<a href="javascript:" class="on"><span>좌석</span></a>
@@ -150,9 +232,9 @@
 						<div class="resTime on">
 							<p class="info">예약시간 <span>(시간은 복수선택 가능합니다)</span></p>
 							<div class="none"><span>좌석을 선택해 주세요.</span></div>
-							<div class="scrollD">
+							<div class="scrollD"><!-- a태그에 class="no" 붙으면 예약완료 -->
 								<a href="javascript:" data-time="08" ><span class="mark">예약가능</span><span>08:00 ~ 09:00</span></a>
-								<a href="javascript:" data-time="09" class="no"><span class="mark">예약완료</span><span>09:00 ~ 10:00</span></a>
+								<a href="javascript:" data-time="09" ><span class="mark">예약가능</span><span>09:00 ~ 10:00</span></a>
 								<a href="javascript:" data-time="10" ><span class="mark">예약가능</span><span>10:00 ~ 11:00</span></a>
 								<a href="javascript:" data-time="11" ><span class="mark">예약가능</span><span>11:00 ~ 12:00</span></a>
 								<a href="javascript:" data-time="12" ><span class="mark">예약가능</span><span>12:00 ~ 13:00</span></a>
@@ -230,39 +312,7 @@
 <!-- 본문끝 -->
 <script>
 	$(function(){
-		var resStoreArr = [];
-		var resLocArr=[];
-		<c:forEach var="dto" items="${storeList}">
-			resStoreArr.push({
-				store_no:${dto.store_no},
-				store_name:"${dto.store_name}",
-				addr:"${dto.store_address.substring(0,2)}",
-				rcnt:${dto.room_count},
-				dcnt:${dto.desk_count},
-				bcnt:${dto.box_count}
-			});
-			
-			if(resLocArr.indexOf("${dto.store_address.substring(0,2)}")!=0){
-				resLocArr.push("${dto.store_address.substring(0,2)}");
-			}
-		</c:forEach>
-		
-		
-		for(var j=0; j<resLocArr.length; j++){
-			$(".reserveCont select.location").append("<option>"+resLocArr[j]+"</option>");
-		}
-		
-		$(".reserveCont select.location").change(function(){// 지역 선택하면
-			if($(this).val() !== "none"){
-				$(".reserveCont select.store").empty();
-				$(".reserveCont select.store").append("<option value='none'>지점을 선택해주세요</option>");
-				for(var i=0; i<resStoreArr.length; i++){
-					if(resStoreArr[i].addr.indexOf($(this).val())==0){
-						$(".reserveCont select.store").append("<option value="+resStoreArr[i].store_no+">"+resStoreArr[i].store_name+"</option>");
-					}	
-				}
-			}
-		});
+		/* 
 		
 		$(".reserveCont select.store").change(function(){// 지점명을 선택하면
 			if($(this).val() !== "none"){
@@ -289,9 +339,9 @@
 				resScript.seatClick(); //좌석 선택 
 				resScript.lockerClick(); //사물함 선택 			
 			}
-		});
+		}); */
 			
 	});
-
+	
 </script>
 <%@ include file="../footer.jsp" %>

@@ -286,5 +286,11 @@ INSERT INTO tb_review (store_no, rev_title, rev_content, rev_image, in_email, re
 VALUES (2, '좋아요', '집중하기 좋네요 ', 'review_img4.jpeg', 'wlgus@gmail.com', 4, '2021-12-20 22:22:44');
 
 
+-- 예약정보insert 추가 2021-12-23 장지현  
+insert into tb_seat_res(in_email, store_no, seat_code, res_date, s_time, e_time, total, pay_prog, prog)
+values("wlgus@gmail.com", 1, 'desk_2', '2021-12-23', '11:00', "15:00", 5000, 'Y', 0);
+
+insert into tb_seat_res(in_email, store_no, seat_code, res_date, s_time, e_time, total, pay_prog, prog)
+values("wlgus@gmail.com", 1, 'desk_7', '2021-12-23', '11:00', "15:00", 5000, 'Y', 0);
 
 

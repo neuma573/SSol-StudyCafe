@@ -12,8 +12,7 @@ public class ReserveDTO {
 	private int store_no;
 	private String seat_code;
 	private String res_date;
-	private String s_time;
-	private String e_time;
+	private String time;
 	private int e_number;
 	private int total;
 	private String pay_prog;
@@ -61,23 +60,15 @@ public class ReserveDTO {
 		this.res_date = res_date;
 	}
 
-	public String getS_time() {
-		return s_time;
+	public String getTime() {
+		return time;
 	}
 
-	public void setS_time(String s_time) {
-		this.s_time = s_time;
+	public void setTime(String time) {
+		this.time = time;
 	}
 
-	public String getE_time() {
-		return e_time;
-	}
-
-	public void setE_time(String e_time) {
-		this.e_time = e_time;
-	}
-
-	public int getE_number() {
+	int getE_number() {
 		return e_number;
 	}
 

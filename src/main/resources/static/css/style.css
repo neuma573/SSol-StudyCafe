@@ -606,6 +606,28 @@ footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spac
 .reserveCont .rightFix .tabD .tabCont .none{position:relative; display:block; width:100%; height:calc(100% - 49px); height:-webkit-calc(100% - 49px); line-height:370px;}
 .reserveCont .rightFix .tabD .tabCont .none span{position:absolute; top:50%; transform:translateY(-50%); left:0; display:inline-block; width:100%; text-align:center; line-height: 1;}
 
+.reserveCont .rightFix .cal{width:100%; background:#fff;}
+.reserveCont .rightFix .cal .calSel{padding:10px 0; text-align: center; border-bottom: 1px solid #ddd;}
+.reserveCont .rightFix .cal .calSel select{width:70px; border:0; color:#222; font-size:20px; padding:0; font-weight: 700;}
+.reserveCont .rightFix .cal .calSel select:first-child{width:90px; margin-right:40px;}
+.reserveCont .rightFix .cal .calTable{padding:10px 20px 20px;}
+.reserveCont .rightFix .cal .calTable table th, 
+.reserveCont .rightFix .cal .calTable table td{position:relative; height:40px;}
+.reserveCont .rightFix .cal .calTable table th{text-align:center; font-size:16px; color:#222; font-weight:500;}
+.reserveCont .rightFix .cal .calTable table th.red{color: #840000;}
+.reserveCont .rightFix .cal .calTable table td a{position:relative; display:block; width:100%; height:100%; text-align:center; font-size:16px; color:#222; line-height:40px; font-weight:500; z-index: 1;}
+.reserveCont .rightFix .cal .calTable table td:before{content:''; display: none; position:absolute; top:50%; left:50%; transform: translate(-50%, -50%); width:30px; height:30px; border-radius: 50%; background:#b1997a;}
+.reserveCont .rightFix .cal .calTable table td.today:before{display: block;}
+.reserveCont .rightFix .cal .calTable table td.today a{color:#fff}
+.reserveCont .rightFix .cal .calTable table td.before a{opacity:0.3;}
+.reserveCont .rightFix .cal .calTable table td:after{content:''; display: block; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:30px; height: 30px; border-radius:50%; background:#001f2e; opacity:0;}
+.reserveCont .rightFix .cal .calTable table td:hover:after{opacity:0.1;}
+.reserveCont .rightFix .cal .calTable table td.empty:after,
+.reserveCont .rightFix .cal .calTable table td.before:after{display: none;}
+.reserveCont .rightFix .cal .calTable table tr td:first-child a{color:#840000;}
+.reserveCont .rightFix .cal .calTable table td.empty a{cursor:unset;}
+.reserveCont .rightFix .cal .calTable table td.on:after{opacity:1;}
+.reserveCont .rightFix .cal .calTable table td.on a{color:#fff;}
 .reserveCont .slcDeTail{position:relative; display:flex; flex-wrap: wrap; align-items: center; align-content: center; width:100%; height:113px; padding:0 140px 0 40px; background:#fff; margin-top:15px;}
 .reserveCont .slcDeTail > div{position:relative;}
 .reserveCont .slcDeTail > div:nth-child(1){width:220px;}
@@ -615,8 +637,8 @@ footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spac
 .reserveCont .slcDeTail > div > p{position:relative; display:flex;flex-wrap: wrap; margin-bottom:10px;}
 .reserveCont .slcDeTail > div > p:last-child{margin-bottom: 0;}
 .reserveCont .slcDeTail > div > p span{display: block; color:#333;}
-.reserveCont .slcDeTail > div > p span:first-child{width: 80px;}
-.reserveCont .slcDeTail > div > p span.data{width:calc(100% - 80px); width:-webkit-calc(100% - 80px); font-weight: 500;}
+.reserveCont .slcDeTail > div > p span:first-child{width: 60px;}
+.reserveCont .slcDeTail > div > p span.data{width:calc(100% - 60px); width:-webkit-calc(100% - 60px); font-weight: 500;}
 .reserveCont .slcDeTail > div > p.total{padding-left:40px; font-weight:700; font-size:18px; line-height:100%;}
 .reserveCont .slcDeTail > div > p.total:after{content:''; display:block; position:absolute; left:0; top:50%; transform:translateY(-50%); width:15px; height:30px; background:url("../images/right_arrow.png") center no-repeat;}
 .reserveCont .slcDeTail > div > p.total span.pay{display:inline-block; width: auto; font-size:30px; padding:0 5px 0 10px;}
@@ -658,7 +680,7 @@ background:url("../images/view_close.png") center no-repeat; text-indent:-9999px
 
 .resTotD{display:none; margin-top:40px;}
 .resTotD .tit{border-bottom: 1px solid #222;}
-.resTot{display:none; position:relative; display:flex; flex-wrap:wrap; width:100%; height:70px; padding:0 40px; align-content:center; align-items:center; border-bottom:1px solid #ddd;}
+.resTot{display:none; position:relative; flex-wrap:wrap; width:100%; height:70px; padding:0 40px; align-content:center; align-items:center; border-bottom:1px solid #ddd;}
 .resTot:after{content:''; display:block; position:absolute; top:32px; left:25px; width:3px; height:3px; background:#840000;}
 .resTot:last-child{margin-bottom: 0;}
 .resTot p {position:relative; margin-right:15px; padding-right:15px; font-size:18px; color:#333;}
