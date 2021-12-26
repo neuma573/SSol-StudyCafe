@@ -31,7 +31,7 @@
 				<div class="accoD">
 					<div class="accoBox on">
 						<a href="javascript:" class="accoTit">좌석 선택하기</a>
-						<div class="accoCont" style="display:block;">
+						<div class="accoCont" style="display:block;"><!-- 지역, 지점 선택하기 전에 hide 클래스 붙음 -->
 							<div class="seatInfo">
 								<span>선택가능</span>
 								<span>선택함</span>
@@ -87,11 +87,11 @@
 							<div class="seatInfo">
 								<span>선택가능</span>
 								<span>선택함</span>
-								<span>선택불가</span>
+								<span>선택불가 <em>(표시된 날짜까지 예약된 사물함입니다.)</em></span>
 							</div>
 							<div class="lockerDiv">
 								<div class="lockerD">
-									<a href="javascript:" class="locker no"><span>사물함1</span></a>
+									<a href="javascript:" class="locker no"><span>사물함1</span><span class="hide">~ 2022-04-10</span></a>
 									<a href="javascript:" class="locker"><span>사물함2</span></a>
 									<a href="javascript:" class="locker"><span>사물함3</span></a>
 									<a href="javascript:" class="locker"><span>사물함4</span></a>
@@ -116,14 +116,6 @@
 						</div>
 					</div>
 				</div><!-- //accoD -->
-				<form id="pay_data">
-                    <input type="hidden" name="location" id="location" value=""><!-- 지역 -->
-                    <input type="hidden" name="store" id="store" value=""><!-- 지점 -->
-                    <input type="hidden" name="seat" id="seat" value=""><!-- 좌석 -->
-                    <input type="hidden" name="price" id="price" value=""><!-- 가격 -->
-                    <input type="hidden" name="day" id="day" value=""><!-- 날짜 -->
-                    <input type="hidden" name="time" id="time" value=""><!-- 시간 -->
-                </form>
 				<div class="slcDeTail">
 					<div>
 						<p class="location"><span>지역</span><span class="data"></span></p>
@@ -255,9 +247,9 @@
 							<p class="info">예약날짜</p>
 							<div class="none"><span>사물함을 선택해 주세요.</span></div>
 							<div class="scrollD">
-							<a href="javascript:" data-week="4" ><span class="mark">예약가능</span><span>4주 (2021-12-10 ~ 2122-01-07)</span></a>
-								<a href="javascript:" data-week="4" ><span class="mark">예약가능</span><span>8주 (2021-12-10 ~ 2122-02-04)</span></a>
-								<a href="javascript:" data-week="4" ><span class="mark">예약가능</span><span>12주 (2021-12-10 ~ 2122-03-04)</span></a>
+								<a href="javascript:" data-week="4" ><span class="mark">예약가능</span><span></span></a>
+								<a href="javascript:" data-week="8" ><span class="mark">예약가능</span><span></span></a>
+								<a href="javascript:" data-week="12" ><span class="mark">예약가능</span><span></span></a>
 							</div>
 						</div><!-- //resDay -->
 					</div><!-- //tabCont -->
@@ -302,11 +294,24 @@
 		</div><!-- //resCheck -->
 		
 		<div class="totalPay">
-			<a href="javascript:">
+			<a href="javascript:void(0)" onclick="return resScript.resPayment();">
 				<p>총 <span class="num">0</span>건</p><p><span class="pay">0</span>원</p>
 				결제하기
 			</a>
 		</div>
+		
+		<form name="reservefrm" id="pay_data" action="" method="post">
+            <input type="hidden" name="in_email" id="in_email" value="wlgus@gmail.com"><!-- id값 -->
+            <input type="hidden" name="store" id="store" value=""><!-- 하나만 존재함  -->
+            <input type="hidden" name="seat_code" id="seat_code" value=""><!-- 배열로 여러개 담고  -->
+            <input type="hidden" name="res_date" id="res_date" value=""><!-- 이것뚜 하나 담고  -->
+            <input type="hidden" name="end_date" id="end_date" value=""><!-- 이거는 하나  -->
+            <input type="hidden" name="times" id="times" value=""><!-- 이것뚜 여러개 11,12,13 이런식으로 들어갈거임  -->
+            <input type="hidden" name="e_number" id="e_number" value=""><!-- 이건 결제시에 이벤트 코드 선택하면 값 들어갈거고  -->
+            <input type="hidden" name="total" id="total" value=""><!-- 이것뚜 여러개 배열로  -->
+            <input type="hidden" name="pay_prog" id="pay_prog" value=""><!-- 이거는 결제 완료 하면 Y 값 / 계좌이체면 C  -->
+        </form>
+                
 	</div><!-- //reserveCont -->
 	
 <!-- 본문끝 -->

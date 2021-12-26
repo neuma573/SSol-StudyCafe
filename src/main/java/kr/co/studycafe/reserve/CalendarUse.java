@@ -1,18 +1,20 @@
 package kr.co.studycafe.reserve;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class CalendarUse {
-	private Calendar cal = null;
-	
+	private GregorianCalendar cal = null;
+	private GregorianCalendar weekCal = null;
 	public CalendarDTO calSet(int year, int month) {
 		CalendarDTO caldto = null;
 		try {
-			cal = Calendar.getInstance();
+			//cal = Calendar.getInstance();
+			cal = new GregorianCalendar();
 			caldto = new CalendarDTO();
 			// 오늘 날짜 
 			caldto.setNowYear(cal.get(Calendar.YEAR));
-			caldto.setNowMonth(cal.get(Calendar.MONTH));
+			caldto.setNowMonth(cal.get(Calendar.MONTH)+1);
 			caldto.setNowDate(cal.get(Calendar.DATE));
 			
 			//달력 지정 년, 월 초기 값
@@ -25,6 +27,23 @@ public class CalendarUse {
 		}
 		
 		return caldto;
+	}// calSet();
+	
+	public String weekData(int weekNum) {
+		String weekTxt = "";
+		weekCal = new GregorianCalendar();
+		weekCal.add(Calendar.DATE, (7*weekNum));
+		weekTxt+=weekCal.get(Calendar.YEAR)+"-";
+		if(weekCal.get(Calendar.MONTH)+1 < 10) {
+			weekTxt += "0";
+		}
+		weekTxt+=weekCal.get(Calendar.MONTH)+1 +"-";
+		if(weekCal.get(Calendar.DATE)<10) {
+			weekTxt+="0";
+		}
+		weekTxt+= weekCal.get(Calendar.DATE);
+		
+		return weekTxt;
 	}
 	
 }

@@ -1,9 +1,12 @@
 package kr.co.studycafe.reserve;
 
+import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import net.utility.DBClose;
 import net.utility.DBOpen;
@@ -15,6 +18,7 @@ public class ReserveDAO {
 	private PreparedStatement pstmt=null;
 	private ResultSet rs = null;
 	private StringBuilder sql = null;
+	private SimpleDateFormat sdformat = null;
 	
 	public ReserveDAO() {
 		System.out.println("==================ReserveDAO() 시작");
@@ -55,34 +59,30 @@ public class ReserveDAO {
 		return storeList;
 	}
 	
-	public ArrayList<ReserveDTO> resList(int store_no, String res_date){//예약내역 
+	public ArrayList<ReserveDTO> resList(int store_no, String res_date){// 예약내역 - 매장번호, 선택날짜, (좌석,룸,사물함명) 
 		ArrayList<ReserveDTO> resList = null;
 		try {
 			con=dbopen.getConnection();
 			sql=new StringBuilder();
-			sql.append(" SELECT store_no, store_name, room_count, desk_count, seat_code, res_date, time, pay_prog ");
-			sql.append(" FROM( ");
-			sql.append(" 	SELECT SI.store_no, SI.store_name, SI.room_count, SI.desk_count, SR.seat_code, SR.res_date, SR.time, SR.pay_prog ");
-			sql.append(" 	FROM tb_store_info SI LEFT JOIN tb_seat_res SR ");
-			sql.append(" 	ON SI.store_no = SR.store_no ");
-			sql.append(" )tb_SISR ");
-			sql.append(" WHERE store_no = ? and res_date = ? ");
-						
+			sql.append(" SELECT store_no, seat_code, times, res_date, end_date ");
+			sql.append(" FROM tb_reserve ");
+			sql.append(" WHERE store_no=? AND pay_prog='Y' AND res_date=? OR date_format(end_date,'%Y-%m-%d') >= date_format(?,'%Y-%m-%d') ");
+			
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setInt(1, store_no);
 			pstmt.setString(2, res_date);
-			
+			pstmt.setString(3, res_date);
 			rs=pstmt.executeQuery();
+			
 			if(rs.next()) {
 				resList = new ArrayList<ReserveDTO>();
 				do {
 					ReserveDTO dto = new ReserveDTO();
-					dto.setRoom_count(rs.getInt("room_count"));
-					dto.setDesk_count(rs.getInt("desk_count"));
+					dto.setStore_no(rs.getInt("store_no"));
 					dto.setSeat_code(rs.getString("seat_code"));
+					dto.setTimes(rs.getString("times"));
 					dto.setRes_date(rs.getString("res_date"));
-					dto.setTime(rs.getString("time"));
-					dto.setPay_prog(rs.getString("pay_prog"));
+					dto.setEnd_date(rs.getString("end_date"));
 					resList.add(dto);
 				}while(rs.next());
 			}
@@ -95,6 +95,8 @@ public class ReserveDAO {
 		
 		return resList;
 	}
+	
+	
 	
 	
 }

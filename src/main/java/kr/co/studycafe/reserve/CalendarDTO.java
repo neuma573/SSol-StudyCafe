@@ -37,5 +37,7 @@ public class CalendarDTO {
 	public void setCalTot(int calTot) {
 		this.calTot = calTot;
 	}
+
+	
 	
 }

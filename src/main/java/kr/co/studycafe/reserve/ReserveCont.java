@@ -3,6 +3,7 @@ package kr.co.studycafe.reserve;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,9 +36,11 @@ public class ReserveCont {
 	@RequestMapping(value = "/calendarUse", method = RequestMethod.GET)
 	@ResponseBody
 	public Object calStart() throws Exception {
+		cal = new CalendarUse();
 		Map<String, String> map = new HashMap<String, String>();
 		try {
-			Calendar calS = Calendar.getInstance();
+			GregorianCalendar calS = new GregorianCalendar();
+			
 			//달력 지정 년, 월 초기 값
 			map.put("nowYear", Integer.toString(calS.get(Calendar.YEAR)));
 			map.put("nowMonth", Integer.toString(calS.get(Calendar.MONTH)+1));
@@ -46,6 +49,10 @@ public class ReserveCont {
 			calS.set(calS.get(Calendar.YEAR), calS.get(Calendar.MONTH), 1);
 			map.put("start", Integer.toString(calS.get(Calendar.DAY_OF_WEEK)));
 			map.put("calTot", Integer.toString(calS.getActualMaximum(Calendar.DATE)));
+			
+			map.put("week4", cal.weekData(4));
+			map.put("week8", cal.weekData(8));
+			map.put("week12", cal.weekData(12));
 		} catch (Exception e) {
 			System.out.println("calStart 실패 : "+e);
 		}
@@ -60,7 +67,7 @@ public class ReserveCont {
 		CalendarDTO caldto = null;
 		Map<String, String> map = new HashMap<String, String>();
 		try {
-			Calendar calU = Calendar.getInstance();
+			GregorianCalendar calU = new GregorianCalendar();
 			map.put("nowYear", Integer.toString(calU.get(Calendar.YEAR)));
 			map.put("nowMonth", Integer.toString(calU.get(Calendar.MONTH)+1));
 			map.put("nowDate", Integer.toString(calU.get(Calendar.DATE)));

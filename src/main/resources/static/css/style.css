@@ -396,7 +396,7 @@ footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spac
 /* 리뷰 팝업 */
 .layerPop.reviewPop .popCont{padding:0 0 60px; height:calc(100% - 150px); height:-webkit-calc(100% - 150px); }
 .reviewD{display:flex; flex-wrap:wrap; width:calc(100% - 80px); margin:0 auto; padding-bottom:50px;}
-.reviewD .revList{position:relative; width:calc(33.33% - 13px); width:-webkit-calc(33.33% - 13px); margin-right: 19.5px; transition:box-shadow 0.3s ease; background:#fff;}
+.reviewD .revList{position:relative; width:calc(33.33% - 13px); width:-webkit-calc(33.33% - 13px); margin-right: 19.5px; transition:box-shadow 0.3s ease;  background:#fff;}
 .reviewD .revList:hover{box-shadow:4px 10px 15px rgba(0,0,0,0.3);}
 .reviewD .revList:nth-child(3n){margin-right:0;}
 .reviewD .revList:nth-child(n+4){margin-top:40px;}
@@ -410,8 +410,7 @@ footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spac
 .reviewD .revList .info span{line-height:1.2;}
 .reviewD .revList .info .mem{float:left; width: calc(100% - 90px); width: -webkit-calc(100% - 90px); text-align:left; color:#333; text-overflow:ellipsis; overflow:hidden;}
 .reviewD .revList .info .date{float: right; width:90px; text-align:right;}
-.reviewD .revList .revstar .star{
-	display:inline-block; vertical-align:top; width:104px; height:20px; background:url("../images/star0.png") center no-repeat;}
+.reviewD .revList .revstar .star{display:inline-block; vertical-align:top; width:104px; height:20px; background:url("../images/star0.png") center no-repeat;}
 .reviewD .revList .revstar .star.one{background:url("../images/star1.png") center no-repeat;}
 .reviewD .revList .revstar .star.two{background:url("../images/star2.png") center no-repeat;}
 .reviewD .revList .revstar .star.thr{background:url("../images/star3.png") center no-repeat;}
@@ -440,8 +439,7 @@ footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spac
 .placeRev .viewDiv .tit{padding:25px 0; border-bottom:1px solid #ddd; font-size:22px; line-height:30px; font-weight:600; color:#333;}
 .placeRev .viewDiv .info{display:flex; flex-wrap:wrap; align-content:center; align-items:center; padding:25px 0; border-bottom:1px solid #ddd;}
 .placeRev .viewDiv .info p{position:relative; display:inline-block; margin-right:20px; padding-right:20px;}
-.placeRev .viewDiv .info p:after{content:''; position:absolute; top:50%; right:0; transform:translateY(-50%); display:block; width:1px; 
-	height:18px; background:#ddd;}
+.placeRev .viewDiv .info p:after{content:''; position:absolute; top:50%; right:0; transform:translateY(-50%); display:block; width:1px; height:18px; background:#ddd;}
 .placeRev .viewDiv .info p:last-child{margin-right:0; padding-right:0;}
 .placeRev .viewDiv .info p:last-child:after{display:none;}
 .placeRev .viewDiv .info p span{font-weight:400;}
@@ -461,8 +459,7 @@ footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spac
 .formCont dl dd{width:calc(100% - 120px);}
 .formCont dl dd input{width:100%; height:50px; padding:0 20px; border:1px solid #ddd; font-size:18px; color:#333;}
 .formCont dl dd textarea::placeholder, .formCont dl dd input::placeholder{color:#888; font-weight:300;}
-.formCont dl dd textarea{width:100%; height:300px; padding:15px 20px; border:1px solid #ddd; font-size:18px; color:#333; font-weight:300; 
-	line-height:1.3}
+.formCont dl dd textarea{width:100%; height:300px; padding:15px 20px; border:1px solid #ddd; font-size:18px; color:#333; font-weight:300; line-height:1.3}
 .formCont dl.score{line-height:50px;}
 .formCont dl.score .click_score{display:inline-block; vertical-align:middle; line-height:1;}
 .formCont dl .filebox{position:relative; margin-bottom:15px;}
@@ -470,8 +467,7 @@ footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spac
 .formCont dl .filebox label{display:inline-block; padding:15px 20px; border:1px solid #ddd; }
 .formCont dl .preview .file{display:inline-block; margin-bottom:15px;}
 .formCont dl .preview .file span{display:inline-block; }
-.formCont dl .preview .file .del{display:inline-block; width:13px; height:13px; margin-left:5px; text-indent:-9999px; overflow:hidden;
-	 background:url("../images/file_del.png") center no-repeat; background-size:100% 100%; vertical-align:middle;}
+.formCont dl .preview .file .del{display:inline-block; width:13px; height:13px; margin-left:5px; text-indent:-9999px; overflow:hidden; background:url("../images/file_del.png") center no-repeat; background-size:100% 100%; vertical-align:middle;}
 .formCont dl dd .infoTxt{font-size:16px; color:#888;}
 .click_score a {display: inline-block; position: relative; width: 28px; height: 28px;}
 .click_score a span {display: block; position: absolute; top: 0; left: 0; width: 28px; height: 28px; transition: 0.5s;}
@@ -493,8 +489,7 @@ footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spac
 .reserveCont .slcD .nameSlc:last-child{margin-right:0;}
 .reserveCont .slcD .nameSlc:last-child:after{display:none;}
 .reserveCont .slcD .nameSlc span{display:inline-block; margin-right:30px; font-size:20px; color:#333; font-weight:400;}
-.reserveCont .slcD .nameSlc select{display:block; height:auto; font-size:18px; padding:10px 20px 10px 0; background:url("../images/select-icon.png") right center no-repeat;
-	background-size:15px 8px;}
+.reserveCont .slcD .nameSlc select{display:block; height:auto; font-size:18px; padding:10px 20px 10px 0; background:url("../images/select-icon.png") right center no-repeat; background-size:15px 8px;}
 .reserveCont .slcD .nameSlc:first-child select{width:calc(100% - 66px);}
 .reserveCont .slcD .nameSlc:last-child select{width:calc(100% - 84px);}
 .reserveCont .accoD{margin-top:15px;}
@@ -509,7 +504,10 @@ footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spac
 .reserveCont .seatInfo span:after{content:''; display:block; position:absolute; top:50%; left:0; transform:translateY(-50%); width:18px; height:18px; border:1px solid #ddd;}
 .reserveCont .seatInfo span:nth-child(2):after{background:#840000; border:1px solid #840000;}
 .reserveCont .seatInfo span:nth-child(3):after{background:#b6b2b2; border:1px solid #b6b2b2;}
-
+.reserveCont .seatInfo span em{font-style: unset; font-size: 12px;}
+.reserveCont .accoCont{position:relative;}
+.reserveCont .accoCont.hide:before{content:''; display:block; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(256,256,256,0.7); z-index:1;}
+.reserveCont .accoCont.hide:after{content:'지역, 지점명을 선택해주세요.'; display:block; position:absolute; top:300px; left:0; width:100%; text-align:center; font-size:20px; color:#222; font-weight: 500; z-index:2;}
 .reserveCont .seatDiv{position:relative; width:830px; height:540px; margin:0 auto; background:#f5f5f5;}
 .reserveCont .seatDiv:after{content:''; display:block; position:absolute; bottom:0; left:240px; width:150px; height:6px; background:#a6a3a3;}
 .reserveCont .seatDiv:before{content:'출입문'; display:block; position:absolute; bottom:10px; left:240px; width:150px; text-align:center; 
@@ -534,12 +532,10 @@ footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spac
 .reserveCont .seatDiv .deskD .desk:nth-child(9){top:12px; left:461px;}
 .reserveCont .seatDiv .deskD .desk:nth-child(10){top:12px; left:517px;}
 .reserveCont .seatDiv .deskD .desk:nth-child(11){top:12px; left:573px;}
-
 .reserveCont .seatDiv .deskD .desk:nth-child(12){top:108px; left:26px; transform:rotate(270deg);}
 .reserveCont .seatDiv .deskD .desk:nth-child(13){top:164px; left:26px; transform:rotate(270deg);}
 .reserveCont .seatDiv .deskD .desk:nth-child(14){top:220px; left:26px; transform:rotate(270deg);}
 .reserveCont .seatDiv .deskD .desk:nth-child(15){top:276px; left:26px; transform:rotate(270deg);}
-
 .reserveCont .seatDiv .deskD .desk:nth-child(16){top:140px; left:153px; transform:rotate(180deg);}
 .reserveCont .seatDiv .deskD .desk:nth-child(17){top:140px; left:209px; transform:rotate(180deg);}
 .reserveCont .seatDiv .deskD .desk:nth-child(18){top:140px; left:265px; transform:rotate(180deg);}
@@ -548,7 +544,6 @@ footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spac
 .reserveCont .seatDiv .deskD .desk:nth-child(21){top:140px; left:433px; transform:rotate(180deg);}
 .reserveCont .seatDiv .deskD .desk:nth-child(22){top:140px; left:489px; transform:rotate(180deg);}
 .reserveCont .seatDiv .deskD .desk:nth-child(23){top:140px; left:545px; transform:rotate(180deg);}
-
 .reserveCont .seatDiv .deskD .desk:nth-child(24){top:220px; left:153px;}
 .reserveCont .seatDiv .deskD .desk:nth-child(25){top:220px; left:209px;}
 .reserveCont .seatDiv .deskD .desk:nth-child(26){top:220px; left:265px;}
@@ -577,6 +572,7 @@ footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spac
 .reserveCont .lockerDiv .lockerD .locker:nth-child(5n){margin-right:0;}
 .reserveCont .lockerDiv .lockerD .locker:nth-child(n+6){margin-top:2px;}
 .reserveCont .lockerDiv .lockerD .locker span{position:absolute; top:50%; left:0; transform:translateY(-50%); display:inline-block; width:100%; font-size:13px; color:#333; text-align:center;}
+.reserveCont .lockerDiv .lockerD .locker .hide{display:block; position:absolute; left:0; bottom:10px; top:auto; transform: none; width:100%; text-align:center; font-weight:500; line-height: 1; color: #fff;}
 .reserveCont .lockerDiv .lockerD .locker.no{background:url("../images/locker_no.png") center no-repeat;}
 .reserveCont .lockerDiv .lockerD .locker.on{background:url("../images/locker_on.png") center no-repeat;}
 .reserveCont .lockerDiv .lockerD .locker.on span{color:#fff;}
@@ -627,7 +623,7 @@ footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spac
 .reserveCont .rightFix .cal .calTable table tr td:first-child a{color:#840000;}
 .reserveCont .rightFix .cal .calTable table td.empty a{cursor:unset;}
 .reserveCont .rightFix .cal .calTable table td.on:after{opacity:1;}
-.reserveCont .rightFix .cal .calTable table td.on a{color:#fff;}
+.reserveCont .rightFix .cal .calTable table td.on a{color:#fff !important;}
 .reserveCont .slcDeTail{position:relative; display:flex; flex-wrap: wrap; align-items: center; align-content: center; width:100%; height:113px; padding:0 140px 0 40px; background:#fff; margin-top:15px;}
 .reserveCont .slcDeTail > div{position:relative;}
 .reserveCont .slcDeTail > div:nth-child(1){width:220px;}
@@ -646,6 +642,7 @@ footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spac
 .reserveCont .slcDeTail .resBtn > div{width:100%; text-align: center;}
 .reserveCont .slcDeTail .resBtn span{display:block; width:100%; margin-top:5px; text-align:center; font-size:13px; color:#fff;}
 .reserveCont .resCheck{margin-top:35px !important;}
+.reserveCont .resCheck .listD{max-height:350px; overflow-y:auto;}
 .reserveCont .resCheck .tit{width:100%; padding-bottom:15px; font-size:20px; color:#222; font-weight: 700; border-bottom:1px solid #222;}
 .reserveCont .resCheck .list{position:relative; padding:0 50px; border-bottom: 1px solid #ddd;}
 .reserveCont .resCheck .list a{position:absolute; right:40px; top:50%; transform:translateY(-50%); display: block; width: 12px; height: 13px; background:url("../images/list_box_cancel.png") center no-repeat; text-indent: -9999px; overflow: hidden;}
@@ -655,7 +652,7 @@ footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spac
 .reserveCont .resCheck .list > div p:first-child:after, .reserveCont .resCheck .list > div p:last-child:after{display:none;}
 .reserveCont .resCheck .list > div .num{color:#840000; padding-left:0; padding-right:30px;}
 .reserveCont .resCheck .list > div .pay{color:#840000;}
-.reserveCont .totalPay{position:fixed; bottom:0; left:0; width:100%; height:70px; background:#fff; box-shadow: -10px 0 15px rgb(0 0 0 / 20%);}
+.reserveCont .totalPay{position:fixed; bottom:0; left:0; width:100%; height:70px; background:#fff; box-shadow: -10px 0 15px rgb(0 0 0 / 20%); z-index:1;}
 .reserveCont .totalPay > a{display:block; width:600px; height:50px; margin:10px auto 0; border-radius:15px; background:#840000; text-align:center; color:#fff; line-height:50px; font-size:20px; font-weight:700;}
 .reserveCont .totalPay > a > p{position:relative; display:inline-block; padding:0 10px; color:#fff; line-height:50px; font-size:20px; font-weight:700;}
 .reserveCont .totalPay > a > p:after{content:''; display: block; position: absolute; top:50%; transform:translateY(-50%); right:0; width:2px; height: 18px; background:#fff;}
