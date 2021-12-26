@@ -37,6 +37,20 @@ CREATE TABLE tb_store_info(
   FOREIGN KEY (en_email) REFERENCES tb_member_en(en_email))
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--채팅T
+create table tb_chat(
+ chat_no int(10) not null AUTO_INCREMENT,
+ session varchar(100) ,
+ PRIMARY KEY (chat_no),
+ FOREIGN KEY (chat_no) REFERENCES tb_store_info(store_no))
+ ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into tb_chat(chat_no) values(7);
+insert into tb_chat(chat_no) values(8);
+insert into tb_chat(chat_no) values(9);
+insert into tb_chat(chat_no) values(10); 
+
+
 -- 요금T
 create table tb_pay(
 pay_code varchar(10) not null,

@@ -98,5 +98,41 @@ public class JoinDAO {
 		}
 		return cnt;
 	}
+	
+	//email 로 name 가져오기
+	public String userName(String email) {
+		String userName=null;
+		try {
+			con = dbopen.getConnection();
+			sql = new StringBuilder();
+			sql.append(" SELECT in_name ");
+			sql.append(" FROM tb_member_in");
+			sql.append(" WHERE in_email=?");
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				userName = rs.getString("in_name");
+			} // if end
 
+			con = dbopen.getConnection();
+			sql = new StringBuilder();
+			sql.append(" SELECT en_name ");
+			sql.append(" FROM tb_member_en");
+			sql.append(" WHERE en_email=?");
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				userName = rs.getString("en_name");
+			} // if end
+
+
+		} catch (Exception e) {
+			System.out.println("Email 중복 확인 실패 : " + e);
+		} finally {
+			DBClose.close(con, pstmt, rs);
+		} // end
+		return userName;
+	}
 }
