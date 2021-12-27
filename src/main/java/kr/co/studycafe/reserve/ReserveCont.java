@@ -5,14 +5,21 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import ch.qos.logback.core.util.SystemInfo;
 
 
 @Controller
@@ -106,6 +113,32 @@ public class ReserveCont {
 		}
 		
 		return resList;
+	}	
+	
+	@RequestMapping(value = "/resChk", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public int resChkAjax(@RequestBody List<UpdateReserveDTO> updateDto) throws Exception{
+		int cnt=0;
+		try {			
+			updateDto.toString();
+			System.out.println(updateDto.toString());
+			//System.out.println(updateDto.get(0).getStore_no());
+			//System.out.println(updateDto.size());
+			int store_no = updateDto.get(0).getStore_no();
+			for(int i=0; i<updateDto.size(); i++) {
+				String seat_code=updateDto.get(i).getSeat_code();
+				String res_date=updateDto.get(i).getRes_date();
+				String times=updateDto.get(i).getTimes();
+				
+				cnt += dao.resChk(store_no,seat_code,res_date,times);
+			}
+		}catch (Exception e) {
+			System.out.println("resListAjax 실패 : "+e);
+		}
+		
+		return cnt;
 	}
+	
+	
 	
 }

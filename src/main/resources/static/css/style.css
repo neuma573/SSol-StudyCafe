@@ -566,7 +566,7 @@ footer{padding:20px; background:#222; font-size:14px; color:#989898; letter-spac
 .reserveCont .seatDiv .roomD .room:nth-child(4) span{transform:rotate(180deg);}
 .reserveCont .seatDiv .lockerLine{width:150px; height:170px; border:2px solid #ccc; position:absolute; bottom:10px; left:440px; border-radius:10px;
 	font-size:16px; text-align:center; line-height:168px;}
-.reserveCont .lockerDiv{position:relative; width:830px; margin:0 auto; background:#f5f5f5;}
+.reserveCont .lockerDiv{position:relative; min-width:530px; margin:0 auto; background:#f5f5f5;}
 .reserveCont .lockerDiv .lockerD{display:flex; flex-wrap:wrap; width:508px; margin:0 auto; padding:20px 0;}
 .reserveCont .lockerDiv .lockerD .locker{position:relative; display:block; width:100px; height:100px; margin-right:2px; background:url("../images/locker.png") center no-repeat;}
 .reserveCont .lockerDiv .lockerD .locker:nth-child(5n){margin-right:0;}
