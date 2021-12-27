@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -29,11 +30,11 @@ public class NoticeDAO {
 		String sql = "insert into tb_notice values(n_number, ?, ?, ?, ?)";
 		try {
 			pstmt = con.prepareStatement(sql);
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			pstmt.setString(1, noticeDTO.getEn_email());
 			pstmt.setString(2, noticeDTO.getN_title());
 			pstmt.setString(3, noticeDTO.getN_contents());
-			pstmt.setString(4, LocalDate.now().format(formatter));
+			pstmt.setString(4, LocalDateTime.now().format(formatter));
 			pstmt.executeUpdate();
 			return 1;
 		} catch (Exception e) {
