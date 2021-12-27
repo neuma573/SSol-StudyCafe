@@ -207,8 +207,8 @@ textarea {
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row"><label for="title">제목</label></th>
-							<td><input type="text" class="w464" name="title"
+							<th scope="row"><label for="n_title">제목</label></th>
+							<td><input type="text" class="w464" name="n_title"
 								id="title" required="" autocomplete="off"></td>
 						</tr>
 
@@ -216,7 +216,7 @@ textarea {
 						<tr class="cont">
 							<th scope="row" class="v_top row_top"><label
 								for="contents">내용</label></th>
-							<td><textarea name="contents" id="contents"
+							<td><textarea name="n_contents" id="n_contents"
 									required=""></textarea></td>
 						</tr>
 					</tbody>

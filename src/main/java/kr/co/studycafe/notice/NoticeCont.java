@@ -17,8 +17,9 @@ public class NoticeCont {
 	}
 
 	@RequestMapping("/notice/notice.do")
-	public ModelAndView notice() {
+	public ModelAndView notice(@SessionAttribute(name = "uid", required = false) String uid) {
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("uid", uid);
 		mav.setViewName("notice/notice");
 		return mav;
 	}
@@ -38,14 +39,14 @@ public class NoticeCont {
 	}
 
 	@RequestMapping(value = "/notice/submit.do", method = RequestMethod.POST)
-	public ModelAndView noticePro(@SessionAttribute(name = "uid", required = false) String uid, NoticeDTO dto,
+	
+	public ModelAndView noticePost(@SessionAttribute(name = "uid", required = false) String uid, NoticeDTO dto,
 			HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("uid", uid);
 		System.out.println(dto);
-		int post = dao.post(dto);
+		int post = dao.notice_post(dto);
 		mav.setViewName("notice/notice_write");
-
+		mav.addObject("en_mail", uid);
 		return mav;
 	}
 
