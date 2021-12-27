@@ -1,7 +1,7 @@
 package kr.co.studycafe.notice;
 
 public class NoticeDTO {
-
+	
 	
 	private String reg_Date;
 	private String title;

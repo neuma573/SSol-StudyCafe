@@ -195,9 +195,8 @@ textarea {
 </div>
 <div id="boardWrap">
 	<div class="inquiry_wrap">
-		<form name="inquiry_write" method="post"
-			action="/board/index.php?type=action&amp;skin=root"
-			enctype="multipart/form-data" accept-charset="UTF-8"
+		<form name="inquiry_write" action="/notice/submit.do" method="post"
+			action="submit"
 			class="inquiry_form">
 			<fieldset class="iqr_info">
 				<table summary="상담자 정보 입력사항" class="inquiry_table">
@@ -216,13 +215,13 @@ textarea {
 
 						<tr class="cont">
 							<th scope="row" class="v_top row_top"><label
-								for="iqr_command_01">내용</label></th>
-							<td><textarea name="content" id="content"
+								for="contents">내용</label></th>
+							<td><textarea name="contents" id="contents"
 									required=""></textarea></td>
 						</tr>
 					</tbody>
 				</table>
-				<a href="/notice/notice.do" class="share_btn">제출</a>
+				<button type="submit" class="share_btn">제출</button>
 			</fieldset>
 		</form>
 	</div>

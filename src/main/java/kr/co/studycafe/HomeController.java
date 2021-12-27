@@ -25,9 +25,6 @@ public class HomeController {
 			mav.addObject("uid",uid);	
 		}
 		return mav;
-		
-		
-		
 	}
 	
 	@RequestMapping("/popupguide.do")
