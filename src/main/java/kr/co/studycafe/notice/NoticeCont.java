@@ -52,6 +52,7 @@ public class NoticeCont {
 			HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("en_email", uid);
+		dto.setEn_email(uid);
 		System.out.println(dto);
 		System.out.println(uid);
 		int post = dao.notice_post(dto);

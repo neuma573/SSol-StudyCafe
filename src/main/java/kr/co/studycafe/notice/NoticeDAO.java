@@ -29,7 +29,7 @@ public class NoticeDAO {
 		String sql = "insert into tb_notice values(n_number, ?, ?, ?, ?)";
 		try {
 			pstmt = con.prepareStatement(sql);
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 			pstmt.setString(1, noticeDTO.getEn_email());
 			pstmt.setString(2, noticeDTO.getN_title());
 			pstmt.setString(3, noticeDTO.getN_contents());
