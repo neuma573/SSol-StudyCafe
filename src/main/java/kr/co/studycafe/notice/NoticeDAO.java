@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+
 import net.utility.DBClose;
 import net.utility.DBOpen;
 
@@ -97,6 +98,68 @@ public class NoticeDAO {
 			
 			return dto;
 		}//Notice_read() end
-	
+		
+		public NoticeDTO Notice_modify(int n_number) {
+			NoticeDTO dto=null;
+			try {
+				con=dbopen.getConnection();
+				sql=new StringBuilder();
+				sql.append(" SELECT n_number, en_email, n_title, n_content, n_date");
+				sql.append(" FROM tb_notice ");
+				sql.append(" WHERE n_number=? ");
+				sql.append(" ORDER BY n_number DESC ");
+				pstmt=con.prepareStatement(sql.toString());
+				pstmt.setInt(1, n_number);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					dto = new NoticeDTO();
+					dto.setN_number(rs.getInt("n_number"));
+					dto.setEn_email(rs.getString("en_email"));
+					dto.setN_title(rs.getString("n_title"));
+					dto.setN_contents(rs.getString("n_content"));
+					dto.setN_date(rs.getString("n_date"));
+				}
+				
+			}catch (Exception e) {
+				System.out.println("Notice_read 실패 : " + e);
+			}
+			
+			return dto;
+		}//Notice_read() end
+		public int notice_modify_post(NoticeDTO noticeDTO) {
+			sql=new StringBuilder();
+			sql.append("Update tb_notice SET en_mail=?, n_title=?, n_contents=?, n_date)=?");
+			sql.append(" WHERE n_number = ? ");
+			try {
+				con=dbopen.getConnection();
+				pstmt = con.prepareStatement(sql.toString());
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+				pstmt.setString(1, noticeDTO.getEn_email());
+				pstmt.setString(2, noticeDTO.getN_title());
+				pstmt.setString(3, noticeDTO.getN_contents());
+				pstmt.setString(4, LocalDateTime.now().format(formatter));
+				pstmt.setInt(5, noticeDTO.getN_number());
+					
+				return pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return -1;
+		}
+		
+		public int notice_delete(NoticeDTO noticeDTO) {
+			sql=new StringBuilder();
+			sql.append("delete from tb_notice WHERE n_number = ?");
+			try {
+				con=dbopen.getConnection();
+				pstmt = con.prepareStatement(sql.toString());
+				pstmt.setInt(1, noticeDTO.getN_number());
+				return pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return -1;
+		}
+		
 	
 }
