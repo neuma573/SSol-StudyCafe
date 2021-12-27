@@ -16,6 +16,8 @@ var resScript = (function(){
     var locPay;
     var locPayT = 0;
     var week4, week8, week12;
+    var resChkList=[];
+    var resArrList=[];
     return{
         reserve : function(){ //실시간 예약 처음 로드됐을때 
             //실시간예약
@@ -62,6 +64,18 @@ var resScript = (function(){
 
                 });
             });
+
+            for(var d=0; d<31; d++){
+                $(".seatDiv .deskD").append("<a href='javascript:' data-val='desk_"+d+"' class='desk seat'><span>좌석"+d+"</span></a>");	
+            }
+            
+            for(var r=0; r<4; r++){
+                $(".seatDiv .roomD").append("<a href='javascript:' data-val='room_"+r+"' class='room seat'><span>ROOM"+r+"</span></a>");	
+            }
+            
+            for(var l=0; l<20; l++){
+                $(".lockerDiv .lockerD").append("<a href='javascript:' data-val='locker_"+l+"' class='locker'><span>사물함"+l+"</span></a>");	
+            }
         },
         calSet : function(){ //달력 처음 로드됐을때 
             $.ajax({
@@ -310,6 +324,7 @@ var resScript = (function(){
                     seatTxt = $(this).children("span").text();
                     $(this).addClass("on");
                     $(".slcDeTail .seat .data").append(seatTxt);
+                    $(".slcDeTail .seat .data").attr("data-val", $(this).attr("data-val"));
 
                     // 좌석 별 예약시간 데이터 뿌려줌,, 
                     if(resArray.lenght != 0){ //선택 날짜에 예약 내역이 있을때 
@@ -412,6 +427,7 @@ var resScript = (function(){
                     $(this).addClass("on");
                     
                     $(".slcDeTail .seat .data").append(lockerTxt);
+                    $(".slcDeTail .seat .data").attr("data-val", $(this).attr("data-val"));
                     if(!$(".reserveCont .rightFix .tabD .tab a").eq(1).hasClass("on")){
                         $(".reserveCont .rightFix .tabD .tab a").eq(1).click();
                     }
@@ -427,6 +443,7 @@ var resScript = (function(){
                 var detailLoc = $(".slcDeTail .location .data").text();
                 var detailStore = $(".slcDeTail .store .data").text();
                 var datailSeat = $(".slcDeTail .seat .data").text();
+                var datailSeatVal = $(".slcDeTail .seat .data").attr("data-val");
                 var detailDate = $(".slcDeTail .date .data").text();
                 if(resDetailArr.length != 0){
                     if(resDetailArr[0].store != detailStore){
@@ -444,7 +461,7 @@ var resScript = (function(){
                     locPayT+=locPay;
                 }
                 
-                console.log(resDetailArr);
+                
                 if(resDetailArr.length != 0){
                     for(var r=0; r<resDetailArr.length; r++){
                         if(resDetailArr[r].seat == datailSeat){
@@ -471,8 +488,10 @@ var resScript = (function(){
                             loc:detailLoc,
                             store:detailStore,
                             seat:datailSeat,
+                            seatVal:datailSeatVal,
                             date:detailDate,
                             time:timeArr[r].time2,
+                            timeVal:timeArr[r].time1,
                             pay:basicPay
                         });
                     }
@@ -481,6 +500,7 @@ var resScript = (function(){
                         loc:detailLoc,
                         store:detailStore,
                         seat:datailSeat,
+                        seatVal:datailSeatVal,
                         date:detailDate,
                         time:$(".slcDeTail .time .data").text(),
                         pay:basicPay
@@ -501,11 +521,11 @@ var resScript = (function(){
                 $html="";
                 $html+="<div class='list'><div><p class='num'>"+resListNum+"</p>";
                 $html+="<p class='location'>"+resDetailArr[l].loc+"</p>";
-                $html+="<p class='store'>"+resDetailArr[l].store+"</p>";
-                $html+="<p class='seat'>"+resDetailArr[l].seat+"</p>";
-                $html+="<p class='date'>"+resDetailArr[l].date+"</p>";
-                $html+="<p class='time'>"+resDetailArr[l].time+"</p>";
-                $html+="<p class='pay'>"+numberWithCommas(resDetailArr[l].pay)+"원</p>";
+                $html+="<p class='store' name='store_no'>"+resDetailArr[l].store+"</p>";
+                $html+="<p class='seat' name='seat_code'>"+resDetailArr[l].seat+"</p>";
+                $html+="<p class='date' name='res_date'>"+resDetailArr[l].date+"</p>";
+                $html+="<p class='time' name='times'>"+resDetailArr[l].time+"</p>";
+                $html+="<p class='pay' >"+numberWithCommas(resDetailArr[l].pay)+"원</p>";
                 $html+="</div><a href='javascript:' class='del'>삭제</a></div>";
                 $(".reserveCont .resCheck .listD").append($html);
                 resListNum++;
@@ -712,36 +732,40 @@ var resScript = (function(){
                 }
             });
         },
-        resPayment : function(){// 결제하기 클릭 시 
-            $("#pay_data #store").val(store_no);
-            console.log(resDetailArr);
-            var testArr = [];
-            var testNum=1;
-            //date가 같고 seat 이 값으면 
-            if(resDetailArr.length!=0){
-                testArr.push({date:resDetailArr[0].date, seat:resDetailArr[0].seat});
-                
-                //여긔부터....
-                for(var r=0; r<resDetailArr.length; r++){
-                    var d = resDetailArr[r].date;
-                    var s = resDetailArr[r].seat;
-                    for(var t=0; t<testNum; t++){
-                        console.log("r : "+r);
-                        console.log(testArr[t]);
-                        if(d != testArr[t].date){
-                            testArr.push({date:d, seat:s});
-                            testNum++;
-                            console.log("testNum : "+testNum);
-                        }
-                    }
-                }
+        resChk : function(){// 결제하기 클릭 시 
+            resArrList = [];
+            store_no = parseInt(store_no);
+            for(var r=0; r<resDetailArr.length; r++){
+                resArrList.push({
+                    store_no:store_no,
+                    seat_code:resDetailArr[r].seatVal,
+                    res_date:resDetailArr[r].date,
+                    times:resDetailArr[r].timeVal //시간코드 
+                });
             }
             
+            resScript.resChkAjax(resArrList);
+        },
+        resChkAjax: function(resArrList){
+            $.ajax({
+				type: "POST",
+				url: "../resChk",
+                contentType :   "application/json; charset=UTF-8",
+                traditional : true, //필수
+                data:JSON.stringify(resArrList),
+				success: function(data) {
+                    if(data>0){
+                        alert("이미 예약된 좌석이 포함되어 있습니다. \n새로고침 후 다시 이용해주세요.");
+                        return false;
+                    }else{
+                        console.log("예약 내역 없음");
+                    }
+				},
+                error:function(request, status, error){
+                    console.log("AJAX_ERROR");
+                }
+			});// ajax              
 
-            console.log(testArr);
-            
-            //return document.getElementById('pay_data').submit();
-            //return false;
         },
         resEtc : function(){
             //예약확인 리스트 목록 삭제 
