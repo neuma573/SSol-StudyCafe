@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.SessionAttribute;
- 
+
 import net.utility.DBClose;
 import net.utility.DBOpen;
 
@@ -65,11 +65,37 @@ public class NoticeDAO {
 				}//if end
 			}catch (Exception e) {
 				System.out.println("Notice_list 실패 : "+e);
-			}finally {
-				DBClose.close(con, pstmt, rs);
 			}
 			return Notice_list;
 		}//Notice_list() end
+	  
+		public NoticeDTO Notice_read(int n_number) {
+			NoticeDTO dto=null;
+			try {
+				con=dbopen.getConnection();
+				sql=new StringBuilder();
+				sql.append(" SELECT n_number, en_email, n_title, n_content, n_date");
+				sql.append(" FROM tb_notice ");
+				sql.append(" WHERE n_number=? ");
+				sql.append(" ORDER BY n_number DESC ");
+				pstmt=con.prepareStatement(sql.toString());
+				pstmt.setInt(1, n_number);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					dto = new NoticeDTO();
+					dto.setN_number(rs.getInt("n_number"));
+					dto.setEn_email(rs.getString("en_email"));
+					dto.setN_title(rs.getString("n_title"));
+					dto.setN_contents(rs.getString("n_content"));
+					dto.setN_date(rs.getString("n_date"));
+				}
+				
+			}catch (Exception e) {
+				System.out.println("Notice_read 실패 : " + e);
+			}
+			
+			return dto;
+		}//Notice_read() end
 	
 	
 }

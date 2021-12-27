@@ -1,29 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="../header.jsp"%>
 <!-- 본문시작 -->
 <style>
 body {
-    position: relative;
-    font-family: "Montserrat", "Noto Sans KR", "맑은 고딕", "Malgun Gothic", sans-serif;
-    font-size: 18px;
-    font-weight: 300;
-    color: #666;
-    letter-spacing: -0.025em;
-    line-height: 1;
-    height: 100%;
-    -webkit-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    -webkit-overflow-scrolling: touch;
+	position: relative;
+	font-family: "Montserrat", "Noto Sans KR", "맑은 고딕", "Malgun Gothic",
+		sans-serif;
+	font-size: 18px;
+	font-weight: 300;
+	color: #666;
+	letter-spacing: -0.025em;
+	line-height: 1;
+	height: 100%;
+	-webkit-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	-webkit-overflow-scrolling: touch;
 }
-div{
-    margin: 0;
-    padding: 0;
-    display: block;
+
+div {
+	margin: 0;
+	padding: 0;
+	display: block;
 }
+
 .subTit {
-    padding: 200px 0 80px;
+	padding: 200px 0 80px;
 }
 
 .page_title_area .title {
@@ -188,8 +193,8 @@ a {
 </style>
 
 <div class="subTit">
-		<h2>공지사항</h2>
-	</div>
+	<h2>공지사항</h2>
+</div>
 <div id="content" class="sub_content">
 
 	<div id="boardWrap">
@@ -209,21 +214,14 @@ a {
 					</tr>
 				</thead>
 				<tbody>
+				<c:forEach var="dto" items="${Notice_list}">
 					<tr>
-						<td class="num t_center"><span class="label">NOTICE</span></td>
-						<td><a href="/notice/notice_view.do" class="ellipsis">홈페이지 오픈</a></td>
-						<td class="date t_center">2021.12.13</td>
+						<td class="num t_center"><span class="label">${dto.n_number}</span></td>
+						<td><a href="/notice/notice_view.do?n_number=${dto.n_number}" class="ellipsis">${dto.n_title}</a></td>
+						<td class="date t_center">${dto.n_date}</td>
 					</tr>
-					<tr>
-						<td class="num t_center"><span class="label">NOTICE</span></td>
-						<td><a href="/notice/notice_view.do" class="ellipsis">홈페이지 오픈 환영</a></td>
-						<td class="date t_center">2021.12.13</td>
-					</tr>
-					<tr>
-						<td class="num t_center"><span class="label">NOTICE</span></td>
-						<td><a href="/notice/notice_view.do" class="ellipsis">홈페이지 오픈 기념 이벤트</a></td>
-						<td class="date t_center">2021.12.13</td>
-					</tr>
+					</c:forEach>
+					
 				</tbody>
 			</table>
 		</div>
