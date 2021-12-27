@@ -87,15 +87,20 @@
 <script>
     function chat_ch(){ 
     	var store=$("#place").val();
+    	console.log(typeof(store));
          var uid = '<%=(String)session.getAttribute("uid")%>';
 
           if(uid=="null"){ 
              alert("로그인이 필요한 항목입니다."); 
+             //location.href="../chat/room?roomId="+store+"&uid="+uid;
+             //location.href="../chat?roomId="+store+"&uid="+uid;
              location.href="../login/login.do";
           }
           else{
         	  alert("store_no="+store); 
-        	  
+        	  //location.href="../chat?roomId="+store+"&uid="+uid;
+        	  location.href="../chat/room?roomId="+store+"&uid="+uid;
+       
         	  /*
         	  $.ajax({
         	        type: "post", 
@@ -104,6 +109,7 @@
         	        contentType : "application/x-www-form-urlencoded; charset=UTF-8",
         	        data: form
         	    });
+   
         	  */
         	  
           }

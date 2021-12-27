@@ -63,12 +63,12 @@
 <div class="share_view">
 	<div class="share_view_cont">
 		<div class="share_view_head t_center">
-			<h4>제목</h4>
-			<p class="share_date">2021.12.23</p>
+			<h4>${dto.n_title}</h4>
+			<p class="share_date">${dto.n_date}</p>
 		</div>
 		<div class="share_view_body">
 			<div class="share_view_body_txt">
-				<p style="text-align: center">본문</p>
+				<p style="text-align: center">${dto.n_contents}</p>
 			</div>
 		</div>
 		<table>

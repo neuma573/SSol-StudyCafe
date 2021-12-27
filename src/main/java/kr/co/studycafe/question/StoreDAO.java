@@ -57,4 +57,26 @@ public class StoreDAO {
 	    	}
 	    	return list;
 	    }
+	 
+	 public String storeName(String store_no) {
+		 String name=null;
+			try {
+				con = dbopen.getConnection();
+				sql = new StringBuilder();
+				sql.append(" SELECT * ");
+				sql.append(" from tb_store_info");
+				sql.append(" WHERE store_no=? ");
+				pstmt = con.prepareStatement(sql.toString());
+				pstmt.setString(1, store_no);
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					name=rs.getString("store_name");
+				} 
+			} catch (Exception e) {
+				System.out.println("로그인 실패" + e);
+			} finally {
+				DBClose.close(con, pstmt);
+			} // end
+			return name;
+		}// create() end
 }
