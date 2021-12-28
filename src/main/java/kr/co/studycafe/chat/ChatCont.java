@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.studycafe.join.JoinDAO;
@@ -32,8 +33,7 @@ public class ChatCont {
     }
 	
 	 @RequestMapping(value = "/chat/room", method = RequestMethod.GET)
-	    public ModelAndView getRoom(String roomId, String uid){
-	    	System.out.println("?????");
+	    public ModelAndView getRoom(String roomId, @SessionAttribute(name="uid", required=false) String uid){
 	    	StoreDAO storedao = new StoreDAO();
 	    	JoinDAO joindao = new JoinDAO();
 	    	ModelAndView mav = new ModelAndView();

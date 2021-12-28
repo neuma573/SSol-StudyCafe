@@ -13,7 +13,7 @@
 						style="background-image: url('../images/userImg.png')"></div>
 					<div class="txt_wrap">
 						<p class="name">
-							<span>${userInfo.en_name}</span> 님
+							<span>사업자 ${userInfo.en_name}</span> 님
 						</p>
 						<p class="email">회원이메일</p>
 					</div>
@@ -31,6 +31,7 @@
 							<col width="*">
 							<col width="*">
 							<col width="*">
+							<col width="*">
 						</colgroup>
 						<tbody>
 							<tr>
@@ -39,17 +40,40 @@
 								<th>운영시간</th>
 								<th>사업자번호</th>
 								<th>전화번호</th>
+								<th>채팅 문의</th>
 							</tr>
+							<%
+							if (request.getAttribute("storelist") == null) {
+							%>
 							<tr>
-								<td colspan="5">보유 지점이 없습니다.</td>
+								<td colspan="6">보유 지점이 없습니다.</td>
 							</tr>
+							<%
+							} else {
+							%>
+							<c:forEach var="dto" items="${storelist}">
+								<tr>
+
+									<td>${dto.store_name}</td>
+									<td>${dto.store_address}</td>
+									<td>${dto.operating_hours}</td>
+									<td>${dto.store_en_no}</td>
+									<td>${dto.tel}</td>
+									<td><a href="../chat/room?roomId=${dto.store_no}">
+											문의확인</a></td>
+								</tr>
+							</c:forEach>
+							<%
+							}
+							%>
+
 						</tbody>
 					</table>
 				</div>
 			</div>
 
 			<div class="layer_wrap on">
-				<p class="mypage_ttl rel on">최근 예약 내역</p>
+				<p class="mypage_ttl rel on">이벤트 개최 정보</p>
 				<div class="mypage_table">
 					<table>
 						<colgroup>
@@ -59,35 +83,44 @@
 							<col width="*">
 							<col width="*">
 							<col width="*">
-							<col width="206px">
 						</colgroup>
 						<tbody>
 							<tr>
-								<th>예약일자</th>
-								<th>예약시간</th>
-								<th>지점</th>
-								<th>좌석번호</th>
-								<th>사물함번호</th>
-								<th>총금액</th>
-								<th>진행상황</th>
+								<th>이벤트명</th>
+								<th>시작기간</th>
+								<th>종료기간</th>
+								<th>당첨자 수</th>
+								<th>당첨 금액</th>
+								<th>내용</th>
 							</tr>
+							<%
+							if (request.getAttribute("eventlist") == null) {
+							%>
 							<tr>
-								<td colspan="7">예약된 내용이 없습니다.</td>
+								<td colspan="6">개최된 이벤트가 없습니다.</td>
 							</tr>
+							<%
+							} else {
+							%>
+							<c:forEach var="dto" items="${eventlist}">
+								<tr>
+									<td>${dto.e_title}</td>
+									<td>${dto.e_start}</td>
+									<td>${dto.e_end}</td>
+									<td>${dto.e_winners}</td>
+									<td>${dto.e_money}</td>
+									<td>${dto.e_content}</td>
+									
+								</tr>
+							</c:forEach>
+							<%
+							}
+							%>
 						</tbody>
 					</table>
 				</div>
 			</div>
-			<div class="layer_wrap on">
-				<p class="mypage_ttl rel on">보유 쿠폰</p>
-				<div class="mypage_list">
-					<ul>
-						<li>
-							<p class="coupon">보유하신 쿠폰이 없습니다.</p>
-						</li>
-					</ul>
-				</div>
-			</div>
+
 			<div style="margin-bottom: 40px;"></div>
 			<div class="btnD">
 				<a href="mypage/place_add.do"><span id="" class="btn" onClick="">지점

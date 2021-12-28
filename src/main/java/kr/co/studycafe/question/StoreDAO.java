@@ -71,6 +71,7 @@ public class StoreDAO {
 					dto.setStore_name(rs.getString("store_name"));
 					dto.setStore_address(rs.getString("store_address"));
 					dto.setOperating_hours(rs.getString("operating_hours"));
+					dto.setStore_en_no(rs.getString("store_en_no"));
 					dto.setRoom_count(rs.getInt("room_count"));
 					dto.setDesk_count(rs.getInt("desk_count"));
 					dto.setBox_count(rs.getInt("box_count"));
@@ -110,4 +111,45 @@ public class StoreDAO {
 		} // end
 		return name;
 	}// create() end
+	
+	public ArrayList<StoreDTO> storeInfolist(String uid) { //사업자 보유 지점 정보 리스트
+		ArrayList<StoreDTO> list = null;
+
+		try {
+			con = dbopen.getConnection();
+			sql = new StringBuilder();
+			sql.append(" select * ");
+			sql.append(" from tb_store_info ");
+			sql.append(" where en_email=? ");
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, uid);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				list = new ArrayList<StoreDTO>();
+				do {
+					StoreDTO dto = new StoreDTO();
+					dto.setStore_no(rs.getInt("store_no"));
+					dto.setEn_email(rs.getString("en_email"));
+					dto.setStore_name(rs.getString("store_name"));
+					dto.setStore_address(rs.getString("store_address"));
+					dto.setOperating_hours(rs.getString("operating_hours"));
+					dto.setRoom_count(rs.getInt("room_count"));
+					dto.setDesk_count(rs.getInt("desk_count"));
+					dto.setBox_count(rs.getInt("box_count"));
+					dto.setStore_img(rs.getString("store_img"));
+					dto.setStore_en_no(rs.getString("store_en_no"));
+					dto.setTel(rs.getString("tel"));
+					dto.setLatitude(rs.getDouble("latitude"));
+					dto.setLongitude(rs.getDouble("longitude"));
+					list.add(dto); // list에 모으기
+				} while (rs.next());
+			} // end
+		} catch (Exception e) {
+			System.out.println("보유 매장 정보 목록 실패: " + e);
+		} finally {
+			DBClose.close(con, pstmt, rs);
+		}
+		return list;
+	}
 }

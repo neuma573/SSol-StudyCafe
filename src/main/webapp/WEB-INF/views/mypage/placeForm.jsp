@@ -10,7 +10,7 @@
 		<form action="/mypage/place_add.do" method="post"
 			enctype="multipart/form-data" accept-charset="UTF-8">
 			<div class="right">
-				<div class="formCont">]
+				<div class="formCont">
 					<dl>
 						<dt>매장명</dt>
 						<dd>

@@ -33,7 +33,7 @@
 .fs_def > *{display:inline-block;font-size:16px;vertical-align:top}
 
 /* mypage */
-.mypage_wrap{padding:0px}
+.mypage_wrap{ margin:0 auto; padding:0px; width:1000px;}
 .mypage_wrap .inner_1168{padding-top:0px}
 .mypage_wrap .inner_1168::after{content:'';display:block;clear:both}
 .mypage_wrap .inner_1260{padding-top:0px}

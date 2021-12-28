@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import kr.co.studycafe.place.PlaceDTO;
+import kr.co.studycafe.question.StoreDTO;
 import net.utility.DBClose;
 import net.utility.DBOpen;
 
@@ -162,5 +163,42 @@ public class EventDAO {
 		return cnt;
 		
 	}//event_delete() end
+	
+	public ArrayList<EventDTO> eventInfolist(String uid) { //이벤트 개최 정보
+		ArrayList<EventDTO> list = null;
+
+		try {
+			con = dbopen.getConnection();
+			sql = new StringBuilder();
+			sql.append(" select * ");
+			sql.append(" from tb_event ");
+			sql.append(" where en_email=? ");
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, uid);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				list = new ArrayList<EventDTO>();
+				do {
+					EventDTO dto = new EventDTO();
+					dto.setE_number(rs.getInt("e_number"));
+					dto.setEn_email(rs.getString("en_email"));
+					dto.setE_title(rs.getString("e_title"));
+					dto.setE_content(rs.getString("e_content"));
+					dto.setE_image(rs.getString("e_image"));
+					dto.setE_start(rs.getString("e_start"));
+					dto.setE_end(rs.getString("e_end"));
+					dto.setE_winners(rs.getInt("e_winners"));
+					dto.setE_money(rs.getInt("e_money"));
+					list.add(dto); // list에 모으기
+				} while (rs.next());
+			} // end
+		} catch (Exception e) {
+			System.out.println("개최 이벤트 정보 목록 실패: " + e);
+		} finally {
+			DBClose.close(con, pstmt, rs);
+		}
+		return list;
+	}
 
 }//class end
