@@ -8,6 +8,7 @@ public class StoreDTO {
 	private String store_name;
 	private String store_address;
 	private String operating_hours;
+	private String store_en_no;
 	private int room_count;
 	private int desk_count;
 	private int box_count;
@@ -16,15 +17,6 @@ public class StoreDTO {
 	private String store_img;
 	private String tel;
 	private MultipartFile store_imgMF;
-	private int score_avg;
-	@Override
-	public String toString() {
-		return "StoreDTO [store_no=" + store_no + ", en_email=" + en_email + ", store_name=" + store_name
-				+ ", store_address=" + store_address + ", operating_hours=" + operating_hours + ", room_count="
-				+ room_count + ", desk_count=" + desk_count + ", box_count=" + box_count + ", latitude=" + latitude
-				+ ", longitude=" + longitude + ", store_img=" + store_img + ", tel=" + tel + ", store_imgMF="
-				+ store_imgMF + ", score_avg=" + score_avg + ", review_tot=" + review_tot + "]";
-	}
 	public int getStore_no() {
 		return store_no;
 	}
@@ -54,6 +46,12 @@ public class StoreDTO {
 	}
 	public void setOperating_hours(String operating_hours) {
 		this.operating_hours = operating_hours;
+	}
+	public String getStore_en_no() {
+		return store_en_no;
+	}
+	public void setStore_en_no(String store_en_no) {
+		this.store_en_no = store_en_no;
 	}
 	public int getRoom_count() {
 		return room_count;
@@ -103,17 +101,6 @@ public class StoreDTO {
 	public void setStore_imgMF(MultipartFile store_imgMF) {
 		this.store_imgMF = store_imgMF;
 	}
-	public int getScore_avg() {
-		return score_avg;
-	}
-	public void setScore_avg(int score_avg) {
-		this.score_avg = score_avg;
-	}
-	public int getReview_tot() {
-		return review_tot;
-	}
-	public void setReview_tot(int review_tot) {
-		this.review_tot = review_tot;
-	}
-	private int review_tot;
+
+
 }

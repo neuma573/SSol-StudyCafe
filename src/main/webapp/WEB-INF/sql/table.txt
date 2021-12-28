@@ -19,12 +19,13 @@ en_no varchar(30) not null,
 primary key (en_email))
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 매장정보T 2021-12-21 수정 
+-- 매장정보T 2021-12-27 수정 
 CREATE TABLE tb_store_info(
-  store_no int(10) NOT NULL AUTO_INCREMENT,
+  store_no int(10) NOT NULL auto_increment,
   en_email varchar(30) NOT NULL,
   store_name varchar(30) NOT NULL,
   store_address varchar(100) NOT NULL,
+  store_en_no varchar(30) NOT NULL,
   operating_hours varchar(50) NOT NULL,
   room_count int(10) NOT NULL,
   desk_count int(10) NOT NULL,
@@ -36,19 +37,6 @@ CREATE TABLE tb_store_info(
   PRIMARY KEY (store_no),
   FOREIGN KEY (en_email) REFERENCES tb_member_en(en_email))
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---채팅T
-create table tb_chat(
- chat_no int(10) not null AUTO_INCREMENT,
- session varchar(100) ,
- PRIMARY KEY (chat_no),
- FOREIGN KEY (chat_no) REFERENCES tb_store_info(store_no))
- ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-insert into tb_chat(chat_no) values(7);
-insert into tb_chat(chat_no) values(8);
-insert into tb_chat(chat_no) values(9);
-insert into tb_chat(chat_no) values(10); 
 
 
 -- 요금T
