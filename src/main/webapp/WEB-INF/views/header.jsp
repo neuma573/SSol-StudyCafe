@@ -32,7 +32,7 @@
 						<li><a href="/event.do">이벤트</a></li>
 						<li><a href="/place.do?keyword=">지점찾기</a></li>
 						<%
-						if (request.getAttribute("uid")==null) {
+						if (session.getAttribute("uid")==null) {
 						%>
 						<li><a href="/login/login.do">로그인</a></li>
 						<li><a href="/join/join.do">회원가입</a></li>

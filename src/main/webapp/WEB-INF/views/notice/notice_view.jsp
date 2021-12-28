@@ -4,7 +4,13 @@
 <!-- 본문시작 -->
 <style>
 .share_view {
-	padding-top: 40px;
+	padding-top: 68px;
+}
+
+.share_view_cont {
+	width: 1200px;
+	margin: 0 auto;
+	padding-bottom: 200px;
 }
 
 .share_view_cont .share_view_head {
@@ -25,7 +31,7 @@
 	line-height: 120%;
 	color: #222;
 }
-.share_view_cont .share_view_head .share_date{font-size:20px; color:#222;}
+
 .share_view_cont .share_view_body {
 	padding: 46.5px 50px 50px 50px;
 	border-bottom: 1px solid #ccc;
@@ -37,7 +43,7 @@
 	letter-spacing: -0.025em;
 	color: #666;
 }
-.share_view_cont .btnD{margin-top:80px;}
+
 .share_btn {
 	display: block;
 	margin: 45px auto 0;
@@ -51,25 +57,42 @@
 	background: #001f2e;
 }
 </style>
+	<%
+	String id="";
+ if(session.getAttribute("uid")==null){
+	 id="guest";
+ }
+ else{
+	 id=session.getAttribute("uid").toString();
+ }
+
+	%>
+
 <div class="subTit">
 	<h2>공지사항</h2>
 </div>
-<div class="share_view inner">
+<div class="share_view">
 	<div class="share_view_cont">
 		<div class="share_view_head t_center">
 			<h4>${dto.n_title}</h4>
-			<p class="share_date">${dto.n_date.substring(0,10)}</p>
+			<p class="share_date">${dto.n_date}</p>
 		</div>
 		<div class="share_view_body">
 			<div class="share_view_body_txt">
 				<p style="text-align: center">${dto.n_contents}</p>
 			</div>
 		</div>
-		<div class="btnD">
-			<a href="/notice/notice.do" class="btn"><span>목록</span></a>
-			<a href="/notice/notice_write.do" class="btn"><span>글쓰기</span></a>
-			<a href="/notice/notice_modify.do" class="btn"><span>수정</span></a>
-		</div>
+		<table>
+			<th><a href="/notice/notice.do" class="share_btn">목록</a></th>
+			<%
+			if (id.equals("admin")) {
+			%>
+			<th><a href="/notice/notice_write.do" class="share_btn">글쓰기</a></th>
+			<th><a href="/notice/notice_modify.do?n_number=${dto.n_number}" class="share_btn">수정</a></th>
+			<th><a href="/notice/notice_delete.do?n_number=${dto.n_number}" class="share_btn">삭제</a></th>
+			<%}else{} %>
+			
+		</table>
 	</div>
 </div>
 <!-- 본문끝 -->
