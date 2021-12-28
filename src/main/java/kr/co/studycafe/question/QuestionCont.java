@@ -23,9 +23,9 @@ public class QuestionCont {
 		
 		HttpSession session = req.getSession();
 	    if(session.getAttribute("uid")==null) {
-	    	System.out.println("que세션 ㄴ");
+	    	//System.out.println("que세션 ㄴ");
 	    }else{
-	    	System.out.println("que세션 o"+session.getAttribute("uid"));
+	    	//System.out.println("que세션 o"+session.getAttribute("uid"));
 	    	mav.addObject("uid", session.getAttribute("uid"));
 	    }	
 		mav.addObject("list",dao.StoreList());

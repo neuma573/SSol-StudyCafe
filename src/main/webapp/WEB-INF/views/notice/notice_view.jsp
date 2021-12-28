@@ -57,24 +57,41 @@
 	background: #001f2e;
 }
 </style>
+	<%
+	String id="";
+ if(session.getAttribute("uid")==null){
+	 id="guest";
+ }
+ else{
+	 id=session.getAttribute("uid").toString();
+ }
+
+	%>
+
 <div class="subTit">
 	<h2>공지사항</h2>
 </div>
 <div class="share_view">
 	<div class="share_view_cont">
 		<div class="share_view_head t_center">
-			<h4>제목</h4>
-			<p class="share_date">2021.12.23</p>
+			<h4>${dto.n_title}</h4>
+			<p class="share_date">${dto.n_date}</p>
 		</div>
 		<div class="share_view_body">
 			<div class="share_view_body_txt">
-				<p style="text-align: center">본문</p>
+				<p style="text-align: center">${dto.n_contents}</p>
 			</div>
 		</div>
 		<table>
 			<th><a href="/notice/notice.do" class="share_btn">목록</a></th>
+									<%
+						if (id.equals("admin")) {
+						%>
 			<th><a href="/notice/notice_write.do" class="share_btn">글쓰기</a></th>
-			<th><a href="/notice/notice_modify.do" class="share_btn">수정</a></th>
+			<th><a href="/notice/notice_modify.do?n_number=${dto.n_number}" class="share_btn">수정</a></th>
+			<th><a href="/notice/notice_delete.do?n_number=${dto.n_number}" class="share_btn">삭제</a></th>
+			<%}else{} %>
+			
 		</table>
 	</div>
 </div>

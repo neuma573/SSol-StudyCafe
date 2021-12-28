@@ -189,15 +189,27 @@ textarea {
     box-sizing: border-box;
 }
 </style>
-
+	<%
+		String uid = "";
+	%>
+									<%
+						if (!session.getAttribute("uid").equals("admin")) {
+						%>
+						
+						<script>
+		alert('권한이 없습니다');
+		location.href = "/home.do"
+	</script>
+	<%
+		}
+	%>
 <div class="subTit">
 	<h2>공지사항</h2>
 </div>
 <div id="boardWrap">
 	<div class="inquiry_wrap">
-		<form name="inquiry_write" method="post"
-			action="/board/index.php?type=action&amp;skin=root"
-			enctype="multipart/form-data" accept-charset="UTF-8"
+		<form name="inquiry_write" action="notice_modifySubmit.do?n_number=${dto.n_number}" method="post"
+			action="submit"
 			class="inquiry_form">
 			<fieldset class="iqr_info">
 				<table summary="상담자 정보 입력사항" class="inquiry_table">
@@ -208,21 +220,21 @@ textarea {
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row"><label for="title">제목</label></th>
-							<td><input type="text" class="w464" name="title"
-								id="title" required="" autocomplete="off"></td>
+							<th scope="row"><label for="n_title">제목</label></th>
+							<td><input type="text" class="w464" name="n_title"
+								id="title" required="" autocomplete="off" value="${dto.n_title}"></td>
 						</tr>
 
 
 						<tr class="cont">
 							<th scope="row" class="v_top row_top"><label
-								for="iqr_command_01">내용</label></th>
-							<td><textarea name="content" id="content"
-									required=""></textarea></td>
+								for="contents">내용</label></th>
+							<td><textarea name="n_contents" id="n_contents"
+									required="">${dto.n_contents}</textarea></td>
 						</tr>
 					</tbody>
 				</table>
-				<a href="/notice/notice.do" class="share_btn">제출</a>
+				<button type="submit" class="share_btn">제출</button>
 			</fieldset>
 		</form>
 	</div>

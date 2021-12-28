@@ -1,13 +1,16 @@
+<%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="../header.jsp" %>
 <script src="../js/res_script.js"></script>
+
 <!-- 본문시작 -->
 	<div class="subTit">
 		<h2>실시간예약</h2>
-	</div>
+	</div>	
+
 	<div class="container reserveCont">
 		<div class="inner">
 			<div class="reserveDiv">
@@ -28,7 +31,7 @@
 				<div class="accoD">
 					<div class="accoBox on">
 						<a href="javascript:" class="accoTit">좌석 선택하기</a>
-						<div class="accoCont" style="display:block;">
+						<div class="accoCont" style="display:block;"><!-- 지역, 지점 선택하기 전에 hide 클래스 붙음 -->
 							<div class="seatInfo">
 								<span>선택가능</span>
 								<span>선택함</span>
@@ -36,43 +39,12 @@
 							</div>
 							<div class="seatDiv">
 								<div class="deskD">
-									<a href="javascript:" data-val="desk_1" class="desk seat"><span>좌석1</span></a><!-- 클래스 no 붙으면 선택 불가 / max 31 -->
-									<a href="javascript:" data-val="desk_2" class="desk seat"><span>좌석2</span></a>
-									<a href="javascript:" data-val="desk_3" class="desk seat"><span>좌석3</span></a>
-									<a href="javascript:" data-val="desk_4" class="desk seat"><span>좌석4</span></a>
-									<a href="javascript:" data-val="desk_5" class="desk seat"><span>좌석5</span></a>
-									<a href="javascript:" data-val="desk_6" class="desk seat"><span>좌석6</span></a>
-									<a href="javascript:" data-val="desk_7" class="desk seat"><span>좌석7</span></a>
-									<a href="javascript:" data-val="desk_8" class="desk seat"><span>좌석8</span></a>
-									<a href="javascript:" data-val="desk_9" class="desk seat"><span>좌석9</span></a>
-									<a href="javascript:" data-val="desk_10" class="desk seat"><span>좌석10</span></a>
-									<a href="javascript:" data-val="desk_11" class="desk seat"><span>좌석11</span></a>
-									<a href="javascript:" data-val="desk_12" class="desk seat"><span>좌석12</span></a>
-									<a href="javascript:" data-val="desk_13" class="desk seat"><span>좌석13</span></a>
-									<a href="javascript:" data-val="desk_14" class="desk seat"><span>좌석14</span></a>
-									<a href="javascript:" data-val="desk_15" class="desk seat"><span>좌석15</span></a>
-									<a href="javascript:" data-val="desk_16" class="desk seat"><span>좌석16</span></a>
-									<a href="javascript:" data-val="desk_17" class="desk seat"><span>좌석17</span></a>
-									<a href="javascript:" data-val="desk_18" class="desk seat"><span>좌석18</span></a>
-									<a href="javascript:" data-val="desk_19" class="desk seat"><span>좌석19</span></a>
-									<a href="javascript:" data-val="desk_20" class="desk seat"><span>좌석20</span></a>
-									<a href="javascript:" data-val="desk_21" class="desk seat"><span>좌석21</span></a>
-									<a href="javascript:" data-val="desk_22" class="desk seat"><span>좌석22</span></a>
-									<a href="javascript:" data-val="desk_23" class="desk seat"><span>좌석23</span></a>
-									<a href="javascript:" data-val="desk_24" class="desk seat"><span>좌석24</span></a>
-									<a href="javascript:" data-val="desk_25" class="desk seat"><span>좌석25</span></a>
-									<a href="javascript:" data-val="desk_26" class="desk seat"><span>좌석26</span></a>
-									<a href="javascript:" data-val="desk_27" class="desk seat"><span>좌석27</span></a>
-									<a href="javascript:" data-val="desk_28" class="desk seat"><span>좌석28</span></a>
-									<a href="javascript:" data-val="desk_29" class="desk seat"><span>좌석29</span></a>
-									<a href="javascript:" data-val="desk_30" class="desk seat"><span>좌석30</span></a>
-									<a href="javascript:" data-val="desk_31" class="desk seat"><span>좌석31</span></a>
+									<!-- <a href="javascript:" data-val="desk_1" class="desk seat"><span>좌석1</span></a> -->
+									<!-- 클래스 no 붙으면 선택 불가 / max 31 -->
 								</div>
+								
 								<div class="roomD">
-									<a href="javascript:" class="room seat no"><span>ROOM1</span></a>
-									<a href="javascript:" class="room seat"><span>ROOM2</span></a>
-									<a href="javascript:" class="room seat"><span>ROOM3</span></a>
-									<a href="javascript:" class="room seat"><span>ROOM4</span></a>
+									<!-- <a href="javascript:" class="room seat no" data-val="room_1"><span>ROOM1</span></a> -->
 								</div>
 								<div class="lockerLine">사물함</div>
 							</div><!-- //seatDiv -->
@@ -84,43 +56,14 @@
 							<div class="seatInfo">
 								<span>선택가능</span>
 								<span>선택함</span>
-								<span>선택불가</span>
+								<span>선택불가 <em>(표시된 날짜까지 예약된 사물함입니다.)</em></span>
 							</div>
 							<div class="lockerDiv">
-								<div class="lockerD">
-									<a href="javascript:" class="locker no"><span>사물함1</span></a>
-									<a href="javascript:" class="locker"><span>사물함2</span></a>
-									<a href="javascript:" class="locker"><span>사물함3</span></a>
-									<a href="javascript:" class="locker"><span>사물함4</span></a>
-									<a href="javascript:" class="locker"><span>사물함5</span></a>
-									<a href="javascript:" class="locker"><span>사물함6</span></a>
-									<a href="javascript:" class="locker"><span>사물함7</span></a>
-									<a href="javascript:" class="locker"><span>사물함8</span></a>
-									<a href="javascript:" class="locker"><span>사물함9</span></a>
-									<a href="javascript:" class="locker"><span>사물함10</span></a>
-									<a href="javascript:" class="locker"><span>사물함11</span></a>
-									<a href="javascript:" class="locker"><span>사물함12</span></a>
-									<a href="javascript:" class="locker"><span>사물함13</span></a>
-									<a href="javascript:" class="locker"><span>사물함14</span></a>
-									<a href="javascript:" class="locker"><span>사물함15</span></a>
-									<a href="javascript:" class="locker"><span>사물함16</span></a>
-									<a href="javascript:" class="locker"><span>사물함17</span></a>
-									<a href="javascript:" class="locker"><span>사물함18</span></a>
-									<a href="javascript:" class="locker"><span>사물함19</span></a>
-									<a href="javascript:" class="locker"><span>사물함10</span></a>
-								</div>
+								<div class="lockerD"></div>
 							</div>
 						</div>
 					</div>
 				</div><!-- //accoD -->
-				<form id="pay_data">
-                    <input type="hidden" name="location" id="location" value=""><!-- 지역 -->
-                    <input type="hidden" name="store" id="store" value=""><!-- 지점 -->
-                    <input type="hidden" name="seat" id="seat" value=""><!-- 좌석 -->
-                    <input type="hidden" name="price" id="price" value=""><!-- 가격 -->
-                    <input type="hidden" name="day" id="day" value=""><!-- 날짜 -->
-                    <input type="hidden" name="time" id="time" value=""><!-- 시간 -->
-                </form>
 				<div class="slcDeTail">
 					<div>
 						<p class="location"><span>지역</span><span class="data"></span></p>
@@ -134,13 +77,92 @@
 					<div>
 						<p class="total">총<span class="pay">0</span>원</p>
 					</div>
-					<button type="button" name="button" class="resBtn" id="resBtn">
+					<button type="button" name="button" class="resBtn" id="resBtn" onclick="javascript:resScript.resAddClick(); return false;">
 						<div><img src="../images/cart_img.png" alt=""><span>예약추가</span></div>
 					</button>
 				</div>
 			</div><!-- //reserveDiv -->
 			<div class="rightFix">
-				<div class="cal"><img src="../images/cal_img.png"></div>
+				<div class="cal">
+					<input type="hidden" name="today" value="" id="today">
+					<div class="calSel">
+						<select id="year" name="year">
+						</select>
+						<select id="month" name="month">
+						</select> 
+					</div>						
+					<div class="calTable">
+						<table>
+							<thead>
+								<tr>
+									<th class="red">일</th>
+									<th>월</th>
+									<th>화</th>
+									<th>수</th>
+									<th>목</th>
+									<th>금</th>
+									<th>토</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+								</tr>
+								<tr>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+								</tr>
+								<tr>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+								</tr>
+								<tr>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+								</tr>
+								<tr>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+								</tr>
+								<tr>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+									<td><a href="javascript:" name="day" class="day" alt=""></a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>	
+				</div><!-- // cal -->
 				<div class="tabD">
 					<div class="tab">
 						<a href="javascript:" class="on"><span>좌석</span></a>
@@ -150,9 +172,9 @@
 						<div class="resTime on">
 							<p class="info">예약시간 <span>(시간은 복수선택 가능합니다)</span></p>
 							<div class="none"><span>좌석을 선택해 주세요.</span></div>
-							<div class="scrollD">
+							<div class="scrollD"><!-- a태그에 class="no" 붙으면 예약완료 -->
 								<a href="javascript:" data-time="08" ><span class="mark">예약가능</span><span>08:00 ~ 09:00</span></a>
-								<a href="javascript:" data-time="09" class="no"><span class="mark">예약완료</span><span>09:00 ~ 10:00</span></a>
+								<a href="javascript:" data-time="09" ><span class="mark">예약가능</span><span>09:00 ~ 10:00</span></a>
 								<a href="javascript:" data-time="10" ><span class="mark">예약가능</span><span>10:00 ~ 11:00</span></a>
 								<a href="javascript:" data-time="11" ><span class="mark">예약가능</span><span>11:00 ~ 12:00</span></a>
 								<a href="javascript:" data-time="12" ><span class="mark">예약가능</span><span>12:00 ~ 13:00</span></a>
@@ -173,9 +195,9 @@
 							<p class="info">예약날짜</p>
 							<div class="none"><span>사물함을 선택해 주세요.</span></div>
 							<div class="scrollD">
-							<a href="javascript:" data-week="4" ><span class="mark">예약가능</span><span>4주 (2021-12-10 ~ 2122-01-07)</span></a>
-								<a href="javascript:" data-week="4" ><span class="mark">예약가능</span><span>8주 (2021-12-10 ~ 2122-02-04)</span></a>
-								<a href="javascript:" data-week="4" ><span class="mark">예약가능</span><span>12주 (2021-12-10 ~ 2122-03-04)</span></a>
+								<a href="javascript:" data-week="4" ><span class="mark">예약가능</span><span></span></a>
+								<a href="javascript:" data-week="8" ><span class="mark">예약가능</span><span></span></a>
+								<a href="javascript:" data-week="12" ><span class="mark">예약가능</span><span></span></a>
 							</div>
 						</div><!-- //resDay -->
 					</div><!-- //tabCont -->
@@ -220,78 +242,51 @@
 		</div><!-- //resCheck -->
 		
 		<div class="totalPay">
-			<a href="javascript:">
+			<a href="javascript:void(0)" onclick="return resScript.resChk();">
 				<p>총 <span class="num">0</span>건</p><p><span class="pay">0</span>원</p>
 				결제하기
 			</a>
 		</div>
+		
+		<form name="reservefrm" id="pay_data" action="" method="post">
+            <input type="hidden" name="in_email" id="in_email" value="wlgus@gmail.com"><!-- id값 -->
+            <input type="hidden" name="store" id="store" value="1"><!-- 하나만 존재함  -->
+            <input type="hidden" name="seat_code" id="seat_code" value=""><!-- 배열로 여러개 담고  -->
+            <input type="hidden" name="seat_code" id="seat_code" value="">
+            <input type="hidden" name="seat_code" id="seat_code" value="">
+            <input type="hidden" name="res_date" id="res_date" value=""><!-- 이것뚜 하나 담고  -->
+            <input type="hidden" name="end_date" id="end_date" value=""><!-- 이거는 하나  -->
+            <input type="hidden" name="times" id="times" value=""><!-- 이것뚜 여러개 11,12,13 이런식으로 들어갈거임  -->
+            <input type="hidden" name="e_number" id="e_number" value=""><!-- 이건 결제시에 이벤트 코드 선택하면 값 들어갈거고  -->
+            <input type="hidden" name="total" id="total" value=""><!-- 이것뚜 여러개 배열로  -->
+            <input type="hidden" name="pay_prog" id="pay_prog" value=""><!-- 이거는 결제 완료 하면 Y 값 / 계좌이체면 C  -->
+        </form>
+                
 	</div><!-- //reserveCont -->
 	
+	<div class="layerPop resPop" >
+		<div class="popDiv">
+			<p class="tit">예약 내역</p>
+			<div class="popCont">
+				<div>
+					 <p class="tit1"><span>서울</span><span>홍대점</span></p>
+					 <div class="listD">
+					 	<div class="list">
+					 		<div class="date">2021-12-27 (월)</div>
+					 		<div class="dot"><span>좌석12</span> <p><span>예약시간 : </span><span>09:00~10:00, 10:00~11:00</span></p> </div>
+					 	</div>
+					 </div>
+					 <p class="tot">총 예약 건수 <span>1건</span></p>
+					 <p class="pay">결제 금액 <span>1,500원</span></p>
+				</div>
+				<div>
+					<p class="tit1"><span>이용자 정보</span></p>
+					<p><input type="text" readonly value="wlgus@gmail.com"></p>
+				</div>
+			</div>
+		</div>
+		<a href="javascript:" class="xbtn">닫기</a>
+	</div>
 <!-- 본문끝 -->
-<script>
-	$(function(){
-		var resStoreArr = [];
-		var resLocArr=[];
-		<c:forEach var="dto" items="${storeList}">
-			resStoreArr.push({
-				store_no:${dto.store_no},
-				store_name:"${dto.store_name}",
-				addr:"${dto.store_address.substring(0,2)}",
-				rcnt:${dto.room_count},
-				dcnt:${dto.desk_count},
-				bcnt:${dto.box_count}
-			});
-			
-			if(resLocArr.indexOf("${dto.store_address.substring(0,2)}")!=0){
-				resLocArr.push("${dto.store_address.substring(0,2)}");
-			}
-		</c:forEach>
-		
-		
-		for(var j=0; j<resLocArr.length; j++){
-			$(".reserveCont select.location").append("<option>"+resLocArr[j]+"</option>");
-		}
-		
-		$(".reserveCont select.location").change(function(){// 지역 선택하면
-			if($(this).val() !== "none"){
-				$(".reserveCont select.store").empty();
-				$(".reserveCont select.store").append("<option value='none'>지점을 선택해주세요</option>");
-				for(var i=0; i<resStoreArr.length; i++){
-					if(resStoreArr[i].addr.indexOf($(this).val())==0){
-						$(".reserveCont select.store").append("<option value="+resStoreArr[i].store_no+">"+resStoreArr[i].store_name+"</option>");
-					}	
-				}
-			}
-		});
-		
-		$(".reserveCont select.store").change(function(){// 지점명을 선택하면
-			if($(this).val() !== "none"){
-				$(".reserveCont .seatDiv .deskD").empty();
-				$(".reserveCont .seatDiv .roomD").empty();
-				$(".reserveCont .lockerDiv .lockerD").empty();
-				
-				for(var i=0; i<resStoreArr.length; i++){
-					if(resStoreArr[i].store_no == $(this).val()){
-						for(var n=0; n<resStoreArr[i].dcnt; n++){ // 좌석 
-							$(".reserveCont .seatDiv .deskD").append("<a href='javascript:' class='desk seat' data-val='desk_"+(n+1)+"'><span>좌석"+(n+1)+"</span></a>");			
-						}
-						
-						for(var n=0; n<resStoreArr[i].rcnt; n++){ // ROOM
-							$(".reserveCont .seatDiv .roomD").append("<a href='javascript:' class='room seat' data-val='room_"+(n+1)+"'><span>ROOM"+(n+1)+"</span></a>");			
-						}
-						
-						for(var n=0; n<resStoreArr[i].bcnt; n++){ // 사물함 
-							$(".reserveCont .lockerDiv .lockerD").append("<a href='javascript:' class='locker' data-val='locker_"+(n+1)+"'><span>사물함"+(n+1)+"</span></a>");			
-						}
-					}	
-				}
-				
-				resScript.seatClick(); //좌석 선택 
-				resScript.lockerClick(); //사물함 선택 			
-			}
-		});
-			
-	});
 
-</script>
 <%@ include file="../footer.jsp" %>

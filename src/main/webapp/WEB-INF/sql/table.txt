@@ -37,6 +37,27 @@ CREATE TABLE tb_store_info(
   FOREIGN KEY (en_email) REFERENCES tb_member_en(en_email))
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--채팅T
+create table tb_chat(
+ chat_no int(10) not null AUTO_INCREMENT,
+ session varchar(100) ,
+ PRIMARY KEY (chat_no),
+ FOREIGN KEY (chat_no) REFERENCES tb_store_info(store_no))
+ ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into tb_chat(chat_no) values(7);
+insert into tb_chat(chat_no) values(8);
+insert into tb_chat(chat_no) values(9);
+insert into tb_chat(chat_no) values(10); 
+
+
+-- 요금T
+create table tb_pay(
+pay_code varchar(10) not null,
+pay int(10) not null,
+primary key (pay_code))
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- 이벤트T
 create table tb_event(
 e_number int(10) not null auto_increment,
@@ -46,53 +67,70 @@ e_content varchar(500) not null,
 e_image varchar(50),
 e_start timestamp not null default now() ,
 e_end timestamp not null default now(),
+store_no int(10) not null,
 e_winners int(10) not null,
 e_money int(10) not null,
 primary key (e_number),
-FOREIGN KEY (en_email) REFERENCES tb_member_en(en_email))
+FOREIGN KEY (en_email) REFERENCES tb_member_en(en_email),
+FOREIGN KEY (store_no) REFERENCES tb_store_info(store_no))
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
--- 좌석예약T 2021-12-21 장지현 수정 
-create table tb_seat_res(
-sres_no int(10) not null auto_increment,
-in_email varchar(30) not null,
-store_no int(10) not null,
-seat_code varchar(20) not null,
-res_date varchar(10) not null,
-s_time varchar(20) not null,
-e_time varchar(20) not null,
-e_number int(10),
-total int(10) not null default 0,
-pay_prog char(1) not null,
-prog tinyint(1) not null default 0,
-primary key (sres_no),
-FOREIGN KEY (in_email) REFERENCES tb_member_in(in_email),
-FOREIGN KEY (store_no) REFERENCES tb_store_info(store_no),
-FOREIGN KEY (e_number) REFERENCES tb_event(e_number)
-)
-ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- 좌석예약T 2021-12-25 장지현 수정 
+CREATE TABLE tb_seat_res (
+  sres_no int(10) NOT NULL AUTO_INCREMENT,
+  in_email varchar(30) NOT NULL,
+  store_no int(10) NOT NULL,
+  seat_code varchar(20) NOT NULL,
+  res_date varchar(10) NOT NULL,
+  times varchar(100) NOT NULL DEFAULT '',
+  e_number int(10) DEFAULT NULL,
+  total int(10) NOT NULL DEFAULT 0,
+  pay_prog char(1) NOT NULL,
+  prog tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (sres_no),
+  FOREIGN KEY (in_email) REFERENCES tb_member_in(in_email),
+  FOREIGN KEY (store_no) REFERENCES tb_store_info(store_no),
+  FOREIGN KEY (e_number) REFERENCES tb_event(e_number)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 사물함예약 T
-create table tb_locker_res(
-lres_no int(10) not null auto_increment,
-in_email varchar(30) not null,
-store_no int(10) not null,
-locker_code varchar(20) not null,
-s_date varchar(20) not null,
-e_date varchar(20) not null,
-e_number int(10),
-total int(10) not null default 0,
-pay_prog char(1) not null,
-prog tinyint(1) not null default 0,
-primary key(lres_no),
-FOREIGN KEY (in_email) REFERENCES tb_member_in(in_email),
-FOREIGN KEY (store_no) REFERENCES tb_store_info(store_no),
-FOREIGN KEY (e_number) REFERENCES tb_event(e_number)
-)
-ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- 사물함예약 T 2021-12-25 장지현 수정
+CREATE TABLE tb_locker_res (
+  lres_no int(10) NOT NULL AUTO_INCREMENT,
+  in_email varchar(30) NOT NULL,
+  store_no int(10) NOT NULL,
+  locker_code varchar(20) NOT NULL,
+  s_date varchar(20) NOT NULL,
+  e_date varchar(20) NOT NULL,
+  e_number int(10) DEFAULT NULL,
+  total int(10) NOT NULL DEFAULT 0,
+  pay_prog char(1) NOT NULL,
+  prog tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (lres_no),
+  FOREIGN KEY (in_email) REFERENCES tb_member_in(in_email),
+  FOREIGN KEY (store_no) REFERENCES tb_store_info(store_no),
+  FOREIGN KEY (e_number) REFERENCES tb_event(e_number)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 예약 테이블 추가 2021-12-25 장지현 
+CREATE TABLE tb_reserve (
+  res_no int(10) NOT NULL AUTO_INCREMENT,
+  in_email varchar(30) NOT NULL,
+  store_no int(10) NOT NULL,
+  seat_code varchar(20) NOT NULL,
+  res_date varchar(20) NOT NULL,
+   end_date varchar(20) NOT NULL,
+  times varchar(100) NOT NULL DEFAULT '',
+  e_number int(10) DEFAULT NULL,
+  total int(10) NOT NULL DEFAULT 0,
+  pay_prog char(1) NOT NULL,
+  prog tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (res_no),
+  FOREIGN KEY (in_email) REFERENCES tb_member_in(in_email),
+  FOREIGN KEY (store_no) REFERENCES tb_store_info(store_no),
+  FOREIGN KEY (e_number) REFERENCES tb_event(e_number)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- 결제T
@@ -154,6 +192,7 @@ insert into tb_member_in values('dbsdud1025@gmail.com','password1','박윤영','
 insert into tb_member_in values('wlgus@gmail.com','password2','장지현','1999.9.25');
 insert into tb_member_in values('duwls@gmail.com','password3','김여진','1999.8.25');
 insert into tb_member_in values('ghwls@gmail.com','password4','나호진','1999.7.25');
+insert into tb_member_in values('admin','1111','운영자','1994.10.13');
 
 -- 사업자회원정보
 -- select * from tb_member_en;
@@ -177,13 +216,33 @@ VALUES('tpgh@gmail.com', '목동점', '서울 양천구 신정동 오목로 238 
 
 
 
+
+-- 요금
+-- select * from tb_pay;
+insert into tb_pay values('d1h',1500);
+insert into tb_pay values('d4h',5000);
+insert into tb_pay values('d6h',6000);
+insert into tb_pay values('d12h',10000);
+insert into tb_pay values('d24h',20000);
+insert into tb_pay values('d1m',300000);
+insert into tb_pay values('r1h',6000);
+insert into tb_pay values('r4h',20000);
+insert into tb_pay values('r6h',24000);
+insert into tb_pay values('r12h',40000);
+insert into tb_pay values('r24h',80000);
+insert into tb_pay values('b4w',9000);
+insert into tb_pay values('b8w',16000);
+insert into tb_pay values('b12w',24000);
+
+
+-- 이벤트
 -- select * from tb_event;
-insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, e_winners, e_money)
-values ('wotjr@gmail.com', '[신규오픈]종각점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event01.png', '2019-08-13', '2019-09-13', 2, 1000);
-insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, e_winners, e_money)
-values ('wotjr@gmail.com', '[신규오픈]홍대점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event02.jpg', '2020-03-22', '2020-04-22', 1, 2000);
-insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, e_winners, e_money)
-values ('tpgh@gmail.com', '[신규오픈]신림점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event03.jpg', '2021-12-19', '2021-02-19', 1, 1000);
+insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, store_no, e_winners, e_money)
+values ('wotjr@gmail.com', '[신규오픈]종각점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event01_png', '2019-08-13', '2019-09-13', 1, 2, 1000);
+insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, store_no, e_winners, e_money)
+values ('wotjr@gmail.com', '[신규오픈]홍대점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event02_png', '2020-03-22', '2020-04-22', 2, 1, 2000);
+insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, store_no, e_winners, e_money)
+values ('tpgh@gmail.com', '[신규오픈]신림점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event03_png', '2021-05-19', '2021-06-19', 3, 1, 1000);
 
 -- 이벤트 당첨자
 -- select * from tb_event_prizewinner;
@@ -197,23 +256,40 @@ insert into tb_event_prizewinner(e_number, in_email)
 values(3, 'ghwls@gmail.com');
 
 
--- 좌석예약정보
+-- 좌석예약정보 2021-12-25 수정 장지현 
 -- select * from tb_seat_res;
-insert into tb_seat_res (in_email, store_no, seat_code, res_date, s_time, e_time, e_number, total, pay_prog, prog)
-values('dbsdud1025@gmail.com', 1, 'desk_1', '2021-12-01', '08:00', '12:00', 1, 4000, 'Y',2);
-insert into tb_seat_res (in_email, store_no, seat_code, res_date, s_time, e_time, e_number, total, pay_prog, prog)
-values('wlgus@gmail.com', 2, 'desk_2', '2021-12-01', '11:00', '14:00', null, 4500, 'C',0);
-insert into tb_seat_res (in_email, store_no, seat_code, res_date, s_time, e_time, e_number, total, pay_prog, prog)
-values('duwls@gmail.com', 3, 'desk_1', '2021-12-02', '13:00', '19:00', null, 6000, 'Y',1);
-insert into tb_seat_res (in_email, store_no, seat_code, res_date, s_time, e_time, e_number, total, pay_prog, prog)
-values('ghwls@gmail.com', 1, 'room_1', '2021-12-01', '08:00', '12:00', null, 20000, 'Y',2);
+insert into tb_seat_res(in_email, store_no, seat_code, res_date, times, total, pay_prog, prog)
+values("wlgus@gmail.com", 1, 'desk_2', '2021-12-23', '11,12,13,14', 5000, 'Y', 0);
 
--- 사물함예약정보
+insert into tb_seat_res(in_email, store_no, seat_code, res_date, times, total, pay_prog, prog)
+values("wlgus@gmail.com", 1, 'desk_7', '2021-12-25', '11,12,13,15', 5000, 'Y', 0);
+
+insert into tb_seat_res(in_email, store_no, seat_code, res_date, times, total, pay_prog, prog)
+values("wlgus@gmail.com", 1, 'desk_11', '2021-12-25', '11,12,13,15', 5000, 'Y', 0);
+
+insert into tb_seat_res(in_email, store_no, seat_code, res_date, times, total, pay_prog, prog)
+values("wlgus@gmail.com", 1, 'desk_3', '2021-12-25', '11,12', 3000, 'Y', 0);
+
+insert into tb_seat_res(in_email, store_no, seat_code, res_date, times, total, pay_prog, prog)
+values("wlgus@gmail.com", 1, 'desk_4', '2021-12-25', '11,12,13', 4500, 'Y', 0);
+
+
+-- 사물함예약정보 2021-12-25 수정 장지현 
 -- select * from tb_locker_res;
-insert into tb_locker_res(in_email, store_no, locker_code, s_date, e_date, e_number, total, pay_prog, prog)
-values ('dbsdud1025@gmail.com',1,'locker_1','2021-11-30','2021-12-28', null, 9000, 'Y', 1);
-insert into tb_locker_res(in_email, store_no, locker_code, s_date, e_date, e_number, total, pay_prog, prog)
-values ('wlgus@gmail.com',2,'locker_2','2021-12-07','2022-02-01', null, 16000, 'Y', 0);
+insert into tb_locker_res(in_email, store_no, locker_code, s_date, e_date, total, pay_prog, prog)
+values("wlgus@gmail.com", 1, 'locker_5', '2021-12-25', '2022-1-22', 9000, 'Y', 1);
+
+insert into tb_locker_res(in_email, store_no, locker_code, s_date, e_date, total, pay_prog, prog)
+values("wlgus@gmail.com", 2, 'locker_1', '2021-12-25', '2022-1-22', 9000, 'C', 1);
+
+insert into tb_locker_res(in_email, store_no, locker_code, s_date, e_date, total, pay_prog, prog)
+values("wlgus@gmail.com", 1, 'locker_3', '2021-12-25', '2022-2-19', 16000, 'Y', 1);
+
+insert into tb_locker_res(in_email, store_no, locker_code, s_date, e_date, total, pay_prog, prog)
+values("wlgus@gmail.com", 3, 'locker_5', '2021-12-25', '2022-1-22', 9000, 'Y', 1);
+
+insert into tb_locker_res(in_email, store_no, locker_code, s_date, e_date, total, pay_prog, prog)
+values("wlgus@gmail.com", 1, 'locker_2', '2021-12-27', '2022-1-24', 9000, 'Y', 1);
 
 
 -- 결제
@@ -255,5 +331,36 @@ INSERT INTO tb_review (store_no, rev_title, rev_content, rev_image, in_email, re
 VALUES (2, '좋아요', '집중하기 좋네요 ', 'review_img4.jpeg', 'wlgus@gmail.com', 4, '2021-12-20 22:22:44');
 
 
+-- 예약 테이블 insert 추가 2021-12-25 장지현  
+insert into tb_reserve(in_email, store_no, seat_code, res_date, times, total, pay_prog, prog)
+values('wlgus@gmail.com', 1, 'desk_2', '2021-12-25', '11,12,13,14', 5000, 'Y', 0);
+
+insert into tb_reserve(in_email, store_no, seat_code, res_date, times, total, pay_prog, prog)
+values('wlgus@gmail.com', 1, 'desk_3', '2021-12-25', '11,12,13,14', 5000, 'Y', 0);
+
+insert into tb_reserve(in_email, store_no, seat_code, res_date, times, total, pay_prog, prog)
+values('wlgus@gmail.com', 1, 'desk_2', '2021-12-25', '11,12,13,14', 5000, 'C', 0);
+
+insert into tb_reserve(in_email, store_no, seat_code, res_date, times, total, pay_prog, prog)
+values('wlgus@gmail.com', 3, 'desk_2', '2021-12-25', '11,12,13,14', 5000, 'Y', 0);
+
+insert into tb_reserve(in_email, store_no, seat_code, res_date, times, total, pay_prog, prog)
+values('wlgus@gmail.com', 1, 'desk_7', '2021-12-25', '13,14', 3000, 'Y', 0);
+
+-- 사물함일때 추가 
+insert into tb_reserve(in_email, store_no, seat_code, res_date, end_date, total, pay_prog, prog)
+values('wlgus@gmail.com', 1, 'locker_5', '2021-12-25', '2022-1-22', 9000, 'Y', 1);
+
+insert into tb_reserve(in_email, store_no, seat_code, res_date, end_date, total, pay_prog, prog)
+values('wlgus@gmail.com', 1, 'locker_3', '2021-12-25', '2022-2-19', 16000, 'Y', 1);
+
+insert into tb_reserve(in_email, store_no, seat_code, res_date, end_date, total, pay_prog, prog)
+values('wlgus@gmail.com', 2, 'locker_3', '2021-12-25', '2022-1-22', 9000, 'C', 1);
+
+insert into tb_reserve(in_email, store_no, seat_code, res_date, end_date, total, pay_prog, prog)
+values('wlgus@gmail.com', 3, 'locker_5', '2021-12-25', '2022-1-22', 9000, 'Y', 1);
+
+insert into tb_reserve(in_email, store_no, seat_code, res_date, end_date, total, pay_prog, prog)
+values('wlgus@gmail.com', 1, 'locker_2', '2021-12-27', '2022-1-24', 9000, 'Y', 1);
 
 
