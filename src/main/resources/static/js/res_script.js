@@ -18,6 +18,7 @@ var resScript = (function(){
     var week4, week8, week12;
     var resChkList=[];
     var resArrList=[];
+    var resOverlab=[];
     return{
         reserve : function(){ //실시간 예약 처음 로드됐을때 
             //실시간예약
@@ -515,6 +516,28 @@ var resScript = (function(){
         },
         arrList : function(resDetailArr){
             addSeat=0, addRoom=0, addLock=0, resListNum=1;
+            function sortline(a,b){
+                if(a.date < b.date){
+                    return -1;
+                }
+                if(a.date > b.date){
+                    return 1;
+                }
+                return 0;
+            }
+            function sortline2(a,b){
+                if(a.seat < b.seat){
+                    return -1;
+                }
+                if(a.seat > b.seat){
+                    return 1;
+                }
+                return 0;
+            }
+            
+            resDetailArr.sort(sortline2);
+            resDetailArr.sort(sortline);
+            
             $(".reserveCont .resCheck .listD").empty();
             // 예약확인 list
             for(var l=0; l<resDetailArr.length; l++){
@@ -541,17 +564,18 @@ var resScript = (function(){
                 }
             }
             
+            resScript.arrListType2(resDetailArr);
+            var totalPayment=0;
+            for(var r=0; r<resOverlab.length; r++){
+                totalPayment+=resOverlab[r].total;
+            }
+            
             // 예약 결제 정보에 노출되는 정보 
-            if(addRoom>0 || addSeat>0 || addLock>0){
+            /*if(addRoom>0 || addSeat>0 || addLock>0){
                 $(".resTotD").show();
             }else if(addRoom==0 && addSeat==0 && addLock==0){
                 $(".resTotD").hide();
             }
-            
-            // 총 금액 
-            var totSeat = resScript.deskPay(addSeat);
-            var totRoom = resScript.roomPay(addRoom);
-            //var totLock = resScript.deskPay(addRoom);
             if(addSeat>0){//좌석을 1개 이상 선택했을때 
                 $(".resTotD .resTot.seatT").css("display","flex");
                 $(".resTotD .resTot.seatT .num").html(addSeat);
@@ -580,11 +604,61 @@ var resScript = (function(){
                 $(".resTotD .lockerT").css("display","none");
                 $(".resTotD .resTot.lockerT .num").html(0);
                 $(".resTotD .resTot.lockerT .pay").html(0);
-            }
-        
-            $(".reserveCont .totalPay .num").html(addSeat+addRoom+addLock);
-            $(".reserveCont .totalPay .pay").html(numberWithCommas(totSeat+totRoom+locPayT));
+            }*/
 
+            $(".reserveCont .totalPay .num").html(addSeat+addRoom+addLock);
+            $(".reserveCont .totalPay .pay").html(numberWithCommas(totalPayment));
+
+        },
+        arrListType2 : function(resDetailArr){
+            resOverlab = [];
+            var res_date, seat, seatVal, time, timeVal, size, total, end_date;
+            
+            for(var r=0; r<resDetailArr.length; r++){
+                res_date = resDetailArr[r].date;
+                seat = resDetailArr[r].seat;
+                seatVal = resDetailArr[r].seatVal;
+                time = resDetailArr[r].time+", ";
+                timeVal = resDetailArr[r].timeVal+",";
+                size = 1;
+                total=0;
+                end_date="N";
+                pay=resDetailArr[r].pay;
+
+                for(var r2=r+1; r2<resDetailArr.length; r2++){
+                    if(resDetailArr[r].date == resDetailArr[r+1].date && resDetailArr[r].seat == resDetailArr[r+1].seat){
+                        time+=resDetailArr[r2].time+", ";
+                        timeVal+=resDetailArr[r2].timeVal+",";
+                        size++;
+                        r++;
+                    }
+                }
+                
+                if(seatVal.indexOf("desk")==0){
+                    total = resScript.deskPay(size);
+                }else if(seatVal.indexOf("room")==0){
+                    total = resScript.roomPay(size);
+                }else if(seatVal.indexOf("locker")==0){
+                    timeVal="N";
+                    total = resScript.lockerPay(parseInt(time.split("주")[0]));
+                    end_date = time.substring(time.indexOf("~")+2,time.length-3);
+                }
+                
+                resOverlab.push({
+                    //db에 입력될
+                    res_date:res_date,
+                    seat_code:seatVal,
+                    times:timeVal,
+                    total:total,
+                    end_date:end_date,
+                    //화면에 보여질 
+                    seat:seat,
+                    time:time.trim(),
+                    size:size,
+                    pay:pay
+                });
+            }
+            return resOverlab;
         },
         resSet : function(){// 실시간 예약 처음 로드됐을때 지역, 지점 선택
             $.ajax({
@@ -733,6 +807,11 @@ var resScript = (function(){
             });
         },
         resChk : function(){// 결제하기 클릭 시 
+            if(resDetailArr.length == 0){
+                alert("선택된 좌석, 사물함이 없습니다.");
+                return false;
+            }
+
             resArrList = [];
             store_no = parseInt(store_no);
             for(var r=0; r<resDetailArr.length; r++){
@@ -746,7 +825,7 @@ var resScript = (function(){
             
             resScript.resChkAjax(resArrList);
         },
-        resChkAjax: function(resArrList){
+        resChkAjax: function(resArrList){ 
             $.ajax({
 				type: "POST",
 				url: "../resChk",
@@ -758,7 +837,37 @@ var resScript = (function(){
                         alert("이미 예약된 좌석이 포함되어 있습니다. \n새로고침 후 다시 이용해주세요.");
                         return false;
                     }else{
-                        console.log("예약 내역 없음");
+                        $(".layerPop.resPop .listD").empty();
+                        var html="";
+                        var totalPayment=0;
+
+                        //resScript.arrListType2();
+
+                        // 팝업 
+                        for(var p=0; p<resOverlab.length; p++){
+                            html="";
+                            html+="<div class='list'>";
+                            html+="<div class='date'>"+resOverlab[p].res_date+"</div>";
+                            html+="<div class='info'><span>"+resOverlab[p].seat+"</span> <p><span>예약시간 : </span><span>"+resOverlab[p].time.slice(0,-1)+"</span></p> </div>";
+                            if(resOverlab[p].seat.indexOf("사물함")==0){
+                                html+="<div class='tot'><span>총 "+resOverlab[p].time.split("주")[0]+"주</span><span>"+numberWithCommas(resOverlab[p].total)+"원</span></div>";
+                            }else{
+                                html+="<div class='tot'><span>총 "+resOverlab[p].size+"시간</span><span>"+numberWithCommas(resOverlab[p].total)+"원</span>";
+                                if(resOverlab[p].size>=4){
+                                    html+="<span class='disc'>"+numberWithCommas((resOverlab[p].pay*resOverlab[p].size)-resOverlab[p].total)+"원 할인!</span>";
+                                }
+                                html+="</div>";
+                            }
+                            html+="</div>"
+                            $(".layerPop.resPop .listD").append(html);
+                            totalPayment+=resOverlab[p].total;
+                        }
+
+                        $(".layerPop.resPop .total span").html(resOverlab.length+"건");
+                        $(".layerPop.resPop .totalPay span").html(numberWithCommas(totalPayment)+"원");
+                        
+                        
+                        layerPop("resPop");
                     }
 				},
                 error:function(request, status, error){
@@ -766,6 +875,18 @@ var resScript = (function(){
                 }
 			});// ajax              
 
+        },
+        resFinalChk : function(){
+            for(var i=0; i<resOverlab.length; i++){
+                $("#reservefrm").append("<input type='hidden' name='in_email' id='in_email' value='wlgus@gmail.com'>");
+                $("#reservefrm").append("<input type='hidden' name='store_no' id='store_no' value='"+store_no+"'>");
+                $("#reservefrm").append("<input type='hidden' name='seat_code' id='seat_code' value='"+resOverlab[i].seat_code+"'>");
+                $("#reservefrm").append("<input type='hidden' name='res_date' id='res_date' value='"+resOverlab[i].res_date+"'>");
+                $("#reservefrm").append("<input type='hidden' name='end_date' id='end_date' value='"+resOverlab[i].end_date+"'>");
+                $("#reservefrm").append("<input type='hidden' name='times' id='times' value='"+resOverlab[i].times+"'>");
+                $("#reservefrm").append("<input type='hidden' name='total' id='total' value='"+resOverlab[i].total+"'>");
+            }
+            $("#reservefrm").submit();
         },
         resEtc : function(){
             //예약확인 리스트 목록 삭제 

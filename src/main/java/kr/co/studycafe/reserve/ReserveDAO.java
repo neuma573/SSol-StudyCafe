@@ -103,18 +103,21 @@ public class ReserveDAO {
 		try {
 			con=dbopen.getConnection();
 			sql=new StringBuilder();
-			sql.append(" SELECT seat_code, res_date, times ");
-			sql.append(" FROM tb_reserve ");
-			//sql.append(" WHERE store_no=? AND seat_code=? AND res_date=? AND times LIKE '%"+times+"%' AND pay_prog='Y' ");
-			sql.append(" WHERE store_no=? AND seat_code=? AND res_date=? AND pay_prog='Y' ");
-			if(seat_code.indexOf("locker") < 0) {
-				sql.append(" AND times LIKE '%\"+times+\"%' ");
+			if(times != null) { //사물함 아닐때 
+				sql.append(" SELECT seat_code, res_date, times ");
+				sql.append(" FROM tb_reserve ");
+				sql.append(" WHERE store_no=? AND seat_code=? AND res_date=? AND pay_prog='Y' AND times LIKE '%"+times+"%' ");
+			}else {
+				sql.append(" SELECT seat_code, res_date, times ");
+				sql.append(" FROM tb_reserve ");
+				sql.append(" WHERE store_no=? AND seat_code=? AND res_date=? AND pay_prog='Y' ");
 			}
-			
+
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setInt(1, store_no);
 			pstmt.setString(2, seat_code);
 			pstmt.setString(3, res_date);
+			
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				cnt++;
@@ -124,6 +127,7 @@ public class ReserveDAO {
 		}finally {
 			DBClose.close(con, pstmt, rs);
 		}
+		System.out.println("cnt1 = "+cnt);
 		return cnt;
 	}
 	

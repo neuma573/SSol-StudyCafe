@@ -361,4 +361,5 @@ values('wlgus@gmail.com', 3, 'locker_5', '2021-12-25', '2022-1-22', 9000, 'Y', 1
 insert into tb_reserve(in_email, store_no, seat_code, res_date, end_date, total, pay_prog, prog)
 values('wlgus@gmail.com', 1, 'locker_2', '2021-12-27', '2022-1-24', 9000, 'Y', 1);
 
-
+-- 2021-12-28 장지현 추가 (tb_reserve 컬럼 속성 수정) 
+ALTER TABLE tb_reserve MODIFY pay_prog char(1) NOT NULL DEFAULT 'Y';

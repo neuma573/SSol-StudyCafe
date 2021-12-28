@@ -84,9 +84,9 @@
 		</div>
 		<table>
 			<th><a href="/notice/notice.do" class="share_btn">목록</a></th>
-									<%
-						if (id.equals("admin")) {
-						%>
+			<%
+			if (id.equals("admin")) {
+			%>
 			<th><a href="/notice/notice_write.do" class="share_btn">글쓰기</a></th>
 			<th><a href="/notice/notice_modify.do?n_number=${dto.n_number}" class="share_btn">수정</a></th>
 			<th><a href="/notice/notice_delete.do?n_number=${dto.n_number}" class="share_btn">삭제</a></th>
