@@ -11,20 +11,18 @@
 				<div class="name_wrap">
 					<div class="img_wrap bg" style="background-image: url('../images/userImg.png')"></div>
 					<div class="txt_wrap">
-						<p class="name"><span>회원명</span> 님</p>
-						<p class="email">회원이메일</p>
+						<p class="name"><span>${dto.in_name}</span> 님</p>
+						<p class="email">${dto.in_email}</p>
 					</div>
 				</div>
 			</div>
 	</div>
 	<div class="mypage_center">
 		<div class="layer_wrap on">
-			<p class="mypage_ttl rel on">최근 예약 내역</p>
+			<p class="mypage_ttl rel on">좌석 예약 내역</p>
 			<div class="mypage_table">
 				<table>
 					<colgroup>
-						<col width="*">
-						<col width="*">
 						<col width="*">
 						<col width="*">
 						<col width="*">
@@ -37,12 +35,42 @@
 							<th>예약시간</th>
 							<th>지점</th>
 							<th>좌석번호</th>
-							<th>사물함번호</th>
-							<th>총금액</th>
 							<th>진행상황</th>
 						</tr>
 						<tr>
-							<td colspan="7">예약된 내용이 없습니다.</td>
+							<td>${dto.res_date}</td>
+							<td>${dto.times}</td>
+							<td>${dto.store_no}</td>
+							<td>${dto.seat_code}</td>
+							<th>${dto.prog}</th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="layer_wrap on">
+			<p class="mypage_ttl rel on">사물함 예약 내역</p>
+			<div class="mypage_table">
+				<table>
+					<colgroup>
+						<col width="*">
+						<col width="*">
+						<col width="*">
+						<col width="206px">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th>사용시작일</th>
+							<th>사용마감일</th>
+							<th>지점</th>
+							<th>사물함번호</th>
+							<th>진행상황</th>
+						</tr>
+						<tr>
+							<td>${dto.s_date}</td>
+							<td>${dto.e_date}</td>
+							<td>${dto.store_no}</td>
+							<td>${dto.locker_code}</td>
+							<td>${dto.prog}</td>
 						</tr>
 					</tbody>
 				</table>

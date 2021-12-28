@@ -107,10 +107,10 @@ public class EventCont {
 		mav.setViewName("/event/event_r");
 		int cnt=dao.event_modify(dto);
 		if(cnt==0) {
-			String msg="리뷰 수정에 실패했습니다.";
+			String msg="이벤트 수정에 실패했습니다.";
 			mav.addObject("msg", msg);
 		}else {
-			String msg="리뷰 수정에 성공했습니다.";
+			String msg="이벤트 수정에 성공했습니다.";
 			mav.addObject("msg", msg);
 		}
 		
@@ -127,10 +127,10 @@ public class EventCont {
 		EventDTO oldDTO = dao.event_read(e_number);
 		int cnt = dao.event_delete(e_number);
 		if(cnt==0) {
-			String msg="리뷰 삭제에 실패했습니다.";
+			String msg="이벤트 삭제에 실패했습니다.";
 			mav.addObject("msg", msg);
 		}else {
-			String msg="리뷰가 삭제되었습니다.";
+			String msg="이벤트가 삭제되었습니다.";
 			mav.addObject("msg", msg);
 			
 			String basePath = req.getRealPath("/storage");
