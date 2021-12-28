@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -121,9 +123,8 @@ public class ReserveCont {
 		int cnt=0;
 		try {			
 			updateDto.toString();
-			System.out.println(updateDto.toString());
-			//System.out.println(updateDto.get(0).getStore_no());
-			//System.out.println(updateDto.size());
+			//System.out.println(updateDto.toString());
+			
 			int store_no = updateDto.get(0).getStore_no();
 			for(int i=0; i<updateDto.size(); i++) {
 				String seat_code=updateDto.get(i).getSeat_code();
@@ -139,6 +140,29 @@ public class ReserveCont {
 		return cnt;
 	}
 	
-	
+	@RequestMapping(value="/reserveIns", method = RequestMethod.POST)
+	public ModelAndView resIns(ReserveListDTO reserveList, HttpSession session, HttpServletRequest req, Model model) throws Exception{
+		ModelAndView mav = new ModelAndView();
+		try {
+			for(ReserveListDTO resInsList : reserveList.getReserveList()) {
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("in_email",resInsList.getIn_email());
+				map.put("store_no", Integer.toString(resInsList.getStore_no()));
+				map.put("seat_code", resInsList.getSeat_code());
+				map.put("res_date", resInsList.getRes_date());
+				map.put("end_date", resInsList.getEnd_date());
+				map.put("times", resInsList.getTimes());
+				map.put("total", Integer.toString(resInsList.getTotal()));
+			
+				mav.setViewName("/reserve/reserveIns");
+			}
+		}catch (Exception e) {
+			System.out.println("resIns 실패 : "+e);
+		}
+		
+		
+		return mav;
+	}
+
 	
 }

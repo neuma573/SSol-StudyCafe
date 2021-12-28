@@ -189,7 +189,20 @@ textarea {
     box-sizing: border-box;
 }
 </style>
-
+	<%
+		String uid = "";
+	%>
+									<%
+						if (!session.getAttribute("uid").equals("admin")) {
+						%>
+						
+						<script>
+		alert('권한이 없습니다');
+		location.href = "/home.do"
+	</script>
+	<%
+		}
+	%>
 <div class="subTit">
 	<h2>공지사항</h2>
 </div>

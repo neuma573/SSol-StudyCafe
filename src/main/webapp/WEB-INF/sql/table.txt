@@ -11,7 +11,7 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 사업자회원T
 create table tb_member_en(
-en_email varchar(30) not null,
+en_email varchar(30) not null AUTO_INCREMENT,
 en_pw varchar(30) not null,
 en_name varchar(30) not null,
 en_birth varchar(30) not null,
@@ -55,12 +55,10 @@ e_content varchar(500) not null,
 e_image varchar(50),
 e_start timestamp not null default now() ,
 e_end timestamp not null default now(),
-store_no int(10) not null,
 e_winners int(10) not null,
 e_money int(10) not null,
 primary key (e_number),
-FOREIGN KEY (en_email) REFERENCES tb_member_en(en_email),
-FOREIGN KEY (store_no) REFERENCES tb_store_info(store_no))
+FOREIGN KEY (en_email) REFERENCES tb_member_en(en_email))
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -135,14 +133,14 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ​
 -- 공지사항T
 create table tb_notice(
-n_number int(10) not null auto_increment,
-en_email varchar(30) not null,
-n_title varchar(50) not null,
-n_content varchar(500) not null,
-n_date timestamp not null default now(),
-primary key (n_number),
-FOREIGN KEY (en_email) REFERENCES tb_member_en(en_email))
-ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	n_number int(10) not null auto_increment,
+	en_email varchar(30) not null,
+	n_title varchar(50) not null,
+	n_content varchar(500) not null,
+	n_date timestamp not null default now(),
+	primary key (n_number),
+	FOREIGN KEY (en_email) REFERENCES tb_member_en(en_email)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ​
 -- 이벤트당첨
 create table tb_event_prizewinner(
@@ -169,7 +167,7 @@ CREATE TABLE tb_review(
   FOREIGN KEY (store_no) REFERENCES tb_store_info(store_no),
   FOREIGN KEY (in_email) REFERENCES tb_member_in(in_email)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+	 
 
 
 
@@ -225,12 +223,12 @@ insert into tb_pay values('b12w',24000);
 
 -- 이벤트
 -- select * from tb_event;
-insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, store_no, e_winners, e_money)
-values ('wotjr@gmail.com', '[신규오픈]종각점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event01_png', '2019-08-13', '2019-09-13', 1, 2, 1000);
-insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, store_no, e_winners, e_money)
-values ('wotjr@gmail.com', '[신규오픈]홍대점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event02_png', '2020-03-22', '2020-04-22', 2, 1, 2000);
-insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, store_no, e_winners, e_money)
-values ('tpgh@gmail.com', '[신규오픈]신림점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event03_png', '2021-05-19', '2021-06-19', 3, 1, 1000);
+insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, e_winners, e_money)
+values ('wotjr@gmail.com', '[신규오픈]종각점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event01.png', '2019-08-13', '2019-09-13', 2, 1000);
+insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, e_winners, e_money)
+values ('wotjr@gmail.com', '[신규오픈]홍대점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event02.jpg', '2020-03-22', '2020-04-22', 1, 2000);
+insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, e_winners, e_money)
+values ('tpgh@gmail.com', '[신규오픈]신림점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event03.jpg', '2021-05-19', '2021-06-19', 1, 1000);
 
 -- 이벤트 당첨자
 -- select * from tb_event_prizewinner;
@@ -351,4 +349,5 @@ values('wlgus@gmail.com', 3, 'locker_5', '2021-12-25', '2022-1-22', 9000, 'Y', 1
 insert into tb_reserve(in_email, store_no, seat_code, res_date, end_date, total, pay_prog, prog)
 values('wlgus@gmail.com', 1, 'locker_2', '2021-12-27', '2022-1-24', 9000, 'Y', 1);
 
-
+-- 2021-12-28 장지현 추가 (tb_reserve 컬럼 속성 수정) 
+ALTER TABLE tb_reserve MODIFY pay_prog char(1) NOT NULL DEFAULT 'Y';

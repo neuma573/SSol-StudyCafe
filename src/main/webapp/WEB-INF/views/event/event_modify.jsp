@@ -62,7 +62,7 @@
 				<p class="btn">
 					<input type="submit" value="수정">
 				</p>
-				<a href="/evnetview.do" class="btn del"><span>취소</span></a>
+				<a href="/evnetview.do?e_number=${dto.e_number}" class="btn del"><span>취소</span></a>
 			</div>
 		</form>
 	</div>

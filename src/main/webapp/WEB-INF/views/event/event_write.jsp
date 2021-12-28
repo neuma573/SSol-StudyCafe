@@ -9,41 +9,41 @@
 	<div class="event_inner">
 		<form action="/eventwrite.do" method="post"
 			enctype="multipart/form-data" accept-charset="UTF-8">
-			<input type="hidden" name="en_email" value="${dto.en_email}">
+			<input type="hidden" name="en_email">
 			<div class="eveWrite">
 				<div class="right">
 					<div class="formCont">
 						<dl>
 							<dt>제목</dt>
 							<dd>
-								<input type="text" name="e_title" placeholder="제목을 입력해주세요" value="${dto.e_title}">
+								<input type="text" name="e_title" placeholder="제목을 입력해주세요">
 							</dd>
 						</dl>
 						<dl>
 							<dt>이벤트 기간</dt>
 							<dd>
-								<input type="date" name="e_start" placeholder="시작일" value="${dto.e_start}"> 
-								<input type="date" name="e_end" placeholder="종료일" value="${dto.e_end}">
+								<input type="date" name="e_start" placeholder="시작일"> 
+								<input type="date" name="e_end" placeholder="종료일">
 							</dd>
 						</dl>
 						<dl>
 							<dt>당첨자 수</dt>
 							<dd>
 								<input type="number" name="e_winners"
-									placeholder="당첨자 수를 입력해주세요" value="${dto.e_winners}">
+									placeholder="당첨자 수를 입력해주세요">
 							</dd>
 						</dl>
 						<dl>
 							<dt>당첨 금액</dt>
 							<dd>
 								<input type="number" name="e_money"
-									placeholder="당첨 금액을 입력해주세요" value="${dto.e_money}">
+									placeholder="당첨 금액을 입력해주세요">
 							</dd>
 						</dl>
 						<dl>
 							<dt>내용</dt>
 							<dd>
-								<textarea name="e_content" placeholder="이벤트 내용" value="${dto.e_content}"></textarea>
+								<textarea name="e_content" placeholder="이벤트 내용"></textarea>
 							</dd>
 						</dl>
 						<dl>
