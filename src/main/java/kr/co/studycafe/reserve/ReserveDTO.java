@@ -1,5 +1,7 @@
 package kr.co.studycafe.reserve;
 
+import java.util.List;
+
 public class ReserveDTO {
 	private int store_no;
 	private String store_name;
@@ -19,7 +21,7 @@ public class ReserveDTO {
 	private int total;
 	private String pay_prog;
 	private int prog;
-
+	
 	
 	public ReserveDTO() {}
 
@@ -182,10 +184,6 @@ public class ReserveDTO {
 	public void setProg(int prog) {
 		this.prog = prog;
 	}
-	
-
-	
-	
 	
 	
 }

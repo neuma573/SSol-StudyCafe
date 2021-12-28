@@ -247,24 +247,12 @@
 				결제하기
 			</a>
 		</div>
-		
-		<form name="reservefrm" id="pay_data" action="" method="post">
-            <input type="hidden" name="in_email" id="in_email" value="wlgus@gmail.com"><!-- id값 -->
-            <input type="hidden" name="store" id="store" value="1"><!-- 하나만 존재함  -->
-            <input type="hidden" name="seat_code" id="seat_code" value=""><!-- 배열로 여러개 담고  -->
-            <input type="hidden" name="seat_code" id="seat_code" value="">
-            <input type="hidden" name="seat_code" id="seat_code" value="">
-            <input type="hidden" name="res_date" id="res_date" value=""><!-- 이것뚜 하나 담고  -->
-            <input type="hidden" name="end_date" id="end_date" value=""><!-- 이거는 하나  -->
-            <input type="hidden" name="times" id="times" value=""><!-- 이것뚜 여러개 11,12,13 이런식으로 들어갈거임  -->
-            <input type="hidden" name="e_number" id="e_number" value=""><!-- 이건 결제시에 이벤트 코드 선택하면 값 들어갈거고  -->
-            <input type="hidden" name="total" id="total" value=""><!-- 이것뚜 여러개 배열로  -->
-            <input type="hidden" name="pay_prog" id="pay_prog" value=""><!-- 이거는 결제 완료 하면 Y 값 / 계좌이체면 C  -->
-        </form>
-                
 	</div><!-- //reserveCont -->
 	
-	<div class="layerPop resPop" >
+	<div class="layerPop resPop">
+		<form name="reservefrm" id="reservefrm" action="/reserveIns" method="post" accept-charset="UTF-8">
+        </form>
+        
 		<div class="popDiv">
 			<p class="tit">예약 내역</p>
 			<div class="popCont">
@@ -273,15 +261,27 @@
 					 <div class="listD">
 					 	<div class="list">
 					 		<div class="date">2021-12-27 (월)</div>
-					 		<div class="dot"><span>좌석12</span> <p><span>예약시간 : </span><span>09:00~10:00, 10:00~11:00</span></p> </div>
+					 		<div class="info"><span>좌석12</span> <p><span>예약시간 : </span><span>09:00~10:00, 10:00~11:00</span></p> </div>
+					 		<div class="tot"><span>총 3시간</span><span>8,000원</span></div>
 					 	</div>
 					 </div>
-					 <p class="tot">총 예약 건수 <span>1건</span></p>
-					 <p class="pay">결제 금액 <span>1,500원</span></p>
+					 <p class="total">총 예약 건수 <span>1건</span></p>
+					 <p class="totalPay">결제 금액 <span>1,500원</span></p>
 				</div>
 				<div>
 					<p class="tit1"><span>이용자 정보</span></p>
 					<p><input type="text" readonly value="wlgus@gmail.com"></p>
+				</div>
+				<div>
+					<p class="tit1"><span>결제 수단 선택</span></p>
+					<div class="chkD">
+						<p><input type="checkbox" name="payType" id="card" disabled value="card" ><label for="card">신용카드</label></p>
+						<p><input type="checkbox" name="payType" id="account" checked value="account"><label for="account">무통장입금</label></p>
+					</div>
+					<p class="infoTxt">현재 무통장입금을 통한 예약만 가능합니다. <br>이용에 불편을 드려 죄송합니다.</p>
+				</div>
+				<div class="btnD">
+					<a href="javascript:void(0)" class="btn" onclick="return resScript.resFinalChk();"><span>예약하기</span></a>
 				</div>
 			</div>
 		</div>
