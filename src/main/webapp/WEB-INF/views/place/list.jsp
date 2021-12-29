@@ -44,7 +44,23 @@
 				</div>	
 			</div>
 			<div class="btnD">
-				<a href="placewrite.do?store_no=${requestScope.store_no}&store_name=${requestScope.store_name}" class="btn"><span>리뷰쓰기</span></a>
+				<%
+				if (session.getAttribute("uid")==null) {
+					
+				%>
+					<a href="javascript:alert('로그인 후 이용 가능합니다.')" class="btn">
+						<span>리뷰쓰기</span>
+					</a>
+				<%}else{
+					
+				%>
+					<a href="placewrite.do?store_no=${requestScope.store_no}&store_name=${requestScope.store_name}" class="btn">
+						<span>리뷰쓰기</span>
+					</a>
+				<%	
+				}
+				%>
+				
 			</div>
 		</div>
 	</div>

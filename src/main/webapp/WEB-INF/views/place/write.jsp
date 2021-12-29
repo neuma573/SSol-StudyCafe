@@ -9,7 +9,8 @@
 		<div class="inner">
 			<form action="/placewrite.do" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 			<input type="hidden" name="store_no" value="${requestScope.store_no}">	
-			<input type="hidden" name="store_name" value="${requestScope.store_name}">	
+			<input type="hidden" name="store_name" value="${requestScope.store_name}">
+			<input type="hidden" name="in_email" value="${uid}" >	
 			<div class="revWrite">
 				<div class="left">
 					<h3>리뷰등록</h3>
@@ -35,10 +36,6 @@
 							<dd><input type="text" name="rev_title" placeholder="제목을 입력해주세요" ></dd>
 						</dl>
 						<dl>
-							<dt>이메일</dt>
-							<dd><input type="text" name="in_email" placeholder="로그인 이메일 들어감" ></dd>
-						</dl>
-						<dl>
 							<dt>내용</dt>
 							<dd>
 								<textarea name="rev_content" placeholder="후기를 남겨주세요."></textarea>
@@ -60,7 +57,7 @@
 			</div><!-- //revWrite -->
 			<div class="btnD bdT">
 				<p class="btn"><input type="submit" value="등록"></p>
-				<a href="javascript:" class="btn del"><span>취소</span></a>
+				<a href="javascript:history.back();" class="btn del"><span>취소</span></a>
 			</div>
 			</form>
 		</div>

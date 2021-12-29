@@ -15,10 +15,10 @@
 			<p class="tit">${dto.e_title}</p>
 			<div class="info">
 				<p>
-					<span>작성자 :</span>${dto.en_email}
+					<span>작성자 : </span>${dto.en_email}
 				</p>
 				<p>
-					<span>작성일 :</span>${dto.e_start.substring(0,10)}~${dto.e_end.substring(0,10)}</p>
+					<span>작성일 : </span>${dto.e_start.substring(0,10)}~${dto.e_end.substring(0,10)}</p>
 			</div>
 
 			<div class="con">

@@ -6,30 +6,38 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
+<link rel="stylesheet" href="../css/style.css">
 <th:block
 	th:replace="~{/layout/basic :: setContent(~{this :: content})}">
 	<th:block th:fragment="content">
 
-		<div class="container">
-			<div class="col-6">
-				<h1>${roomName}</h1>
-			</div>
-			<div>
-				<div id="msgArea" class="col"></div>
-				<div class="col-6">
-					<div class="input-group mb-3">
-						<input type="text" id="msg" class="form-control">
-						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="button"
-								id="button-send">전송</button>
-						</div>
+		<div class="container chatWrap">
+			<div class="chatDiv">
+				<div class="chatform">
+					<div class="col-6 store">
+						<a href="/home.do" class="logo">SSOL.</a>
+						<p>${roomName}</p>
 					</div>
-				</div>
-			</div>
-			<div class="col-6"></div>
-		</div>
-
+					<div class="chat">
+						<div id="msgArea" class="col"></div>
+						<div class="col-6 chat_w">
+							<div class="input-group mb-3">
+								<textarea id="msg" class="form-control"></textarea>
+								<!-- <input type="text" id="msg" class="form-control"> -->
+								<div class="input-group-append">
+									<button class="btn btn-outline-secondary" type="button"
+										id="button-send">전송</button>
+								</div>
+							</div>
+						</div><!-- //chat_w -->
+					</div><!-- //chat -->
+					<div class="col-6"></div>
+				</div><!-- //charform -->
+			</div><!-- //chatDiv  -->
+		</div><!-- //container -->
+		<style>
+			
+		</style>
 
 		<script
 			src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
@@ -67,14 +75,14 @@
                        if(writer == username){
                            str = "<div class='col-6'>";
                            str += "<div class='alert alert-secondary'>";
-                           str += "<b>" + writer + " : " + message + "</b>";
+                           str += "<p><span class='writer'>" + writer + "</span> <span class='msg'>" + message + "</span></p>";
                            str += "</div></div>";
                            $("#msgArea").append(str);
                        }
                        else{
                            str = "<div class='col-6'>";
                            str += "<div class='alert alert-warning'>";
-                           str += "<b>" + writer + " : " + message + "</b>";
+                           str += "<p><span class='writer'>" + writer + "</span> <span class='msg'>" + message + "</span></p>";
                            str += "</div></div>";
                            $("#msgArea").append(str);
                        }

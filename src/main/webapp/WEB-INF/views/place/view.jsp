@@ -3,16 +3,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="../header.jsp" %>
+
 <!-- 본문시작 -->
 	<div class="subTit bg" style="background-image:url('../images/place_img1.jpg')">
 		<h2>${requestScope.store_name}</h2>
 	</div>
 	<div class="container placeRev"><!-- hidden 으로 매장코드 가져가기  -->
 		<div class="inner">
-			<div class="btnD type2 mt0"><!-- 작성자에게만 노출  -->
-				<a href="/placemodify.do?store_name=${requestScope.store_name}&rev_number=${dto.rev_number}" class="btn"><span>수정</span></a>
-				<a href="javascript:void(0);" class="btn del" onclick="layerPop('delPop'); return false;"><span>삭제</span></a>
-			</div>
+			
+			<c:if test="${uid == dto.in_email}"><!-- 작성자에게만 노출  -->
+				<div class="btnD type2 mt0">
+					<a href="/placemodify.do?store_name=${requestScope.store_name}&rev_number=${dto.rev_number}" class="btn"><span>수정</span></a>
+					<a href="javascript:void(0);" class="btn del" onclick="layerPop('delPop'); return false;"><span>삭제</span></a>
+				</div>
+			</c:if>
+			
 			<div class="viewDiv">
 				<p class="tit">${dto.rev_title}</p>
 				<div class="info">

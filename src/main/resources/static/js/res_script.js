@@ -66,15 +66,15 @@ var resScript = (function(){
                 });
             });
 
-            for(var d=0; d<31; d++){
+            for(var d=1; d<=31; d++){
                 $(".seatDiv .deskD").append("<a href='javascript:' data-val='desk_"+d+"' class='desk seat'><span>좌석"+d+"</span></a>");	
             }
             
-            for(var r=0; r<4; r++){
+            for(var r=1; r<=4; r++){
                 $(".seatDiv .roomD").append("<a href='javascript:' data-val='room_"+r+"' class='room seat'><span>ROOM"+r+"</span></a>");	
             }
             
-            for(var l=0; l<20; l++){
+            for(var l=1; l<=20; l++){
                 $(".lockerDiv .lockerD").append("<a href='javascript:' data-val='locker_"+l+"' class='locker'><span>사물함"+l+"</span></a>");	
             }
         },
@@ -622,7 +622,7 @@ var resScript = (function(){
                 timeVal = resDetailArr[r].timeVal+",";
                 size = 1;
                 total=0;
-                end_date="N";
+                end_date="";
                 pay=resDetailArr[r].pay;
 
                 for(var r2=r+1; r2<resDetailArr.length; r2++){
@@ -639,7 +639,7 @@ var resScript = (function(){
                 }else if(seatVal.indexOf("room")==0){
                     total = resScript.roomPay(size);
                 }else if(seatVal.indexOf("locker")==0){
-                    timeVal="N";
+                    timeVal="";
                     total = resScript.lockerPay(parseInt(time.split("주")[0]));
                     end_date = time.substring(time.indexOf("~")+2,time.length-3);
                 }
@@ -829,8 +829,8 @@ var resScript = (function(){
             $.ajax({
 				type: "POST",
 				url: "../resChk",
-                contentType :   "application/json; charset=UTF-8",
-                traditional : true, //필수
+                contentType : "application/json; charset=UTF-8",
+                traditional : true,
                 data:JSON.stringify(resArrList),
 				success: function(data) {
                     if(data>0){
@@ -840,8 +840,6 @@ var resScript = (function(){
                         $(".layerPop.resPop .listD").empty();
                         var html="";
                         var totalPayment=0;
-
-                        //resScript.arrListType2();
 
                         // 팝업 
                         for(var p=0; p<resOverlab.length; p++){
@@ -876,17 +874,36 @@ var resScript = (function(){
 			});// ajax              
 
         },
-        resFinalChk : function(){
-            for(var i=0; i<resOverlab.length; i++){
-                $("#reservefrm").append("<input type='hidden' name='in_email' id='in_email' value='wlgus@gmail.com'>");
-                $("#reservefrm").append("<input type='hidden' name='store_no' id='store_no' value='"+store_no+"'>");
-                $("#reservefrm").append("<input type='hidden' name='seat_code' id='seat_code' value='"+resOverlab[i].seat_code+"'>");
-                $("#reservefrm").append("<input type='hidden' name='res_date' id='res_date' value='"+resOverlab[i].res_date+"'>");
-                $("#reservefrm").append("<input type='hidden' name='end_date' id='end_date' value='"+resOverlab[i].end_date+"'>");
-                $("#reservefrm").append("<input type='hidden' name='times' id='times' value='"+resOverlab[i].times+"'>");
-                $("#reservefrm").append("<input type='hidden' name='total' id='total' value='"+resOverlab[i].total+"'>");
+        resFinalChk : function(in_email){//예약하기
+            var resFinallArr=[];
+            for(var r=0; r<resOverlab.length; r++){
+                resFinallArr.push({
+                    in_email : in_email,
+                    store_no : store_no,
+                    seat_code:resOverlab[r].seat_code,
+                    res_date:resOverlab[r].res_date,
+                    end_date:resOverlab[r].end_date,
+                    times:resOverlab[r].times,
+                    total:resOverlab[r].total
+                });
             }
-            $("#reservefrm").submit();
+            
+            $.ajax({
+				type: "POST",
+				url: "../reserveIns",
+                contentType : "application/json; charset=UTF-8",
+                traditional : true, 
+                data:JSON.stringify(resFinallArr),
+				success: function(data) {
+                    if(data>0){
+                        alert("예약 완료되었습니다. \n감사합니다.");
+                        location.href="/reserve/reserve.do";
+                    }
+				},
+                error:function(request, status, error){
+                    console.log("reserve insert ajax 실패");
+                }
+			});// ajax    
         },
         resEtc : function(){
             //예약확인 리스트 목록 삭제 

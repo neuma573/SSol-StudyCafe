@@ -6,11 +6,15 @@
 	<h2>이벤트</h2>
 </div>
 <div class="container eventRev">
-	<div class="event_inner">
+	<div class="event_inner inner">
 		<form action="/eventwrite.do" method="post"
 			enctype="multipart/form-data" accept-charset="UTF-8">
 			<input type="hidden" name="en_email" value="${dto.en_email}">
-			<div class="eveWrite">
+			<div class="eveWrite revWrite">
+				<div class="left">
+					<h3>이벤트 등록</h3>
+					<p>내용을 입력해 주세요.</p>
+				</div><!-- //left -->
 				<div class="right">
 					<div class="formCont">
 						<dl>
@@ -19,10 +23,11 @@
 								<input type="text" name="e_title" placeholder="제목을 입력해주세요" value="${dto.e_title}">
 							</dd>
 						</dl>
-						<dl>
+						<dl class="dateD">
 							<dt>이벤트 기간</dt>
 							<dd>
-								<input type="date" name="e_start" placeholder="시작일" value="${dto.e_start}"> 
+								<input type="date" name="e_start" placeholder="시작일" value="${dto.e_start}">
+								<span>~</span> 
 								<input type="date" name="e_end" placeholder="종료일" value="${dto.e_end}">
 							</dd>
 						</dl>
@@ -65,7 +70,7 @@
 				<p class="btn">
 					<input type="submit" value="등록">
 				</p>
-				<a href="javascript:" class="btn del"><span>취소</span></a>
+				<a href="javascript:history.back()" class="btn del"><span>취소</span></a>
 			</div>
 		</form>
 	</div>

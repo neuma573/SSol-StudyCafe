@@ -6,12 +6,17 @@
 	<h2>이벤트</h2>
 </div>
 <div class="container eventV">
-	<div class="event_inner">
+	<div class="event_inner inner">
 		<form name="modifyFrm" action="eventmodify.do" method="post"
 			enctype="multipart/form-data" accept-charset="UTF-8">
 			<input type="hidden" name="e_number" value="${dto.e_number}">
 			<input type="hidden" name="en_email" value="${dto.en_email}"> 
-			<div class="eveWrite">
+			<div class="eveWrite revWrite">
+				<div class="left">
+					<h3>이벤트 수정</h3>
+					<p>수정할 내용을 입력해 주세요.</p>
+				</div><!-- //left -->
+				<div class="right">
 					<div class="formCont">
 						<dl>
 							<dt>제목</dt>
@@ -19,11 +24,12 @@
 								<input type="text" name="subject" placeholder="제목을 입력해주세요" value="${dto.e_title}">
 							</dd>
 						</dl>
-						<dl>
+						<dl class="dateD">
 							<dt>이벤트 기간</dt>
 							<dd>
-								<input type="date" name="e_start" placeholder="시작일" value="${dto.e_start}"> <input
-									type="date" name="e_end" placeholder="종료일" value="${dto.e_end}">
+								<input type="date" name="e_start" placeholder="시작일" value="${dto.e_start}">
+								<span>~</span>
+								<input type="date" name="e_end" placeholder="종료일" value="${dto.e_end}">
 							</dd>
 						</dl>
 						<dl>
@@ -56,7 +62,8 @@
 								<p class="infoTxt">※ JPG, PNG, GIF 파일만 추가 가능</p>
 							</dd>
 						</dl>
-				</div>
+					</div><!-- //formCont  -->
+				</div><!-- // right  -->
 			</div>
 			<div class="btnD bdT">
 				<p class="btn">
