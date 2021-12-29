@@ -188,3 +188,9 @@ line-height:1.3; background:#fff;border-radius: 10px !important; border:1px soli
 .chatWrap .alert-secondary .writer{display:block; width:100%; margin-bottom:5px; text-align:right; color:#000;}
 .chatWrap .alert-secondary .msg{position:relative; display:inline-block; width:auto; max-width:100%; 
 padding:10px 13px; background:#a2c7d9; border-radius: 20px 0 20px 20px; color:#000; text-align:left;}
+.chatWrap .alert-warning p{text-align:left;}
+.chatWrap .alert-warning .writer{display:block; width:100%; margin-bottom:5px; text-align:left; color:#000;}
+.chatWrap .alert-warning .msg{position:relative; display:inline-block; width:auto; max-width:100%; 
+padding:10px 13px; background:#eff2b4; border-radius: 0 20px 20px 20px; color:#000; text-align:right;}
+
+
