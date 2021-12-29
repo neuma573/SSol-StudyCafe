@@ -11,7 +11,7 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 사업자회원T
 create table tb_member_en(
-en_email varchar(30) not null AUTO_INCREMENT,
+en_email varchar(30) not null,
 en_pw varchar(30) not null,
 en_name varchar(30) not null,
 en_birth varchar(30) not null,
@@ -19,7 +19,7 @@ en_no varchar(30) not null,
 primary key (en_email))
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 매장정보T 2021-12-27 수정 
+-- 매장정보T 
 CREATE TABLE tb_store_info(
   store_no int(10) NOT NULL auto_increment,
   en_email varchar(30) NOT NULL,
@@ -30,6 +30,7 @@ CREATE TABLE tb_store_info(
   desk_count int(10) NOT NULL,
   box_count int(10) NOT NULL,
   store_img varchar(100) NOT NULL,
+  store_en_no varchar(30) NOT NULL,
   latitude double NOT NULL,
   longitude double NOT NULL,
   tel varchar(20) NOT NULL,
@@ -37,13 +38,6 @@ CREATE TABLE tb_store_info(
   FOREIGN KEY (en_email) REFERENCES tb_member_en(en_email))
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
--- 요금T
-create table tb_pay(
-pay_code varchar(10) not null,
-pay int(10) not null,
-primary key (pay_code))
-ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 이벤트T
 create table tb_event(
@@ -61,7 +55,7 @@ FOREIGN KEY (en_email) REFERENCES tb_member_en(en_email))
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 좌석예약T 2021-12-25 장지현 수정 
+-- 좌석예약T
 CREATE TABLE tb_seat_res (
   sres_no int(10) NOT NULL AUTO_INCREMENT,
   in_email varchar(30) NOT NULL,
@@ -80,7 +74,7 @@ CREATE TABLE tb_seat_res (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 사물함예약 T 2021-12-25 장지현 수정
+-- 사물함예약 T
 CREATE TABLE tb_locker_res (
   lres_no int(10) NOT NULL AUTO_INCREMENT,
   in_email varchar(30) NOT NULL,
@@ -98,7 +92,7 @@ CREATE TABLE tb_locker_res (
   FOREIGN KEY (e_number) REFERENCES tb_event(e_number)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 예약 테이블 추가 2021-12-25 장지현 
+-- 예약 테이블 T
 CREATE TABLE tb_reserve (
   res_no int(10) NOT NULL AUTO_INCREMENT,
   in_email varchar(30) NOT NULL,
@@ -152,7 +146,7 @@ FOREIGN KEY (in_email) REFERENCES tb_member_in(in_email)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 리뷰 2021-12-21 장지현 수정 
+-- 리뷰
 CREATE TABLE tb_review(
   rev_number int(10) NOT NULL AUTO_INCREMENT,
   store_no int(10) NOT NULL,
@@ -173,61 +167,36 @@ CREATE TABLE tb_review(
 -- insert test
 -- 개인회원정보
 -- select * from tb_member_in;
-insert into tb_member_in values('dbsdud1025@gmail.com','password1','박윤영','1999.10.25');
-insert into tb_member_in values('wlgus@gmail.com','password2','장지현','1999.9.25');
-insert into tb_member_in values('duwls@gmail.com','password3','김여진','1999.8.25');
-insert into tb_member_in values('ghwls@gmail.com','password4','나호진','1999.7.25');
-insert into tb_member_in values('admin','1111','운영자','1994.10.13');
+insert into tb_member_in values('dbsdud1025@gmail.com','dkssud12!','박윤영','1999.10.25');
 
 -- 사업자회원정보
 -- select * from tb_member_en;
-insert into tb_member_en values('wotjr@gmail.com','enpassword1','유재석','1980.12.1','123-80-123124');
-insert into tb_member_en values('tpgh@gmail.com','enpassword2','조세호','1990.9.1','234-25-3542');
-
+insert into tb_member_en values('dbsdud1025@naver.com','dkssud12!','윤영','1999.10.25','123-12345-45678');
 
 -- 매장정보 2021-12-21 장지현 수정 
 -- select * from tb_store_info;
-INSERT INTO tb_store_info(en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude, tel)
-VALUES('wotjr@gmail.com', '종각점', '서울 종로구 종로12길 15', '08:00-24:00', 4, 30, 20, 'store1.jpg', 37.56947854892087, 126.98597441116262, '02-1234-4567');
+INSERT INTO tb_store_info(en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude, tel, store_en_no)
+VALUES('dbsdud1025@naver.com', '종각점', '서울 종로구 종로12길 15', '08:00-24:00', 4, 30, 20, 'store1.jpg', 37.56947854892087, 126.98597441116262, '02-1234-4567','123-456-789456');
 
-INSERT INTO tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude, tel)
-VALUES('wotjr@gmail.com', '홍대점', '서울 마포구 양화로 165', '08:00-24:00', 4, 30, 20, 'store2.jpg', 37.557654557627586, 126.92444543999783, '02-2222-3333');
+INSERT INTO tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude, tel, store_en_no)
+VALUES('dbsdud1025@naver.com', '홍대점', '서울 마포구 양화로 165', '08:00-24:00', 4, 30, 20, 'store2.jpg', 37.557654557627586, 126.92444543999783, '02-2222-3333', '123-456-789456');
 
-INSERT INTO tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude, tel)
-VALUES('tpgh@gmail.com', '신정점', '서울 양천구 오목로 155', '08:00-24:00', 4, 31, 20, 'store3.jpg', 37.484378623657555, 126.9297866265025, '02-3333-5555');
+INSERT INTO tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude, tel, store_en_no)
+VALUES('dbsdud1025@naver.com', '신정점', '서울 양천구 오목로 155', '08:00-24:00', 4, 31, 20, 'store3.jpg', 37.484378623657555, 126.9297866265025, '02-3333-5555', '123-456-789456');
 
-INSERT INTO tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude, tel)
-VALUES('tpgh@gmail.com', '목동점', '서울 양천구 신정동 오목로 238 LOND사옥', '08:00-24:00', 4, 30, 20, 'store4.jpg', 37.52602943586907, 126.86381820006488, '02-3434-3434');
+INSERT INTO tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude, tel, store_en_no)
+VALUES('dbsdud1025@naver.com', '목동점', '서울 양천구 신정동 오목로 238 LOND사옥', '08:00-24:00', 4, 30, 20, 'store4.jpg', 37.52602943586907, 126.86381820006488, '02-3434-3434', '123-456-789456');
 
-
-
-
--- 요금
--- select * from tb_pay;
-insert into tb_pay values('d1h',1500);
-insert into tb_pay values('d4h',5000);
-insert into tb_pay values('d6h',6000);
-insert into tb_pay values('d12h',10000);
-insert into tb_pay values('d24h',20000);
-insert into tb_pay values('d1m',300000);
-insert into tb_pay values('r1h',6000);
-insert into tb_pay values('r4h',20000);
-insert into tb_pay values('r6h',24000);
-insert into tb_pay values('r12h',40000);
-insert into tb_pay values('r24h',80000);
-insert into tb_pay values('b4w',9000);
-insert into tb_pay values('b8w',16000);
-insert into tb_pay values('b12w',24000);
 
 
 -- 이벤트
 -- select * from tb_event;
 insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, e_winners, e_money, store_no)
-values ('wotjr@gmail.com', '[신규오픈]종각점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event01.jpg', '2019-08-13', '2019-09-13', 2, 1000,8);
+values ('dbsdud1025@naver.com', '[신규오픈]종각점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event01.jpg', '2019-08-13', '2019-09-13', 2, 1000,8);
 insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, e_winners, e_money, store_no)
 values ('dbsdud1025@naver.com', '[신규오픈]홍대점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event02.jpg', '2020-03-22', '2020-04-22', 1, 2000, 7);
 insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, e_winners, e_money, store_no)
-values ('tpgh@gmail.com', '[신규오픈]신림점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event03.jpg', '2021-05-19', '2021-06-19', 1, 1000,7);
+values ('dbsdud1025@naver.com', '[신규오픈]신림점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event03.jpg', '2021-05-19', '2021-06-19', 1, 1000,7);
 
 -- 이벤트 당첨자
 -- select * from tb_event_prizewinner;
