@@ -49,8 +49,8 @@ public class MypageCont {
 			mav.addObject("userInfo", joindao.userInfo_in(uid));
 			mav.addObject("seatlist", dao.seatlist(uid));
 			mav.addObject("lockerlist", dao.lockerlist(uid));
-		}
-		return mav;
+			mav.addObject("couponlist", dao.couponlist(uid));
+		}return mav; 	
 	}
 
 	@RequestMapping("/mypage/place_add.do")

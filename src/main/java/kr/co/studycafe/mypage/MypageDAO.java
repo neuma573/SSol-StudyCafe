@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
+import kr.co.studycafe.event.EventDTO;
 import net.utility.DBClose;
 import net.utility.DBOpen;
 
@@ -25,10 +27,11 @@ public class MypageDAO {
 		try {
 			con=dbopen.getConnection();
 			sql=new StringBuilder();
-			sql.append(" SELECT sres_no, res_date, times, store_no, seat_code, prog");
-			sql.append(" FROM tb_seat_res ");
-			sql.append(" WHERE in_email = ? AND pay_prog = 'Y' ");
-			sql.append(" ORDER BY sres_no DESC ");
+			sql.append(" SELECT res_no, res_date, times, store_name, seat_code, prog");
+			sql.append(" FROM tb_reserve JOIN tb_store_info");
+			sql.append(" ON tb_reserve.store_no = tb_store_info.store_no ");
+			sql.append(" WHERE in_email = ? AND pay_prog = 'Y' AND seat_code LIKE 'desk%' ");
+			sql.append(" ORDER BY res_no DESC ");
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1, uid);
 			rs=pstmt.executeQuery();
@@ -36,10 +39,10 @@ public class MypageDAO {
 				seatlist = new ArrayList<MypageDTO>();
 				do {
 					MypageDTO dto = new MypageDTO();
-					dto.setSres_no(rs.getInt("sres_no"));
+					dto.setRes_no(rs.getInt("res_no"));
 					dto.setRes_date(rs.getString("res_date"));
 					dto.setTimes(rs.getString("times"));
-					dto.setStore_no(rs.getInt("store_no"));
+					dto.setStore_name(rs.getString("store_name"));
 					dto.setSeat_code(rs.getString("seat_code"));
 					dto.setProg(rs.getInt("prog"));
 					seatlist.add(dto);
@@ -58,10 +61,11 @@ public class MypageDAO {
 		try {
 			con=dbopen.getConnection();
 			sql=new StringBuilder();
-			sql.append(" SELECT lres_no, s_date, e_date, store_no, locker_code, prog");
-			sql.append(" FROM tb_locker_res ");
-			sql.append(" WHERE in_email = ? AND pay_prog = 'Y' ");
-			sql.append(" ORDER BY lres_no DESC ");
+			sql.append(" SELECT res_no, res_date, end_date, store_name, seat_code, prog");
+			sql.append(" FROM tb_reserve JOIN tb_store_info");
+			sql.append(" ON tb_reserve.store_no = tb_store_info.store_no ");
+			sql.append(" WHERE in_email = ? AND pay_prog = 'Y' AND seat_code LIKE 'locker%' ");
+			sql.append(" ORDER BY res_no DESC ");
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1, uid);
 			rs=pstmt.executeQuery();
@@ -69,11 +73,11 @@ public class MypageDAO {
 				lockerlist = new ArrayList<MypageDTO>();
 				do {
 					MypageDTO dto = new MypageDTO();
-					dto.setLres_no(rs.getInt("lres_no"));
-					dto.setS_date(rs.getString("s_date"));
-					dto.setE_date(rs.getString("e_date"));
-					dto.setStore_no(rs.getInt("store_no"));
-					dto.setLocker_code(rs.getString("locker_code"));
+					dto.setRes_no(rs.getInt("res_no"));
+					dto.setRes_date(rs.getString("res_date"));
+					dto.setEnd_date(rs.getString("end_date"));
+					dto.setStore_name(rs.getString("store_name"));
+					dto.setSeat_code(rs.getString("seat_code"));
 					dto.setProg(rs.getInt("prog"));
 					lockerlist.add(dto);
 				}while(rs.next());
@@ -85,6 +89,37 @@ public class MypageDAO {
 		}
 		return lockerlist;
 	}// lockerlist() end
+	
+	public ArrayList<MypageDTO> couponlist(String uid) { //이벤트 당첨자
+		ArrayList<MypageDTO> couponlist = null;
+
+		try {
+			con = dbopen.getConnection();
+			sql = new StringBuilder();
+			sql.append(" SELECT e_title, e_money");
+			sql.append(" from tb_event_prizewinner JOIN tb_event ");
+			sql.append(" ON tb_event_prizewinner.e_number = tb_event.e_number ");
+			sql.append(" WHERE in_email=? ");
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, uid);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				couponlist = new ArrayList<MypageDTO>();
+				do {
+					MypageDTO dto = new MypageDTO();
+					dto.setE_title(rs.getString("e_title"));
+					dto.setE_money(rs.getInt("e_money"));
+					couponlist.add(dto); // couponlist에 모으기
+				} while (rs.next());
+			} // end
+		} catch (Exception e) {
+			System.out.println("이벤트 당첨자 목록 실패: " + e);
+		} finally {
+			DBClose.close(con, pstmt, rs);
+		}
+		return couponlist;
+	}
 
 }
 

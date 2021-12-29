@@ -3,28 +3,28 @@ package kr.co.studycafe.mypage;
 import org.springframework.web.multipart.MultipartFile;
 
 public class MypageDTO {
-	private int sres_no;
+	private int res_no;
 	private String in_email;
-	private String in_name;
 	private int store_no;
+	private String store_name;
 	private String seat_code;
 	private String res_date;
+	private String end_date;
 	private String times;
 	private String pay_prog;
 	private int prog;
-	private int lres_no;
-	private String locker_code;
-	private String s_date;
-	private String e_date;
+	private int e_number;
+	private String e_title;
+	private int e_money;
 	
 	public MypageDTO() {}
 
-	public int getSres_no() {
-		return sres_no;
+	public int getRes_no() {
+		return res_no;
 	}
 
-	public void setSres_no(int sres_no) {
-		this.sres_no = sres_no;
+	public void setRes_no(int res_no) {
+		this.res_no = res_no;
 	}
 
 	public String getIn_email() {
@@ -34,14 +34,6 @@ public class MypageDTO {
 	public void setIn_email(String in_email) {
 		this.in_email = in_email;
 	}
-	
-	public String getIn_name() {
-		return in_name;
-	}
-
-	public void setIn_name(String in_name) {
-		this.in_name = in_name;
-	}
 
 	public int getStore_no() {
 		return store_no;
@@ -49,6 +41,14 @@ public class MypageDTO {
 
 	public void setStore_no(int store_no) {
 		this.store_no = store_no;
+	}
+
+	public String getStore_name() {
+		return store_name;
+	}
+
+	public void setStore_name(String store_name) {
+		this.store_name = store_name;
 	}
 
 	public String getSeat_code() {
@@ -65,6 +65,14 @@ public class MypageDTO {
 
 	public void setRes_date(String res_date) {
 		this.res_date = res_date;
+	}
+
+	public String getEnd_date() {
+		return end_date;
+	}
+
+	public void setEnd_date(String end_date) {
+		this.end_date = end_date;
 	}
 
 	public String getTimes() {
@@ -91,38 +99,32 @@ public class MypageDTO {
 		this.prog = prog;
 	}
 
-	public int getLres_no() {
-		return lres_no;
+	public int getE_number() {
+		return e_number;
 	}
 
-	public void setLres_no(int lres_no) {
-		this.lres_no = lres_no;
+	public void setE_number(int e_number) {
+		this.e_number = e_number;
 	}
 
-	public String getLocker_code() {
-		return locker_code;
+	public String getE_title() {
+		return e_title;
 	}
 
-	public void setLocker_code(String locker_code) {
-		this.locker_code = locker_code;
+	public void setE_title(String e_title) {
+		this.e_title = e_title;
 	}
 
-	public String getS_date() {
-		return s_date;
+	public int getE_money() {
+		return e_money;
 	}
 
-	public void setS_date(String s_date) {
-		this.s_date = s_date;
+	public void setE_money(int e_money) {
+		this.e_money = e_money;
 	}
 
-	public String getE_date() {
-		return e_date;
-	}
-
-	public void setE_date(String e_date) {
-		this.e_date = e_date;
-	}
 	
 	
 	
+
 }//MypageDTO() end

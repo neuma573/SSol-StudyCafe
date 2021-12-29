@@ -105,7 +105,7 @@ CREATE TABLE tb_reserve (
   store_no int(10) NOT NULL,
   seat_code varchar(20) NOT NULL,
   res_date varchar(20) NOT NULL,
-   end_date varchar(20) NOT NULL,
+   end_date varchar(20) NOT NULL DEFAULT '',
   times varchar(100) NOT NULL DEFAULT '',
   e_number int(10) DEFAULT NULL,
   total int(10) NOT NULL DEFAULT 0,
@@ -223,11 +223,11 @@ insert into tb_pay values('b12w',24000);
 -- 이벤트
 -- select * from tb_event;
 insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, e_winners, e_money)
-values ('wotjr@gmail.com', '[신규오픈]종각점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event01.png', '2019-08-13', '2019-09-13', 2, 1000);
+values ('wotjr@gmail.com', '[신규오픈]종각점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event01.png', '2021-12-13', '2022-01-13', 2, 1000);
 insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, e_winners, e_money)
-values ('wotjr@gmail.com', '[신규오픈]홍대점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event02.jpg', '2020-03-22', '2020-04-22', 1, 2000);
+values ('wotjr@gmail.com', '[신규오픈]홍대점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event02.jpg', '2021-12-15', '2022-01-15', 1, 2000);
 insert into tb_event (en_email, e_title, e_content, e_image, e_start, e_end, e_winners, e_money)
-values ('tpgh@gmail.com', '[신규오픈]신림점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event03.jpg', '2021-05-19', '2021-06-19', 1, 1000);
+values ('tpgh@gmail.com', '[신규오픈]신림점', '오픈이벤트, SNS태그 하고 게시물 작성하면 참여 완료!', 'event03.jpg', '2021-12-20', '2022-01-20', 1, 1000);
 
 -- 이벤트 당첨자
 -- select * from tb_event_prizewinner;

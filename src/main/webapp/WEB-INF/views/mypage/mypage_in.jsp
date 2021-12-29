@@ -53,9 +53,13 @@
 								<tr>
 									<td>${dto.res_date}</td>
 									<td>${dto.times}</td>
-									<td>${dto.store_no}</td>
+									<td>${dto.store_name}</td>
 									<td>${dto.seat_code}</td>
-									<th>${dto.prog}</th>
+									<td><c:choose>
+											<c:when test="${dto.prog == 0}">사용전</c:when>
+											<c:when test="${dto.prog == 1}">사용중</c:when>
+											<c:otherwise>사용완료</c:otherwise>
+										</c:choose></td>
 								</tr>
 							</c:forEach>
 							<%
@@ -93,11 +97,15 @@
 								%>
 								<c:forEach var="dto" items="${lockerlist}">
 									<tr>
-										<td>${dto.s_date}</td>
-										<td>${dto.e_date}</td>
-										<td>${dto.store_no}</td>
-										<td>${dto.locker_code}</td>
-										<td>${dto.prog}</td>
+										<td>${dto.res_date}</td>
+										<td>${dto.end_date}</td>
+										<td>${dto.store_name}</td>
+										<td>${dto.seat_code}</td>
+										<td><c:choose>
+												<c:when test="${dto.prog == 0}">사용전</c:when>
+												<c:when test="${dto.prog == 1}">사용중</c:when>
+												<c:otherwise>사용완료</c:otherwise>
+											</c:choose></td>
 									</tr>
 								</c:forEach>
 								<%
@@ -112,7 +120,19 @@
 					<div class="mypage_list">
 						<ul>
 							<li>
+							<%
+							if (request.getAttribute("couponlist") == null) {
+							%>
 								<p class="coupon">보유하신 쿠폰이 없습니다.</p>
+							<%
+							} else {
+							%>
+							<c:forEach var="dto" items="${couponlist}">
+								<p class="coupon">${dto.e_money}원 ${dto.e_title}이벤트 당첨</p>
+							</c:forEach>
+							<%
+							}
+							%>
 							</li>
 						</ul>
 					</div>
@@ -128,6 +148,7 @@
 
 
 	<!-- 예약현황 end -->
+
 
 	<!-- 본문끝 -->
 	<%@ include file="../footer.jsp"%>
