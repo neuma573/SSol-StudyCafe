@@ -7,19 +7,14 @@
 </div>
 <div class="container eventRev">
 	<div class="event_inner inner">
-		<form action="/eventwrite.do" method="post"
-			enctype="multipart/form-data" accept-charset="UTF-8">
-<<<<<<< HEAD
-			<input type="hidden" name="en_email" value="${dto.en_email}">
+		<form action="/eventwrite.do" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+			<input type="hidden" name="en_email" value="${dto.en_email}">				
 			<div class="eveWrite revWrite">
 				<div class="left">
 					<h3>이벤트 등록</h3>
 					<p>내용을 입력해 주세요.</p>
 				</div><!-- //left -->
-=======
-			<input type="hidden" name="en_email">
-			<div class="eveWrite">
->>>>>>> 012095ae5e9595f210c54ee4a63a620f9c122325
+				
 				<div class="right">
 					<div class="formCont">
 						<dl>
@@ -31,14 +26,10 @@
 						<dl class="dateD">
 							<dt>이벤트 기간</dt>
 							<dd>
-<<<<<<< HEAD
-								<input type="date" name="e_start" placeholder="시작일" value="${dto.e_start}">
+								<input type="date" name="e_start" placeholder="시작일" value="">
 								<span>~</span> 
-								<input type="date" name="e_end" placeholder="종료일" value="${dto.e_end}">
-=======
-								<input type="date" name="e_start" placeholder="시작일"> 
-								<input type="date" name="e_end" placeholder="종료일">
->>>>>>> 012095ae5e9595f210c54ee4a63a620f9c122325
+								<input type="date" name="e_end" placeholder="종료일" value="">
+
 							</dd>
 						</dl>
 						<dl>
