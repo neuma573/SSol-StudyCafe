@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="../header.jsp"%>
 <!-- 본문시작 -->
 <div class="subTit">
@@ -37,7 +35,7 @@
 			</c:forEach>
 		</div>
 		<div class="btnD">
-			<a href="/eventwrite.do" class="btn"><span>리뷰쓰기</span></a>
+			<a href="eventwrite.do" class="btn"><span>리뷰쓰기</span></a>
 		</div>
 	</div>
 </div>

@@ -9,22 +9,34 @@
 	<div class="inner">
 		<div class="btnD type2 mt0">
 			<a href="/eventmodify.do?e_number=${dto.e_number}" class="btn"><span>수정</span></a>
-			<a href="javascript:" class="btn del"><span>삭제</span></a>
+			<a href="javascript:void(0);" class="btn del" onclick="layerPop('delPop'); return false;" class="btn del"><span>삭제</span></a>
 		</div>
 		<div class="viewDiv">
 			<p class="tit">${dto.e_title}</p>
 			<div class="info">
 				<p>
+<<<<<<< HEAD
 					<span>작성자 : </span>${dto.en_email}
 				</p>
 				<p>
 					<span>작성일 : </span>${dto.e_start.substring(0,10)}~${dto.e_end.substring(0,10)}</p>
+=======
+					<span>이벤트 기간 :</span>${dto.e_start.substring(0,10)}~${dto.e_end.substring(0,10)}</p>
+				<p>
+					<span>당첨자 수 :</span>${dto.e_winners}명</p>
+				<p>
+					<span>당첨 금액 :</span>${dto.e_money}원</p>
+>>>>>>> 012095ae5e9595f210c54ee4a63a620f9c122325
 			</div>
 
 			<div class="con">
-					<p class="img"><c:if test="${dto.e_image != ''}"><img src="../storage/${dto.e_image}"></c:if></p>
-					${dto.e_content}				
-				</div>
+				<p class="img">
+					<c:if test="${dto.e_image != ''}">
+						<img src="../storage/${dto.e_image}">
+					</c:if>
+				</p>
+				${dto.e_content}
+			</div>
 		</div>
 		<div class="btnD">
 			<a href="javascript:history.back();" class="btn"><span>목록</span></a>
@@ -34,13 +46,13 @@
 </div>
 <div class="layerPop delPop">
 	<form name='eventdelFrm' id="eventdelFrm" method="post"
-		action="/eventdelete.do"> 
+		action="/eventdelete.do">
 		<input type="hidden" name="e_number" value="${dto.e_number}">
 		<div class="popDiv">
-			<p class="tit">리뷰 삭제</p>
+			<p class="tit">이벤트 삭제</p>
 			<div class="popCont">
 				<p>
-					리뷰를 삭제하시겠습니까? <br>관련 파일도 전체 삭제됩니다.
+					이벤트를 삭제하시겠습니까? <br>관련 파일도 전체 삭제됩니다.
 				</p>
 				<div class="btnD">
 					<a href="javascript:void(0)" class="btn"

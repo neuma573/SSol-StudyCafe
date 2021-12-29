@@ -96,20 +96,10 @@
              location.href="../login/login.do";
           }
           else{
-        	  alert("store_no="+store); 
         	  //location.href="../chat?roomId="+store+"&uid="+uid;
         	  location.href="../chat/room?roomId="+store+"&uid="+uid;
        
-        	  /*
-        	  $.ajax({
-        	        type: "post", 
-        	        url: "<%=request.getContextPath()%>/security/insert", 
-        	        dataType: "json", 
-        	        contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-        	        data: form
-        	    });
-   
-        	  */
+        	
         	  
           }
     }   
