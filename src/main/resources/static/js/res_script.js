@@ -925,6 +925,32 @@ var resScript = (function(){
                 $(".slcDeTail .total .pay").html(locPay);
 
             });
+        },
+        resList : function(){
+            $.ajax({
+				type: "GET",
+				url: "/mypage.do",
+                data:{
+                    in_mail:in_mail
+                },
+				success: function(data) {
+                    //console.log(JSON.stringify(data));
+                    seaArr=[];
+                    locArr=[];
+                    $.each(data,function(idx, val) {
+                        if(val.seat_code.indexOf("locker")!=0){
+                            seaArr.push({seat:val.seat_code, times:val.times});
+                        }else{
+                            if(val.store_no == store_no){
+                                locArr.push({seat:val.seat_code, end_date:val.end_date});
+                            }
+                        }
+                    });
+                    
+                    
+
+				}
+			});
         }
     }
 })();

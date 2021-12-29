@@ -86,7 +86,7 @@ public class EventCont {
 	}
 
 	@RequestMapping(value="/eventmodify.do", method=RequestMethod.POST)
-	public ModelAndView eventModify(@ModelAttribute EventDTO dto, HttpServletRequest req) {
+	public ModelAndView eventModifyProc(@ModelAttribute EventDTO dto, HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
 		String en_email=req.getParameter("en_email");
 		mav.addObject("en_email", en_email);

@@ -7,20 +7,28 @@
 </div>
 <div class="container eventV">
 	<div class="inner">
-		<div class="btnD type2 mt0">
-			<a href="/eventmodify.do?e_number=${dto.e_number}" class="btn"><span>수정</span></a>
-			<a href="javascript:void(0);" class="btn del" onclick="layerPop('delPop'); return false;" class="btn del"><span>삭제</span></a>
-		</div>
+
+		<c:if test="${uid == dto.en_email}">
+			<div class="btnD type2 mt0">
+				<a href="/eventmodify.do?e_number=${dto.e_number}" class="btn"><span>수정</span></a>
+				<a href="javascript:void(0);" class="btn del"
+					onclick="layerPop('delPop'); return false;" class="btn del"><span>삭제</span></a>
+			</div>
+		</c:if>
 		<div class="viewDiv">
 			<p class="tit">${dto.e_title}</p>
 			<div class="info">
 				<p>
 					<span>작성자 : </span>${dto.en_email}
 				</p>
-				<p><span>작성일 : </span>${dto.e_start.substring(0,10)}~${dto.e_end.substring(0,10)}</p>
-				<p><span>이벤트 기간 :</span>${dto.e_start.substring(0,10)}~${dto.e_end.substring(0,10)}</p>
-				<p><span>당첨자 수 :</span>${dto.e_winners}명</p>
-				<p><span>당첨 금액 :</span>${dto.e_money}원</p>
+				<p>
+					<span>작성일 : </span>${dto.e_start.substring(0,10)}~${dto.e_end.substring(0,10)}</p>
+				<p>
+					<span>이벤트 기간 :</span>${dto.e_start.substring(0,10)}~${dto.e_end.substring(0,10)}</p>
+				<p>
+					<span>당첨자 수 :</span>${dto.e_winners}명</p>
+				<p>
+					<span>당첨 금액 :</span>${dto.e_money}원</p>
 
 			</div>
 

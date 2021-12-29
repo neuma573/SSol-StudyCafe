@@ -45,9 +45,12 @@ public class MypageCont {
 		} else {
 			System.out.println(userType);
 			mav.setViewName("/mypage/mypage_in");
+			
 			mav.addObject("userInfo", joindao.userInfo_in(uid));
-		}
-		return mav;
+			mav.addObject("seatlist", dao.seatlist(uid));
+			mav.addObject("lockerlist", dao.lockerlist(uid));
+			mav.addObject("couponlist", dao.couponlist(uid));
+		}return mav; 	
 	}
 
 	@RequestMapping("/mypage/place_add.do")

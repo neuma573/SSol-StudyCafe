@@ -10,7 +10,6 @@
 		<form name="modifyFrm" action="eventmodify.do" method="post"
 			enctype="multipart/form-data" accept-charset="UTF-8">
 			<input type="hidden" name="e_number" value="${dto.e_number}">
-			<input type="hidden" name="en_email" value="${dto.en_email}"> 
 			<div class="eveWrite revWrite">
 				<div class="left">
 					<h3>이벤트 수정</h3>

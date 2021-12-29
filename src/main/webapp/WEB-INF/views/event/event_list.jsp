@@ -35,7 +35,7 @@
 			</c:forEach>
 		</div>
 		<div class="btnD">
-			<a href="eventwrite.do" class="btn"><span>리뷰쓰기</span></a>
+			<a href="eventwrite.do" class="btn"><span>이벤트쓰기</span></a>
 		</div>
 	</div>
 </div>
