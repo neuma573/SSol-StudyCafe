@@ -8,8 +8,7 @@
 <div class="subTit">
 	<h2>공지사항</h2>
 </div>
-<div id="content" class="sub_content">
-
+<div class="container inquiry_wrap">
 	<div id="boardWrap">
 		<div class="notice_wrap inner">
 			<div class="notice_table_div">
@@ -38,14 +37,14 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
+		</div><!-- //notice_wrap -->
 
 		<div class="paging fs_def">
 			<ul class="paging_ul fs_def"></ul>
 		</div>
 
-	</div>
-</div>
+	</div><!-- //borderwrap -->
+</div><!-- //inquiry_wrap -->
 
 <!-- 본문끝 -->
 <%@ include file="../footer.jsp"%>

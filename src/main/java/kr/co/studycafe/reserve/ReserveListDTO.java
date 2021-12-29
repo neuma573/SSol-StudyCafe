@@ -9,9 +9,8 @@ public class ReserveListDTO {
 	private String res_date;
 	private String end_date;
 	private String times;
-	private int total;
+	private int total; 
 	
-	private List<ReserveListDTO> reserveList;
 
 	public String getIn_email() {
 		return in_email;
@@ -69,19 +68,10 @@ public class ReserveListDTO {
 		this.total = total;
 	}
 
-	public List<ReserveListDTO> getReserveList() {
-		return reserveList;
-	}
-
-	public void setReserveList(List<ReserveListDTO> reserveList) {
-		this.reserveList = reserveList;
-	}
-
 	@Override
 	public String toString() {
 		return "ReserveListDTO [in_email=" + in_email + ", store_no=" + store_no + ", seat_code=" + seat_code
-				+ ", res_date=" + res_date + ", end_date=" + end_date + ", times=" + times + ", total=" + total
-				+ ", reserveList=" + reserveList + "]";
+				+ ", res_date=" + res_date + ", end_date=" + end_date + ", times=" + times + ", total=" + total + "]";
 	}
 	
 	

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -140,29 +141,30 @@ public class ReserveCont {
 		return cnt;
 	}
 	
-	@RequestMapping(value="/reserveIns", method = RequestMethod.POST)
-	public ModelAndView resIns(ReserveListDTO reserveList, HttpSession session, HttpServletRequest req, Model model) throws Exception{
-		ModelAndView mav = new ModelAndView();
-		try {
-			for(ReserveListDTO resInsList : reserveList.getReserveList()) {
-				Map<String, String> map = new HashMap<String, String>();
-				map.put("in_email",resInsList.getIn_email());
-				map.put("store_no", Integer.toString(resInsList.getStore_no()));
-				map.put("seat_code", resInsList.getSeat_code());
-				map.put("res_date", resInsList.getRes_date());
-				map.put("end_date", resInsList.getEnd_date());
-				map.put("times", resInsList.getTimes());
-				map.put("total", Integer.toString(resInsList.getTotal()));
+	
+	@RequestMapping(value = "/reserveIns", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public int resIns(@RequestBody List<ReserveListDTO> reserveDTO) throws Exception{
+		int cnt=0;
+		try {			
+			reserveDTO.toString();
 			
-				mav.setViewName("/reserve/reserveIns");
+			for(int i=0; i<reserveDTO.size(); i++) {
+				String in_email=reserveDTO.get(i).getIn_email();
+				int store_no=reserveDTO.get(i).getStore_no();
+				String seat_code=reserveDTO.get(i).getSeat_code();
+				String res_date=reserveDTO.get(i).getRes_date();
+				String end_date=reserveDTO.get(i).getEnd_date();
+				String times=reserveDTO.get(i).getTimes();
+				int total = reserveDTO.get(i).getTotal();
+				
+				cnt += dao.resIns(in_email,store_no,seat_code,res_date,end_date,times,total);
 			}
 		}catch (Exception e) {
-			System.out.println("resIns 실패 : "+e);
+			System.out.println("resListAjax 실패 : "+e);
 		}
 		
-		
-		return mav;
+		return cnt;
 	}
-
 	
 }

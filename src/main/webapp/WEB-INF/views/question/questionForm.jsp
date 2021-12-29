@@ -8,9 +8,7 @@
 <div class="container">
 	<div class="inner">
 		<div class="question">
-			<h1>자주 묻는 질문</h1>
-			<br>
-
+			<div class="txtBtn"><a href="javascript:" class="on t1">자주 묻는 질문</a><a href="javascript:" class="t2">1:1 채팅</a></div>
 			<div id="Accordion_wrap">
 				<div class="que">
 					<span>스터디룸 이용은 어떻게 하나요?</span>
@@ -60,27 +58,28 @@
 				</div>
 			</div>
 
-			<div style="margin-bottom: 40px;"></div>
-			<h1>문의하고자 하는 지점 선택</h1>
-			<br>
-			<hr>
-			<br>
-			<div class="select">
-				<select class="select" id="place" name="place">
-					<c:forEach var="dto" items="${list}">
-						<option value="${dto.store_no}">${dto.store_name}</option>
-					</c:forEach>
-				</select>
-			</div>
-
-			<div style="margin-bottom: 40px;"></div>
-			<div class="btnD">
-				<span id="chat" class="btn" onClick="chat_ch();">관리자와 채팅하기</span>
-			</div>
-			<div style="margin-bottom: 30px;"></div>
-		</div>
-	</div>
-</div>
+			<div class="txtBtn"><a href="javascript:" class="t1">자주 묻는 질문</a><a href="javascript:" class="on t2">1:1 채팅</a></div>
+			<div id="chat_wrap">
+				<p class="img"><img src="../images/chat_icon.jpg"></p>
+				<div class="chat_cont">
+					<p>문의하고자 하는 지점 선택</p>
+				
+					<div class="select">
+						<select class="select" id="place" name="place">
+							<c:forEach var="dto" items="${list}">
+								<option value="${dto.store_no}">${dto.store_name}</option>
+							</c:forEach>
+						</select>
+					</div>
+		
+					<div class="btnD">
+						<a href="javascript:(void0)" id="chat" class="btn" onClick="chat_ch();"><span>관리자와 채팅하기</span></a>
+					</div>
+				</div>
+			</div><!-- //chat_cont -->
+		</div><!-- //question  -->
+	</div><!-- //inner -->
+</div><!-- //container -->
 <!-- 본문끝 -->
 <%@ include file="../footer.jsp"%>
 

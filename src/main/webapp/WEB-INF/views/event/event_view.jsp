@@ -15,11 +15,13 @@
 			<p class="tit">${dto.e_title}</p>
 			<div class="info">
 				<p>
-					<span>이벤트 기간 :</span>${dto.e_start.substring(0,10)}~${dto.e_end.substring(0,10)}</p>
-				<p>
-					<span>당첨자 수 :</span>${dto.e_winners}명</p>
-				<p>
-					<span>당첨 금액 :</span>${dto.e_money}원</p>
+					<span>작성자 : </span>${dto.en_email}
+				</p>
+				<p><span>작성일 : </span>${dto.e_start.substring(0,10)}~${dto.e_end.substring(0,10)}</p>
+				<p><span>이벤트 기간 :</span>${dto.e_start.substring(0,10)}~${dto.e_end.substring(0,10)}</p>
+				<p><span>당첨자 수 :</span>${dto.e_winners}명</p>
+				<p><span>당첨 금액 :</span>${dto.e_money}원</p>
+
 			</div>
 
 			<div class="con">

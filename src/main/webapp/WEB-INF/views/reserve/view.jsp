@@ -5,12 +5,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="../header.jsp" %>
 <script src="../js/res_script.js"></script>
-
 <!-- 본문시작 -->
 	<div class="subTit">
-		<h2>실시간예약</h2>
+		<h2>실시간예약 </h2>
 	</div>	
-
+	
 	<div class="container reserveCont">
 		<div class="inner">
 			<div class="reserveDiv">
@@ -242,17 +241,29 @@
 		</div><!-- //resCheck -->
 		
 		<div class="totalPay">
-			<a href="javascript:void(0)" onclick="return resScript.resChk();">
-				<p>총 <span class="num">0</span>건</p><p><span class="pay">0</span>원</p>
-				결제하기
-			</a>
+			<%
+				if (session.getAttribute("uid")==null) {
+					
+			%>
+				<a href="javascript:void(0)" onclick="return alert('로그인 후 이용가능합니다.'); false;">
+					<p>총 <span class="num">0</span>건</p><p><span class="pay">0</span>원</p>
+					결제하기
+				</a>	
+			<%}else{
+				
+			%>
+				
+				<a href="javascript:void(0)" onclick="return resScript.resChk();">
+					<p>총 <span class="num">0</span>건</p><p><span class="pay">0</span>원</p>
+					결제하기
+				</a>
+			<%	
+			}
+			%>
 		</div>
 	</div><!-- //reserveCont -->
 	
 	<div class="layerPop resPop">
-		<form name="reservefrm" id="reservefrm" action="/reserveIns" method="post" accept-charset="UTF-8">
-        </form>
-        
 		<div class="popDiv">
 			<p class="tit">예약 내역</p>
 			<div class="popCont">
@@ -270,7 +281,7 @@
 				</div>
 				<div>
 					<p class="tit1"><span>이용자 정보</span></p>
-					<p><input type="text" readonly value="wlgus@gmail.com"></p>
+					<p><input type="text" readonly value="${uid}"></p>
 				</div>
 				<div>
 					<p class="tit1"><span>결제 수단 선택</span></p>
@@ -281,7 +292,7 @@
 					<p class="infoTxt">현재 무통장입금을 통한 예약만 가능합니다. <br>이용에 불편을 드려 죄송합니다.</p>
 				</div>
 				<div class="btnD">
-					<a href="javascript:void(0)" class="btn" onclick="return resScript.resFinalChk();"><span>예약하기</span></a>
+					<a href="javascript:void(0)" class="btn" onclick="return resScript.resFinalChk('${uid}');"><span>예약하기</span></a>
 				</div>
 			</div>
 		</div>

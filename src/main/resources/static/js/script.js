@@ -214,6 +214,16 @@ $(document).ready(function() {
 		});
 		
 	}// 회원가입 end 
+	
+	if($("#Accordion_wrap").length != 0){ //1:1 문의하기
+		$(".txtBtn a").on("click", function(){
+			if($(this).hasClass("t1")){
+				$('html, body').animate({scrollTop: $("#Accordion_wrap").offset().top - 200}, 500);	
+			}else{
+				$('html, body').animate({scrollTop: $("#chat_wrap").offset().top - 200}, 500);
+			}
+		});
+	}
 
 });
 
@@ -223,6 +233,13 @@ $(window).on('load', function() {
 	} else {
 		$(".nav").removeClass("bk");
 	}
+
+	/*if($(".eventRev").length != 0 || $(".eventV").length !=0 ){
+		$("#wrap").addClass("wht");
+	}else{
+		$("#wrap").removeClass("wht");
+	}*/
+
 });
 
 // 팝업

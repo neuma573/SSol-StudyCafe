@@ -127,7 +127,34 @@ public class ReserveDAO {
 		}finally {
 			DBClose.close(con, pstmt, rs);
 		}
-		System.out.println("cnt1 = "+cnt);
+		
+		return cnt;
+	}
+	////
+	public int resIns(String in_email, int store_no, String seat_code, String res_date, String end_date, String times, int total) {
+		int cnt=0;
+		try {
+			con=dbopen.getConnection();
+			sql=new StringBuilder();
+			sql.append(" INSERT INTO tb_reserve(in_email,store_no,seat_code,res_date,end_date,times,total) ");
+			sql.append(" VALUES (?,?,?,?,?,?,?) ");
+			
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, in_email);
+			pstmt.setInt(2, store_no);
+			pstmt.setString(3, seat_code);
+			pstmt.setString(4, res_date);
+			pstmt.setString(5, end_date);
+			pstmt.setString(6, times);
+			pstmt.setInt(7, total);
+			
+			cnt=pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			System.out.println("resIns실패 : "+e);
+		}finally {
+			DBClose.close(con, pstmt);
+		}
 		return cnt;
 	}
 	
