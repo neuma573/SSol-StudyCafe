@@ -8,7 +8,7 @@
 <div class="container eventRev">
 	<div class="event_inner inner">
 		<form action="/eventwrite.do" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-			<input type="hidden" name="en_email" value="${dto.en_email}">				
+			<input type="hidden" name="en_email" value="${uid}">				
 			<div class="eveWrite revWrite">
 				<div class="left">
 					<h3>이벤트 등록</h3>

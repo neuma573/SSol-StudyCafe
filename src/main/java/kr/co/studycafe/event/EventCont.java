@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,10 +44,10 @@ public class EventCont {
 	}
 	
 	@RequestMapping(value="/eventwrite.do", method=RequestMethod.GET)
-	public ModelAndView eventWrite(String en_mail) {
+	public ModelAndView eventWrite(@SessionAttribute(name="uid", required=false) String uid) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/event/event_write");
-		mav.addObject("en_mail", en_mail);
+		mav.addObject("uid", uid);
 		return mav;
 	}
 
@@ -65,6 +66,7 @@ public class EventCont {
 			dto.setE_image(e_image);
 	
 			int cnt = dao.event_write(dto);
+			
 			if (cnt == 0) {
 				String msg = "이벤트 등록에 실패했습니다.";
 				mav.addObject("msg", msg);

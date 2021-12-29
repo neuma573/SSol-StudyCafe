@@ -103,7 +103,6 @@ CREATE TABLE tb_reserve (
   times varchar(100) NOT NULL DEFAULT '',
   e_number int(10) DEFAULT NULL,
   total int(10) NOT NULL DEFAULT 0,
-  pay_prog char(1) NOT NULL,
   prog tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (res_no),
   FOREIGN KEY (in_email) REFERENCES tb_member_in(in_email),
@@ -173,10 +172,8 @@ insert into tb_member_in values('dbsdud1025@gmail.com','dkssud12!','박윤영','
 -- select * from tb_member_en;
 insert into tb_member_en values('dbsdud1025@naver.com','dkssud12!','윤영','1999.10.25','123-12345-45678');
 
--- 매장정보 2021-12-21 장지현 수정 
+-- 매장정보 
 -- select * from tb_store_info;
-INSERT INTO tb_store_info(en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude, tel, store_en_no)
-VALUES('dbsdud1025@naver.com', '종각점', '서울 종로구 종로12길 15', '08:00-24:00', 4, 30, 20, 'store1.jpg', 37.56947854892087, 126.98597441116262, '02-1234-4567','123-456-789456');
 
 INSERT INTO tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude, tel, store_en_no)
 VALUES('dbsdud1025@naver.com', '홍대점', '서울 마포구 양화로 165', '08:00-24:00', 4, 30, 20, 'store2.jpg', 37.557654557627586, 126.92444543999783, '02-2222-3333', '123-456-789456');
@@ -187,7 +184,8 @@ VALUES('dbsdud1025@naver.com', '신정점', '서울 양천구 오목로 155', '0
 INSERT INTO tb_store_info (en_email, store_name, store_address, operating_hours, room_count, desk_count, box_count, store_img, latitude, longitude, tel, store_en_no)
 VALUES('dbsdud1025@naver.com', '목동점', '서울 양천구 신정동 오목로 238 LOND사옥', '08:00-24:00', 4, 30, 20, 'store4.jpg', 37.52602943586907, 126.86381820006488, '02-3434-3434', '123-456-789456');
 
-
+--------------------------------------------------------------------------------
+밑에 부분은 오류뜰 수도있어요! 위에까지만 안전
 
 -- 이벤트
 -- select * from tb_event;

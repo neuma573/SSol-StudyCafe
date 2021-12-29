@@ -65,8 +65,8 @@ public class MypageCont {
 		dto.setEn_email(uid);
 
 		// 임시
-		dto.setLatitude(37.46875);
-		dto.setLongitude(127.88065);
+		dto.setLatitude(37.56947854892087);
+		dto.setLongitude(126.98597441116262);
 		dto.setStore_img("image1.png");
 
 		System.out.println(dto);

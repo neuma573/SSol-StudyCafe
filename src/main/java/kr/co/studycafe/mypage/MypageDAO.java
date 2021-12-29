@@ -30,7 +30,7 @@ public class MypageDAO {
 			sql.append(" SELECT res_no, res_date, times, store_name, seat_code, prog");
 			sql.append(" FROM tb_reserve JOIN tb_store_info");
 			sql.append(" ON tb_reserve.store_no = tb_store_info.store_no ");
-			sql.append(" WHERE in_email = ? AND pay_prog = 'Y' AND seat_code LIKE 'desk%' ");
+			sql.append(" WHERE in_email = ? AND  seat_code LIKE 'desk%' ");
 			sql.append(" ORDER BY res_no DESC ");
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1, uid);
@@ -64,7 +64,7 @@ public class MypageDAO {
 			sql.append(" SELECT res_no, res_date, end_date, store_name, seat_code, prog");
 			sql.append(" FROM tb_reserve JOIN tb_store_info");
 			sql.append(" ON tb_reserve.store_no = tb_store_info.store_no ");
-			sql.append(" WHERE in_email = ? AND pay_prog = 'Y' AND seat_code LIKE 'locker%' ");
+			sql.append(" WHERE in_email = ? AND seat_code LIKE 'locker%' ");
 			sql.append(" ORDER BY res_no DESC ");
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1, uid);
