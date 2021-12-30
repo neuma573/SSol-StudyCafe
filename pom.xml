@@ -12,6 +12,7 @@
 	<groupId>kr.co</groupId>
 	<artifactId>SSol_StudyCafe</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging><!-- 추가,, -->
 	<name>SSol_StudyCafe</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>

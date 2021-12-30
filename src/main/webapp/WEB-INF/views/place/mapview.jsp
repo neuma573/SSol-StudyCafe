@@ -39,7 +39,7 @@
 											<c:otherwise><span class="star"></span></c:otherwise>
 										</c:choose>
 										<!-- class : one, two, thr, for, fiv -->
-										<span class="num">(${dto.review_tot})</span>
+										<span class="num">(리뷰 : ${dto.review_tot}건)</span>
 									</p>
 								</div>
 							</a>
