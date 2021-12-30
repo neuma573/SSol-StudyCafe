@@ -27,9 +27,9 @@
 						</tr>
 					</thead>
 					<tbody>
-					<c:forEach var="dto" items="${Notice_list}">
+					<c:forEach var="dto" items="${noticeList}" varStatus="num">
 						<tr>
-							<td class="num t_center"><span class="label">${dto.n_number}</span></td>
+							<td class="num t_center"><span class="label">${fn:length(noticeList) - (num.index)}</span></td>
 							<td><a href="/notice/notice_view.do?n_number=${dto.n_number}" class="ellipsis">${dto.n_title}</a></td>
 							<td class="date t_center">${dto.n_date.substring(0,10)}</td>
 						</tr>
@@ -45,6 +45,7 @@
 
 	</div><!-- //borderwrap -->
 </div><!-- //inquiry_wrap -->
+
 
 <!-- 본문끝 -->
 <%@ include file="../footer.jsp"%>

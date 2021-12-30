@@ -21,7 +21,7 @@ h3.subTit2{margin-bottom:30px; font-size:32px; color:#333; line-height:1;}
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
 }
-.nav .container{margin:0 50px;}
+.nav .container{width:1280px; margin:0 auto;}
 .nav div.main_list span {padding: 40px;}
 .nav div.main_list ul{
     display: flex;
@@ -794,6 +794,7 @@ text-overflow: ellipsis; white-space: nowrap;}
 
 @media all and (max-width:1300px){
 	.nav{height:80px;}
+	.nav .container{width:90%;}
 	.nav div.main_list ul li{margin-right:30px;}
 	nav div.main_list ul li:nth-child(6){margin-right:30px;}
 	.nav div.main_list ul li a{font-size:16px; line-height:80px;}
@@ -822,6 +823,7 @@ text-overflow: ellipsis; white-space: nowrap;}
 }
 
 @media screen and (max-width:900px) {
+	.nav .container{width:100%;}
 	.mlogo{display:block; text-align:left;}
 	.mlogo a{color:#fff; font-weight:700; font-size:25px;}
 	.nav.bk .mlogo a{color:#001f2e;}

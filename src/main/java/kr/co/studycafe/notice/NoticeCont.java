@@ -17,13 +17,13 @@ import net.utility.UploadSaveManager;
 @Controller
 public class NoticeCont {
 	private NoticeDAO dao = null;
-
+	
 	public NoticeCont() {
 		dao = new NoticeDAO();
 		
 		System.out.println("NoticeCont 객체 생성");
 	}
-
+	/*
 	@RequestMapping("/notice/notice.do")
 	public ModelAndView notice(@SessionAttribute(name = "uid", required = false) String uid) {
 		ModelAndView mav = new ModelAndView();
@@ -102,6 +102,6 @@ public class NoticeCont {
 		mav.setViewName("notice/notice_delete");
 		return mav;
 
-	}
+	}*/
 
 }
