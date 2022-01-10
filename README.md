@@ -30,3 +30,8 @@
  <p float="left"><img src="https://user-images.githubusercontent.com/71267455/148746007-d439e92d-2ee5-43ec-b055-03c9e02761fe.PNG">
 <img src="https://user-images.githubusercontent.com/71267455/148746011-dc004bd4-15ce-4318-b00d-a6fb56348df2.PNG"></p>
  ▲ 리뷰<br><br>
+ 
+ * ## 팀원 
+ > ###김여진
+
+ 
