@@ -1,1 +1,4 @@
-# SSol-StudyCafe
+# 스터디카페 웹 사이트 'SSol-StudyCafe'
+
+* ## 개발동기
+ * 웹 어플리케이션의 개발의 기본 CRUD의 숙지 필요성 대두
