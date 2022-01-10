@@ -5,16 +5,17 @@
  * 위치 기반 서비스, 채팅 서비스, 예약서비스를 구현하고자 함
  * Spring Boot의 채택으로 웹 개발 기술의 최신성 반영
  
-* ## 개발 환경 
- > JSP, SpringBoot, Java, SourceTree(GIT), MariaDB
+* ## 개발 환경 (언어 및 도구)
+ > JSP, SpringBoot, Java, SourceTree(GIT), MariaDB, html, css, javascript
 
 * ## 실행 화면 
- > 홈
- > 로그인 (SocialLogin, Session) 
- > 회원가입 (JavaMailSenderImpl)
- > 문의 및 채팅 (WebSocket)
- > 실시간 예약 
- > 공지사항
- > 이벤트
- > 지점찾기 (Google Map)
- > 리뷰
+<p float="left"><img src="https://user-images.githubusercontent.com/71267455/148746027-2acd2aa4-a029-47f6-aea9-f52525170b1b.PNG" width="200" height="370"></p>
+ * 홈
+ * 로그인 (SocialLogin, Session) 
+ * 회원가입 (JavaMailSenderImpl)
+ * 문의 및 채팅 (WebSocket)
+ * 실시간 예약 
+ * 공지사항
+ * 이벤트
+ * 지점찾기 (Google Map)
+ * 리뷰
