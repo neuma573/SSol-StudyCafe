@@ -9,9 +9,9 @@
  > JSP, SpringBoot, Java, SourceTree(GIT), MariaDB, html, css, javascript
 
 * ## 실행 화면 
-<p float="left"><img src="https://user-images.githubusercontent.com/71267455/148746027-2acd2aa4-a029-47f6-aea9-f52525170b1b.PNG" width="200" height="370"></p>
- * 홈
- * 로그인 (SocialLogin, Session) 
+<p float="left"><img src="https://user-images.githubusercontent.com/71267455/148746027-2acd2aa4-a029-47f6-aea9-f52525170b1b.PNG"></p><br>
+  ▲ 홈<br>
+ ▲ 로그인<br> (SocialLogin, Session) 
  * 회원가입 (JavaMailSenderImpl)
  * 문의 및 채팅 (WebSocket)
  * 실시간 예약 
