@@ -10,12 +10,17 @@
 
 * ## 실행 화면 
 <p float="left"><img src="https://user-images.githubusercontent.com/71267455/148746027-2acd2aa4-a029-47f6-aea9-f52525170b1b.PNG"></p>
-  ▲ 홈<br>
- ▲ 로그인<br> (SocialLogin, Session) 
- * 회원가입 (JavaMailSenderImpl)
- * 문의 및 채팅 (WebSocket)
- * 실시간 예약 
- * 공지사항
- * 이벤트
- * 지점찾기 (Google Map)
- * 리뷰
+ ▲ 홈<br>
+ <p float="left"><img src="https://user-images.githubusercontent.com/71267455/148745870-c4b3d221-3151-4d64-926a-c2d14d36a2d9.PNG"></p>
+ ▲ 로그인(SocialLogin, Session)<br> 
+ <p float="left"><img src="https://user-images.githubusercontent.com/71267455/148745903-f6e9c72a-2c1c-444a-84c0-73a1bccd17d5.PNG">
+<img src="https://user-images.githubusercontent.com/71267455/148745904-87c1200f-44da-4a96-8f64-88ce64f12c6d.PNG"></p>
+ ▲ 회원가입(JavaMailSenderImpl)<br>
+  <p float="left"><img src="https://user-images.githubusercontent.com/71267455/148745949-42565352-fee4-4a00-9c7c-0de07054126f.PNG">
+ <img src="https://user-images.githubusercontent.com/71267455/148749283-17e7631d-5a3c-4234-bace-e58de87182c0.jpg"></p>
+ ▲ 문의 및 채팅(WebSocket)<br>
+ ▲ 실시간 예약<br>
+ ▲ 공지사항<br>
+ ▲ 이벤트<br>
+ ▲ 지점찾기(Google Map)<br>
+ ▲ 리뷰<br>
