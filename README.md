@@ -9,7 +9,7 @@
  > JSP, SpringBoot, Java, SourceTree(GIT), MariaDB, html, css, javascript
 
 * ## 실행 화면 
-<p float="left"><img src="https://user-images.githubusercontent.com/71267455/148746027-2acd2aa4-a029-47f6-aea9-f52525170b1b.PNG"></p><br>
+<p float="left"><img src="https://user-images.githubusercontent.com/71267455/148746027-2acd2aa4-a029-47f6-aea9-f52525170b1b.PNG"></p>
   ▲ 홈<br>
  ▲ 로그인<br> (SocialLogin, Session) 
  * 회원가입 (JavaMailSenderImpl)
