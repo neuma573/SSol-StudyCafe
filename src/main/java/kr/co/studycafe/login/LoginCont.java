@@ -42,6 +42,7 @@ public class LoginCont {
 		    HttpSession session = req.getSession();
 		    if(session.getAttribute("uid")!=null ){
 				session.removeAttribute("uid");
+				session.removeAttribute("user");
 			}
 		    session.setAttribute("uid", Dto.getEmail());
 		    

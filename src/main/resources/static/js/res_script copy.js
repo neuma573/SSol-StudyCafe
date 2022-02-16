@@ -2,6 +2,7 @@ var resScript = (function(){
     var $leftF, $topF, $topF2;
     var $lockerpayment=0, $seatpayment=0, $roompayment=0;
     var $html="";
+    var year, month, calTot, start, nowYear, nowMonth, nowDate, thisY, thisM; //달력
     var store_no, res_date; //예약좌석
     var resStoreArr = [], resLocArr=[]; //예약 지역, 지점 배열 
     var seatTxt, lockerTxt; // 선택한 좌석명 txt , 선택한 사물함 명 txt
@@ -12,11 +13,15 @@ var resScript = (function(){
     var realToday;
     var resArray=[];
     var locArr=[];
-    var locPay, locPayTotal;
+    var locPay;
+    var locPayT = 0;
+    var week4, week8, week12;
+    var resChkList=[];
     var resArrList=[];
     var resOverlab=[];
     return{
         reserve : function(){ //실시간 예약 처음 로드됐을때 
+            //실시간예약
             $(".reserveDiv .accoD .accoBox .accoTit").each(function(index) {
                 $(this).on("click", function() {
                     setTimeout(function(){
@@ -72,50 +77,172 @@ var resScript = (function(){
             for(var l=1; l<=20; l++){
                 $(".lockerDiv .lockerD").append("<a href='javascript:' data-val='locker_"+l+"' class='locker'><span>사물함"+l+"</span></a>");	
             }
-
-            setTimeout(function(){
-                $(".slcDeTail .date .data").html($("#today").val());
-                realToday =$("#today").val();
-            },300);
         },
-        deskPay : function($seatTimeSize){//좌석 요금 
+        calSet : function(){ //달력 처음 로드됐을때 
+            $.ajax({
+				type: "GET",
+				url: "../calendarUse",
+				success: function(data) {
+                    nowYear = parseInt(data.nowYear);
+                    nowMonth = parseInt(data.nowMonth);
+                    nowDate = parseInt(data.nowDate);
+                    start = parseInt(data.start);
+                    calTot = parseInt(data.calTot);
+                    week4 = data.week4;
+                    week8 = data.week8;
+                    week12 = data.week12;
+                    if(nowMonth < 10){
+                        nowMonth = parseInt("0"+nowMonth);
+                    }
+                    if(nowDate < 10){
+                        nowDate = parseInt("0"+nowDate);
+                    }
+                    
+                    realToday = nowYear+"-"+nowMonth+"-"+nowDate;
+                    $("#today").val(realToday);
+                    
+                    for(var i=nowYear; i<=nowYear+1; i++){
+                        if(i==nowYear){
+                            $(".calSel select#year").append("<option value="+i+" selected>"+i+"년</option>");
+                        }else{
+                            $(".calSel select#year").append("<option value="+i+">"+i+"년</option>");
+                        }
+                    }
+
+                    for(var j=1; j<=12; j++){
+                        if(j==nowMonth){
+                            $(".calSel select#month").append("<option value="+j+" selected>"+j+"월</option>");
+                        }else{
+                            $(".calSel select#month").append("<option value="+j+">"+j+"월</option>");
+                        }
+                    }
+                    
+                    resScript.calMake();
+                    $(".slcDeTail .date .data").html(nowYear+"-"+nowMonth+"-"+nowDate); // 디테일 입력 정보 - 날짜 
+                    
+                    $(".tabCont .resDay .scrollD a").eq(0).attr("data-res",realToday);
+                    $(".tabCont .resDay .scrollD a").eq(0).attr("data-end",week4);
+                    $(".tabCont .resDay .scrollD a").eq(0).find("span").eq(1).html("4주 ("+realToday+" ~ "+week4+")");
+                    
+                    $(".tabCont .resDay .scrollD a").eq(1).attr("data-res",realToday);
+                    $(".tabCont .resDay .scrollD a").eq(1).attr("data-end",week8);
+                    $(".tabCont .resDay .scrollD a").eq(1).find("span").eq(1).html("8주 ("+realToday+" ~ "+week8+")");
+
+                    $(".tabCont .resDay .scrollD a").eq(2).attr("data-res",realToday);
+                    $(".tabCont .resDay .scrollD a").eq(2).attr("data-end",week12);
+                    $(".tabCont .resDay .scrollD a").eq(2).find("span").eq(1).html("12주 ("+realToday+" ~ "+week12+")");
+                    
+				}
+			});  
+        },
+        calUse : function(thisY, thisM){// 달력 날짜 년도, 월 변경 시 
+            $.ajax({
+				type: "POST",
+				url: "../calendarUse",
+                data:{
+                    year:thisY,
+                    month:thisM
+                },
+				success: function(data) {
+					nowYear = parseInt(data.nowYear);
+                    nowMonth = parseInt(data.nowMonth);
+                    nowDate = parseInt(data.nowDate);
+                    start = parseInt(data.start);
+                    calTot = parseInt(data.calTot);
+                    
+                    resScript.calMake();
+				}
+			});
+        },
+        calMake : function(){// 달력 
+            var dayNum = 1;
+            $(".cal .calTable table tbody td").removeClass("empty today");
+            $(".cal .calTable table tbody td a").html("");
+            
+            thisM = $(".calSel select#month").val();
+            thisY = $(".calSel select#year").val();
+            $(".cal .calTable table tbody td").each(function(index){
+                if(index < (start-1)){
+                    $(".cal .calTable table tbody td").eq(index).addClass("empty");		
+                }
+                if(index >= (start-1) && index<calTot+(start-1)){
+                    $(".cal .calTable table tbody td").eq(index).find("a").html(dayNum);
+                    
+                    if(thisY == nowYear){
+                        if(thisM < nowMonth){
+                            $(".cal .calTable table tbody td").eq(index).addClass("before");
+                        }else if(thisM == nowMonth){
+                            if(dayNum < nowDate){
+                                $(".cal .calTable table tbody td").eq(index).addClass("before");
+                            }else{
+                                $(".cal .calTable table tbody td").eq(index).removeClass("before");
+                            }
+                            if(dayNum == nowDate){
+                                $(".cal .calTable table tbody td").eq(index).addClass("today");
+                            }
+                        }
+                    }else{
+                        $(".cal .calTable table tbody td").removeClass("before");
+                    }
+                    
+                    dayNum++;
+                }
+                if(index>=calTot+(start-1)){
+                    $(".cal .calTable table tbody td").eq(index).addClass("empty");
+                }
+            });
+        },
+        calChange : function(){// 년도, 월 변경 시 
+            $(".calSel select#month").change(function(){// 월 변경
+                thisY = $(".calSel select#year").val(); 
+                thisM = $(this).val();
+                resScript.calUse(thisY, thisM);
+            });
+
+            $(".calSel select#year").change(function(){// 년도 변경
+                thisY = $(this).val(); 
+                thisM = $(".calSel select#month").val();
+                resScript.calUse(thisY, thisM);
+            });
+        },
+        deskPay : function($seatSize){//좌석 요금 
             $seatpayment = 0;
-            if($seatTimeSize < 4){
-                $seatpayment=(1500*$seatTimeSize);
-            }else if($seatTimeSize>=4 && $seatTimeSize<6){
-                $seatpayment=(5000+(1500*($seatTimeSize-4)));
-            }else if($seatTimeSize>=6 && $seatTimeSize<10){
-                $seatpayment=(6000+(1500*($seatTimeSize-6)));
-            }else if($seatTimeSize>=10 && $seatTimeSize<12){
-                $seatpayment=(6000+5000+(1500*($seatTimeSize-10)));
-            }else if($seatTimeSize>=12 && $seatTimeSize<16){
-                $seatpayment=(10000+(1500*($seatTimeSize-12)));
-            }else if($seatTimeSize>=16 && $seatTimeSize<18){
-                $seatpayment=(10000+5000+(1500*($seatTimeSize-16)));
-            }else if($seatTimeSize>=18 && $seatTimeSize<24){
-                $seatpayment=(10000+6000+(1500*($seatTimeSize-18)));
-            }else if($seatTimeSize==24){
+            if($seatSize < 4){
+                $seatpayment=(1500*$seatSize);
+            }else if($seatSize>=4 && $seatSize<6){
+                $seatpayment=(5000+(1500*($seatSize-4)));
+            }else if($seatSize>=6 && $seatSize<10){
+                $seatpayment=(6000+(1500*($seatSize-6)));
+            }else if($seatSize>=10 && $seatSize<12){
+                $seatpayment=(6000+5000+(1500*($seatSize-10)));
+            }else if($seatSize>=12 && $seatSize<16){
+                $seatpayment=(10000+(1500*($seatSize-12)));
+            }else if($seatSize>=16 && $seatSize<18){
+                $seatpayment=(10000+5000+(1500*($seatSize-16)));
+            }else if($seatSize>=18 && $seatSize<24){
+                $seatpayment=(10000+6000+(1500*($seatSize-18)));
+            }else if($seatSize==24){
                 $seatpayment=20000;
             }
             return $seatpayment;
         },
-        roomPay : function($roomTimeSize){// room 요금 
+        roomPay : function($roomSize){// room 요금 
             $roompayment=0;
-            if($roomTimeSize < 4){
-                $roompayment=(6000*$roomTimeSize);
-            }else if($roomTimeSize>=4 && $roomTimeSize<6){
-                $roompayment=(20000+(6000*($roomTimeSize-4)));
-            }else if($roomTimeSize>=6 && $roomTimeSize<10){
-                $roompayment=(24000+(6000*($roomTimeSize-6)));
-            }else if($roomTimeSize>=10 && $roomTimeSize<12){
-                $roompayment=(24000+20000+(6000*($roomTimeSize-10)));
-            }else if($roomTimeSize>=12 && $roomTimeSize<16){
-                $roompayment=(40000+(6000*($roomTimeSize-12)));
-            }else if($roomTimeSize>=16 && $roomTimeSize<18){
-                $roompayment=(40000+20000+(6000*($roomTimeSize-16)));
-            }else if($roomTimeSize>=18 && $roomTimeSize<24){
-                $roompayment=(40000+24000+(6000*($roomTimeSize-18)));
-            }else if($roomTimeSize==24){
+            if($roomSize < 4){
+                $roompayment=(6000*$roomSize);
+            }else if($roomSize>=4 && $roomSize<6){
+                $roompayment=(20000+(6000*($roomSize-4)));
+            }else if($roomSize>=6 && $roomSize<10){
+                $roompayment=(24000+(6000*($roomSize-6)));
+            }else if($roomSize>=10 && $roomSize<12){
+                $roompayment=(24000+20000+(6000*($roomSize-10)));
+            }else if($roomSize>=12 && $roomSize<16){
+                $roompayment=(40000+(6000*($roomSize-12)));
+            }else if($roomSize>=16 && $roomSize<18){
+                $roompayment=(40000+20000+(6000*($roomSize-16)));
+            }else if($roomSize>=18 && $roomSize<24){
+                $roompayment=(40000+24000+(6000*($roomSize-18)));
+            }else if($roomSize==24){
                 $roompayment=80000;
             }
             return $roompayment;
@@ -174,150 +301,6 @@ var resScript = (function(){
                 $(".reserveCont .reserveDiv").css("min-height", $(".reserveCont .rightFix").outerHeight());
             });
 
-        },
-        resSet : function(){// 실시간 예약 처음 로드됐을때 지역, 지점 선택
-            $.ajax({
-				type: "GET",
-				url: "../reserve",
-				success: function(data) {
-                    resStoreArr = [];
-		            resLocArr=[];
-                    $.each(data,function(idx, val) {
-                        resStoreArr.push({
-                            store_no:val.store_no,
-                            store_name:val.store_name,
-                            addr:val.store_address.substring(0,2),
-                            rcnt:val.room_count,
-                            dcnt:val.desk_count,
-                            lcnt:val.locker_count
-                        });
-
-                        if(resLocArr.indexOf(val.store_address.substring(0,2))!=0){
-                            resLocArr.push(val.store_address.substring(0,2));
-                        }
-                    });
-
-                    // 지역 select - option
-                    for(var j=0; j<resLocArr.length; j++){ 
-                        $(".reserveCont select.location").append("<option>"+resLocArr[j]+"</option>");
-                    }
-
-                    // 지점 select - option
-                    $(".reserveCont select.location").change(function(){// 지역 선택하면
-                        if($(this).val() !== "none"){
-                            $(".reserveCont select.store").empty();
-                            $(".reserveCont select.store").append("<option value='none'>지점을 선택해주세요</option>");
-                            for(var i=0; i<resStoreArr.length; i++){
-                                if(resStoreArr[i].addr.indexOf($(this).val())==0){
-                                    $(".reserveCont select.store").append("<option value="+resStoreArr[i].store_no+">"+resStoreArr[i].store_name+"</option>");
-                                }	
-                            }
-
-                            $(".slcDeTail .location .data").html($(".reserveCont select.location option:selected").text());
-                        }
-                    });
-
-				}
-			});// ajax  
-        },
-        resState : function(store_no,res_date,rcnt,dcnt,lcnt){// 예약 된 좌석,룸 정보 로드 AJAX 후에 좌석 선택 
-            $.ajax({
-				type: "POST",
-				url: "../reserveState",
-                data:{
-                    store_no:store_no,
-                    res_date:res_date
-                },
-				success: function(data) {
-                    console.log(JSON.stringify(data));
-                    resArray=[];
-                    locArr=[];
-                    $.each(data,function(idx, val) {
-                        if(val.seat_code != null){//좌석, 룸
-                            resArray.push({seat:val.seat_code, times:val.times});
-                        }else{// 사물함 
-                            locArr.push({locker:val.locker_code, res_end_date:val.res_end_date});
-                        }
-                    });
-                    
-                    // 지점 별 좌석 노출 
-                    $(".reserveCont .seatDiv .deskD").empty();
-				    $(".reserveCont .seatDiv .roomD").empty();
-                    $(".reserveCont .lockerDiv .lockerD").empty();
-
-                    for(var d=0; d<dcnt; d++){ // 좌석 
-                        $(".reserveCont .seatDiv .deskD").append("<a href='javascript:' class='desk seat' data-val='desk_"+(d+1)+"'><span>좌석"+(d+1)+"</span></a>");	
-                    }
-                    
-                    for(var r=0; r<rcnt; r++){ // ROOM
-                        $(".reserveCont .seatDiv .roomD").append("<a href='javascript:' class='room seat' data-val='room_"+(r+1)+"'><span>ROOM"+(r+1)+"</span></a>");			
-                    }
-                    
-
-                    for(var b=0; b<lcnt; b++){ // 사물함 
-                        $(".reserveCont .lockerDiv .lockerD").append("<a href='javascript:' class='locker' data-val='locker_"+(b+1)+"'><span>사물함"+(b+1)+"</span></a>");
-                    }
-
-                    for(var l=0; l<locArr.length; l++){
-                        var lnum = parseInt((locArr[l].locker).split("_")[1]);
-                        $(".lockerDiv .lockerD .locker").eq(lnum-1).addClass("no");
-                        $(".lockerDiv .lockerD .locker").eq(lnum-1).append("<span class='hide'>~ "+locArr[l].res_end_date+"</span>");
-                    }
-
-				}
-			});
-        },
-        resChange : function(){// 지점 선택, 달력 날짜 선택시 - resState 재호출 
-            $(".reserveCont select.store").change(function(){// 지점 선택시
-                if($(this).val() !== "none"){
-                    resScript.resReset();
-                    $(".slcDeTail p").not(".location").not(".date").find(".data").empty();
-
-                    store_no = $(this).val();
-                    res_date = $("#today").val();
-                    
-                    for(var i=0; i<resStoreArr.length; i++){
-                        if(store_no == resStoreArr[i].store_no){
-                            resScript.resState(store_no,res_date,resStoreArr[i].rcnt,resStoreArr[i].dcnt,resStoreArr[i].lcnt);
-                        }
-                    }
-                    
-                    $(".slcDeTail .store .location").html($(".reserveCont select.location option:selected").text());
-                    $(".slcDeTail .store .data").html($(".reserveCont select.store option:selected").text());
-                }
-            });
-
-            $(document).on("click", ".calTable table td a", function(){ //달력 날짜 선택시 
-                if($(".reserveCont select.store").val() !== "none"){
-                    if(!$(this).parents("td").hasClass("before") && !$(this).parents("td").hasClass("empty")){
-                        resScript.resReset();
-                        $(".slcDeTail p").not(".location").not(".store").find(".data").empty();
-
-                        $(".calTable table td").removeClass("on");
-                        $(this).parents("td").addClass("on");
-                        
-                        var selY = $(".calSel select#year").val();
-                        var selM = $(".calSel select#month").val();
-                        var selD = parseInt($(this).text());
-                        if(selM < 10){selM="0"+selM};
-                        if(selD < 10){selD="0"+selD};
-                        $("#today").val(selY+"-"+selM+"-"+selD);
-                        $(".slcDeTail .date .data").html(selY+"-"+selM+"-"+selD);
-
-                        store_no = $(".reserveCont .slcD select.store").val();
-                        res_date = selY+"-"+selM+"-"+selD;
-                        
-                        for(var i=0; i<resStoreArr.length; i++){
-                            if(store_no == resStoreArr[i].store_no){
-                                resScript.resState(store_no,res_date,resStoreArr[i].rcnt,resStoreArr[i].dcnt,resStoreArr[i].lcnt);
-                            }
-                        }
-                    }
-                }else{
-                    alert("지역, 지점명을 선택해주세요!");
-                    return false;
-                }
-            });
         },
         seatClick : function(){//좌석선택시 이벤트
             $(document).on("click", ".reserveCont .seatDiv .seat", function(){// 좌석 클릭 시 
@@ -476,8 +459,9 @@ var resScript = (function(){
                     basicPay = 6000;
                 }else if(datailSeat.indexOf("사물함")==0){
                     basicPay = locPay;
-                    locPayTotal+=locPay;
+                    locPayT+=locPay;
                 }
+                
                 
                 if(resDetailArr.length != 0){
                     for(var r=0; r<resDetailArr.length; r++){
@@ -499,7 +483,7 @@ var resScript = (function(){
                     }
                 }// if
 
-                if(timeArr.length != 0){//좌석
+                if(timeArr.length != 0){
                     for(var r=0; r<timeArr.length; r++){
                         resDetailArr.push({
                             loc:detailLoc,
@@ -512,7 +496,7 @@ var resScript = (function(){
                             pay:basicPay
                         });
                     }
-                }else{// 사물함 
+                }else{
                     resDetailArr.push({
                         loc:detailLoc,
                         store:detailStore,
@@ -524,19 +508,35 @@ var resScript = (function(){
                     });
                 }
 
-                resScript.arrList(resDetailArr); 
+                resScript.arrList(resDetailArr);
                 resScript.resReset();
                 $(".slcDeTail p").not(".location").not(".store").not(".date").find(".data").empty();
                 
             }
         },
-        arrList : function(resDetailArr){//예약확인 list
+        arrList : function(resDetailArr){
             addSeat=0, addRoom=0, addLock=0, resListNum=1;
-
-            if(resDetailArr.length > 1){
-                resDetailArr.sort(function(a,b){return a.seat < b.seat ? -1 : a.seat > b.seat ? 1 : 0;});
-                resDetailArr.sort(function(a,b){return a.date < b.date ? -1 : a.date > b.date ? 1 : 0;});                    
+            function sortline(a,b){
+                if(a.date < b.date){
+                    return -1;
+                }
+                if(a.date > b.date){
+                    return 1;
+                }
+                return 0;
             }
+            function sortline2(a,b){
+                if(a.seat < b.seat){
+                    return -1;
+                }
+                if(a.seat > b.seat){
+                    return 1;
+                }
+                return 0;
+            }
+            
+            resDetailArr.sort(sortline2);
+            resDetailArr.sort(sortline);
             
             $(".reserveCont .resCheck .listD").empty();
             // 예약확인 list
@@ -569,12 +569,51 @@ var resScript = (function(){
             for(var r=0; r<resOverlab.length; r++){
                 totalPayment+=resOverlab[r].total;
             }
+            
+            // 예약 결제 정보에 노출되는 정보 
+            /*if(addRoom>0 || addSeat>0 || addLock>0){
+                $(".resTotD").show();
+            }else if(addRoom==0 && addSeat==0 && addLock==0){
+                $(".resTotD").hide();
+            }
+            if(addSeat>0){//좌석을 1개 이상 선택했을때 
+                $(".resTotD .resTot.seatT").css("display","flex");
+                $(".resTotD .resTot.seatT .num").html(addSeat);
+                $(".resTotD .resTot.seatT .pay").html(numberWithCommas(addSeat*1500));
+                $(".resTotD .resTot.seatT .disPay").html(numberWithCommas(totSeat));
+            }else{
+                $(".resTotD .resTot.seatT").css("display","none");
+                $(".resTotD .resTot.seatT span").html(0);
+            }
+        
+            if(addRoom>0){//ROOM 1개 이상 선택했을때 
+                $(".resTotD .resTot.roomT").css("display","flex");
+                $(".resTotD .resTot.roomT .num").html(addRoom);
+                $(".resTotD .resTot.roomT .pay").html(numberWithCommas(addRoom*6000));
+                $(".resTotD .resTot.roomT .disPay").html(numberWithCommas(totRoom));
+            }else{
+                $(".resTotD .resTot.roomT").css("display","none");
+                $(".resTotD .resTot.roomT span").html(0);
+            }
+        
+            if(addLock>0){//사물함 1개 이상 선택했을때 
+                $(".resTotD .lockerT").css("display","flex");
+                $(".resTotD .resTot.lockerT .num").html(addLock);
+                $(".resTotD .resTot.lockerT .pay").html(numberWithCommas(locPayT));
+            }else{
+                $(".resTotD .lockerT").css("display","none");
+                $(".resTotD .resTot.lockerT .num").html(0);
+                $(".resTotD .resTot.lockerT .pay").html(0);
+            }*/
+
             $(".reserveCont .totalPay .num").html(addSeat+addRoom+addLock);
             $(".reserveCont .totalPay .pay").html(numberWithCommas(totalPayment));
+
         },
-        arrListType2 : function(resDetailArr){//db에 저장되는 형태로 배열 생성
-            resOverlab = []; 
-            var res_date, seat, seatVal, time, timeVal, size, total, res_end_date;
+        arrListType2 : function(resDetailArr){
+            resOverlab = [];
+            var res_date, seat, seatVal, time, timeVal, size, total, end_date;
+            
             for(var r=0; r<resDetailArr.length; r++){
                 res_date = resDetailArr[r].date;
                 seat = resDetailArr[r].seat;
@@ -583,7 +622,7 @@ var resScript = (function(){
                 timeVal = resDetailArr[r].timeVal+",";
                 size = 1;
                 total=0;
-                res_end_date="";
+                end_date="";
                 pay=resDetailArr[r].pay;
 
                 for(var r2=r+1; r2<resDetailArr.length; r2++){
@@ -602,7 +641,7 @@ var resScript = (function(){
                 }else if(seatVal.indexOf("locker")==0){
                     timeVal="";
                     total = resScript.lockerPay(parseInt(time.split("주")[0]));
-                    res_end_date = time.substring(time.indexOf("~")+2,time.length-3);
+                    end_date = time.substring(time.indexOf("~")+2,time.length-3);
                 }
                 
                 resOverlab.push({
@@ -611,7 +650,7 @@ var resScript = (function(){
                     seat_code:seatVal,
                     times:timeVal,
                     total:total,
-                    res_end_date:res_end_date,
+                    end_date:end_date,
                     //화면에 보여질 
                     seat:seat,
                     time:time.trim(),
@@ -621,7 +660,153 @@ var resScript = (function(){
             }
             return resOverlab;
         },
-        resChk : function(){// 결제하기 클릭 시 - 그 사이에 추가 된 예약 내역 있는지 조회
+        resSet : function(){// 실시간 예약 처음 로드됐을때 지역, 지점 선택
+            $.ajax({
+				type: "GET",
+				url: "../reserve",
+				success: function(data) {
+                    resStoreArr = [];
+		            resLocArr=[];
+                    $.each(data,function(idx, val) {
+                        resStoreArr.push({
+                            store_no:val.store_no,
+                            store_name:val.store_name,
+                            addr:val.store_address.substring(0,2),
+                            rcnt:val.room_count,
+                            dcnt:val.desk_count,
+                            bcnt:val.box_count
+                        });
+
+                        if(resLocArr.indexOf(val.store_address.substring(0,2))!=0){
+                            resLocArr.push(val.store_address.substring(0,2));
+                        }
+                    });
+
+                    // 지역 select - option
+                    for(var j=0; j<resLocArr.length; j++){ 
+                        $(".reserveCont select.location").append("<option>"+resLocArr[j]+"</option>");
+                    }
+
+                    // 지점 select - option
+                    $(".reserveCont select.location").change(function(){// 지역 선택하면
+                        if($(this).val() !== "none"){
+                            $(".reserveCont select.store").empty();
+                            $(".reserveCont select.store").append("<option value='none'>지점을 선택해주세요</option>");
+                            for(var i=0; i<resStoreArr.length; i++){
+                                if(resStoreArr[i].addr.indexOf($(this).val())==0){
+                                    $(".reserveCont select.store").append("<option value="+resStoreArr[i].store_no+">"+resStoreArr[i].store_name+"</option>");
+                                }	
+                            }
+
+                            $(".slcDeTail .location .data").html($(".reserveCont select.location option:selected").text());
+                        }
+                    });
+
+				}
+			});// ajax  
+        },
+        resState : function(store_no,res_date,rcnt,dcnt,bcnt){// 예약 된 좌석,룸 정보 로드 AJAX 후에 좌석 선택 
+            $.ajax({
+				type: "POST",
+				url: "../reserveState",
+                data:{
+                    store_no:store_no,
+                    res_date:res_date
+                },
+				success: function(data) {
+                    //console.log(JSON.stringify(data));
+                    resArray=[];
+                    locArr=[];
+                    $.each(data,function(idx, val) {
+                        if(val.seat_code.indexOf("locker")!=0){
+                            resArray.push({seat:val.seat_code, times:val.times});
+                        }else{
+                            if(val.store_no == store_no){
+                                locArr.push({seat:val.seat_code, end_date:val.end_date});
+                            }
+                        }
+                    });
+                    
+                    // 지점 별 좌석 노출 
+                    $(".reserveCont .seatDiv .deskD").empty();
+				    $(".reserveCont .seatDiv .roomD").empty();
+                    $(".reserveCont .lockerDiv .lockerD").empty();
+
+                    for(var d=0; d<dcnt; d++){ // 좌석 
+                        $(".reserveCont .seatDiv .deskD").append("<a href='javascript:' class='desk seat' data-val='desk_"+(d+1)+"'><span>좌석"+(d+1)+"</span></a>");	
+                    }
+                    
+                    for(var r=0; r<rcnt; r++){ // ROOM
+                        $(".reserveCont .seatDiv .roomD").append("<a href='javascript:' class='room seat' data-val='room_"+(r+1)+"'><span>ROOM"+(r+1)+"</span></a>");			
+                    }
+                    
+
+                    for(var b=0; b<bcnt; b++){ // 사물함 
+                        $(".reserveCont .lockerDiv .lockerD").append("<a href='javascript:' class='locker' data-val='locker_"+(b+1)+"'><span>사물함"+(b+1)+"</span></a>");
+                    }
+
+                    for(var l=0; l<locArr.length; l++){
+                        var lnum = parseInt((locArr[l].seat).split("_")[1]);
+                        $(".lockerDiv .lockerD .locker").eq(lnum-1).addClass("no");
+                        $(".lockerDiv .lockerD .locker").eq(lnum-1).append("<span class='hide'>~ "+locArr[l].end_date+"</span>");
+                    }
+
+				}
+			});
+        },
+        resChange : function(){// 지점 선택, 달력 날짜 선택시 - resState 재호출 
+            $(".reserveCont select.store").change(function(){// 지점 선택시
+                if($(this).val() !== "none"){
+                    resScript.resReset();
+                    $(".slcDeTail p").not(".location").not(".date").find(".data").empty();
+
+                    store_no = $(this).val();
+                    res_date = $("#today").val();
+                    
+                    for(var i=0; i<resStoreArr.length; i++){
+                        if(store_no == resStoreArr[i].store_no){
+                            resScript.resState(store_no,res_date,resStoreArr[i].rcnt,resStoreArr[i].dcnt,resStoreArr[i].bcnt);
+                        }
+                    }
+                    console.log("좌석, 사물함 예약정보 ajax 다시 불러옴");
+                    $(".slcDeTail .store .location").html($(".reserveCont select.location option:selected").text());
+                    $(".slcDeTail .store .data").html($(".reserveCont select.store option:selected").text());
+                }
+            });
+
+            $(document).on("click", ".calTable table td a", function(){ //달력 날짜 선택시 
+                if($(".reserveCont select.store").val() !== "none"){
+                    if(!$(this).parents("td").hasClass("before") && !$(this).parents("td").hasClass("empty")){
+                        resScript.resReset();
+                        $(".slcDeTail p").not(".location").not(".store").find(".data").empty();
+
+                        $(".calTable table td").removeClass("on");
+                        $(this).parents("td").addClass("on");
+                        
+                        var selY = $(".calSel select#year").val();
+                        var selM = $(".calSel select#month").val();
+                        var selD = parseInt($(this).text());
+                        if(selM < 10){selM="0"+selM};
+                        if(selD < 10){selD="0"+selD};
+                        $("#today").val(selY+"-"+selM+"-"+selD);
+                        $(".slcDeTail .date .data").html(selY+"-"+selM+"-"+selD);
+
+                        store_no = $(".reserveCont .slcD select.store").val();
+                        res_date = selY+"-"+selM+"-"+selD;
+                        
+                        for(var i=0; i<resStoreArr.length; i++){
+                            if(store_no == resStoreArr[i].store_no){
+                                resScript.resState(store_no,res_date,resStoreArr[i].rcnt,resStoreArr[i].dcnt,resStoreArr[i].bcnt);
+                            }
+                        }
+                    }
+                }else{
+                    alert("지역, 지점명을 선택해주세요!");
+                    return false;
+                }
+            });
+        },
+        resChk : function(){// 결제하기 클릭 시 
             if(resDetailArr.length == 0){
                 alert("선택된 좌석, 사물함이 없습니다.");
                 return false;
@@ -638,7 +823,9 @@ var resScript = (function(){
                 });
             }
             
-            // db 조회 
+            resScript.resChkAjax(resArrList);
+        },
+        resChkAjax: function(resArrList){ 
             $.ajax({
 				type: "POST",
 				url: "../resChk",
@@ -684,30 +871,21 @@ var resScript = (function(){
                 error:function(request, status, error){
                     console.log("AJAX_ERROR");
                 }
-			});// ajax     
+			});// ajax              
+
         },
         resFinalChk : function(in_email){//예약하기
             var resFinallArr=[];
             for(var r=0; r<resOverlab.length; r++){
-                if(resOverlab[r].seat_code.indexOf('locker') != -1){ //사물함 
-                    resFinallArr.push({
-                        in_email : in_email,
-                        store_no : store_no,
-                        seat_code:resOverlab[r].seat_code,
-                        res_date:resOverlab[r].res_date,
-                        res_end_date:resOverlab[r].res_end_date,
-                        total:resOverlab[r].total
-                    });
-                }else{//좌석 
-                    resFinallArr.push({
-                        in_email : in_email,
-                        store_no : store_no,
-                        seat_code:resOverlab[r].seat_code,
-                        res_date:resOverlab[r].res_date,
-                        times:resOverlab[r].times,
-                        total:resOverlab[r].total
-                    });
-                }
+                resFinallArr.push({
+                    in_email : in_email,
+                    store_no : store_no,
+                    seat_code:resOverlab[r].seat_code,
+                    res_date:resOverlab[r].res_date,
+                    end_date:resOverlab[r].end_date,
+                    times:resOverlab[r].times,
+                    total:resOverlab[r].total
+                });
             }
             
             $.ajax({
@@ -731,7 +909,7 @@ var resScript = (function(){
             //예약확인 리스트 목록 삭제 
             $(document).on("click", ".resCheck .list .del", function(){
                 if($(this).parents(".list").find(".seat").text().indexOf("사물함")==0){
-                    locPayTotal-= parseInt(withoutCommas($(this).parents(".list").find(".pay").text().split("원")[0]))
+                    locPayT-= parseInt(withoutCommas($(this).parents(".list").find(".pay").text().split("원")[0]))
                 }
                 resDetailArr.splice($(this).parents(".list").index(),1);
                 resScript.arrList(resDetailArr);
@@ -764,20 +942,28 @@ var resScript = (function(){
                             seaArr.push({seat:val.seat_code, times:val.times});
                         }else{
                             if(val.store_no == store_no){
-                                locArr.push({seat:val.seat_code, res_end_date:val.res_end_date});
+                                locArr.push({seat:val.seat_code, end_date:val.end_date});
                             }
                         }
                     });
+                    
+                    
+
 				}
 			});
         }
     }
 })();
 
+$(document).ready(function(){
+
+});
+
 $(window).on("load", function(){
-    calendar();
     resScript.reserve();
     resScript.resFixed();
+    resScript.calSet();
+    resScript.calChange();
     resScript.resSet();
     resScript.seatTimeClick();
     resScript.resChange();

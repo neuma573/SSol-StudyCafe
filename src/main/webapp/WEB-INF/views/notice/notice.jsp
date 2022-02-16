@@ -30,15 +30,21 @@
 					<c:forEach var="dto" items="${noticeList}" varStatus="num">
 						<tr>
 							<td class="num t_center"><span class="label">${fn:length(noticeList) - (num.index)}</span></td>
-							<td><a href="/notice/notice_view.do?n_number=${dto.n_number}" class="ellipsis">${dto.n_title}</a></td>
+							<td><a href="/notice/notice_view.do?n_number=${dto.n_number}" class="ellipsis">[${dto.store_name}] ${dto.n_title}</a></td>
 							<td class="date t_center">${dto.n_date.substring(0,10)}</td>
 						</tr>
 						</c:forEach>
 					</tbody>
 				</table>
 			</div>
+			
+			<c:if test="${user == 'en'}">
+				<div class="btnD bdT">
+					<a href="/notice/notice_write.do" class="btn"><span>등록</span></a>
+				</div>
+			</c:if>
 		</div><!-- //notice_wrap -->
-
+		
 		<div class="paging fs_def">
 			<ul class="paging_ul fs_def"></ul>
 		</div>

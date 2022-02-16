@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="../header.jsp" %>
+<script src="../js/calendar.js"></script>
 <script src="../js/res_script.js"></script>
 <!-- 본문시작 -->
 	<div class="subTit">

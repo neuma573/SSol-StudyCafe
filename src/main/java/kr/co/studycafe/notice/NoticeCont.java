@@ -1,6 +1,8 @@
 package kr.co.studycafe.notice;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,91 +19,62 @@ import net.utility.UploadSaveManager;
 @Controller
 public class NoticeCont {
 	private NoticeDAO dao = null;
-	
 	public NoticeCont() {
-		dao = new NoticeDAO();
-		
-		System.out.println("NoticeCont 객체 생성");
+		dao=new NoticeDAO();
+		System.out.println("=============Notice 실행");
 	}
-	/*
+	
 	@RequestMapping("/notice/notice.do")
-	public ModelAndView notice(@SessionAttribute(name = "uid", required = false) String uid) {
+	public ModelAndView noticeList() {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("uid", uid);
-		mav.addObject("Notice_list", dao.Notice_list()); 
-		mav.setViewName("notice/notice");
+		mav.setViewName("/notice/notice");
+		mav.addObject("noticeList", dao.list());
 		return mav;
 	}
-
-	@RequestMapping(value="/notice/notice_view.do",method=RequestMethod.GET)
-	public ModelAndView noticeView(@SessionAttribute(name = "uid", required = false) String uid, HttpServletRequest req) {
-		int n_number=Integer.parseInt(req.getParameter("n_number"));
-		NoticeDTO dto = dao.Notice_read(n_number);
+	
+	@RequestMapping(value="/notice/notice_view.do", method=RequestMethod.GET)
+	public ModelAndView noticeView(int n_number) {
+		NoticeDTO dto = dao.read(n_number);
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("uid", uid);
 		mav.setViewName("/notice/notice_view");
 		mav.addObject("dto", dto);
 		return mav;
 	}
-
-	@RequestMapping("/notice/notice_write.do")
-	public ModelAndView noticeWrite() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("notice/notice_write");
-		return mav;
-	}
-
-	@RequestMapping(value = "/notice/submit.do", method = RequestMethod.POST)
-	public ModelAndView noticePost(@SessionAttribute(name = "uid", required = false) String uid, NoticeDTO dto,
-			HttpServletRequest req) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("en_email", uid);
-		dto.setEn_email(uid);
-		System.out.println(dto);
-		System.out.println(uid);
-		int post = dao.notice_post(dto);
-		mav.setViewName("notice/notice_write");
-		return mav;
-	}
-
 	
 	@RequestMapping(value="/notice/notice_modify.do", method=RequestMethod.GET)
-	public ModelAndView noticeModify(@SessionAttribute(name = "uid", required = false) String uid, HttpServletRequest req) {
-		int n_number=Integer.parseInt(req.getParameter("n_number"));
-		NoticeDTO dto = dao.Notice_modify(n_number);
+	public ModelAndView noticeModify(int n_number) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("uid", uid);
-		mav.setViewName("notice/notice_modify");
+		NoticeDTO dto = dao.read(n_number);
+		mav.setViewName("/notice/notice_modify");
 		mav.addObject("dto", dto);
+		
 		return mav;
 	}
 	
-	@RequestMapping(value = "/notice/notice_modifySubmit.do", method = RequestMethod.POST)
-	public ModelAndView noticeModifyPost(@SessionAttribute(name = "uid", required = false) String uid, NoticeDTO dto,
-			HttpServletRequest req) {
+	@RequestMapping(value="/notice/notice_write.do", method=RequestMethod.GET)
+	public ModelAndView noticeWrite(@SessionAttribute(name = "uid", required = false) String uid) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("en_email", uid);
-		dto.setEn_email(uid);
-		System.out.println(dto);
-		System.out.println(uid);
-		int notice_modify_post = dao.notice_modify_post(dto);
-		mav.setViewName("notice/notice_modify");
+		mav.setViewName("/notice/notice_write");		
+		mav.addObject("storeList", dao.storelist(uid));
+		
+		
 		return mav;
 	}
 	
-	@RequestMapping(value = "/notice/notice_delete.do", method = RequestMethod.POST)
-	public ModelAndView noticeDelete(@SessionAttribute(name = "uid", required = false) String uid, NoticeDTO dto,
-			HttpServletRequest req) {
+	@RequestMapping(value="/notice/notice_write.do", method=RequestMethod.POST)
+	public ModelAndView noticeProc(@ModelAttribute NoticeDTO dto) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("en_email", uid);
-		dto.setEn_email(uid);
-		System.out.println(dto);
-		System.out.println(uid);
-		System.out.println("삭제완료");
-		int notice_delete = dao.notice_delete(dto);
-		mav.setViewName("notice/notice_delete");
+		int cnt = dao.write(dto);
+		mav.setViewName("/notice/noticeIns");
+		if(cnt == 1) {
+			mav.addObject("msg", "공지사항 등록 완료");
+			mav.addObject("url", "notice.do");
+		}else {
+			mav.addObject("msg", "공지사항 등록 실패");
+			mav.addObject("url", "notice.do");
+		}
 		return mav;
+	}
 
-	}*/
 
 }

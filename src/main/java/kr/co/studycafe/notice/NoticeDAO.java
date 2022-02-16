@@ -15,151 +15,164 @@ import net.utility.DBClose;
 import net.utility.DBOpen;
 
 public class NoticeDAO {
-	private DBOpen dbopen = null;
+	private DBOpen dbopen =null;
 	private Connection con = null;
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 	private StringBuilder sql = null;
 	
 	public NoticeDAO() {
-		dbopen = new DBOpen();
-		con = dbopen.getConnection();
+		dbopen = new DBOpen();		
 	}
 	
-	
-	public int notice_post(NoticeDTO noticeDTO) {
-		String sql = "insert into tb_notice values(n_number, ?, ?, ?, ?)";
+	public ArrayList<NoticeDTO> list() {
+		ArrayList<NoticeDTO> list = null;
+		
 		try {
-			pstmt = con.prepareStatement(sql);
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-			pstmt.setString(1, noticeDTO.getEn_email());
-			pstmt.setString(2, noticeDTO.getN_title());
-			pstmt.setString(3, noticeDTO.getN_contents());
-			pstmt.setString(4, LocalDateTime.now().format(formatter));
-			pstmt.executeUpdate();
-			return 1;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return -1;
-	}
-	  public ArrayList<NoticeDTO> Notice_list(){
-			ArrayList<NoticeDTO> Notice_list = null;
-			try {
-				con=dbopen.getConnection();
-				sql=new StringBuilder();
-				sql.append(" SELECT n_number, en_email, n_title, n_content, n_date");
-				sql.append(" FROM tb_notice ");
-				sql.append(" ORDER BY n_number DESC ");
-				pstmt=con.prepareStatement(sql.toString());
-				rs=pstmt.executeQuery();
-				if(rs.next()) {
-					Notice_list = new ArrayList<NoticeDTO>();
-					do {
-						NoticeDTO dto = new NoticeDTO();
-						dto.setN_number(rs.getInt("n_number"));
-						dto.setEn_email(rs.getString("en_email"));
-						dto.setN_title(rs.getString("n_title"));
-						dto.setN_contents(rs.getString("n_content"));
-						dto.setN_date(rs.getString("n_date"));
-						Notice_list.add(dto);
-					}while(rs.next());
-				}//if end
-			}catch (Exception e) {
-				System.out.println("Notice_list 실패 : "+e);
-			}
-			return Notice_list;
-		}//Notice_list() end
-	  
-		public NoticeDTO Notice_read(int n_number) {
-			NoticeDTO dto=null;
-			try {
-				con=dbopen.getConnection();
-				sql=new StringBuilder();
-				sql.append(" SELECT n_number, en_email, n_title, n_content, n_date");
-				sql.append(" FROM tb_notice ");
-				sql.append(" WHERE n_number=? ");
-				sql.append(" ORDER BY n_number DESC ");
-				pstmt=con.prepareStatement(sql.toString());
-				pstmt.setInt(1, n_number);
-				rs=pstmt.executeQuery();
-				if(rs.next()) {
-					dto = new NoticeDTO();
+			con=dbopen.getConnection();
+			sql= new StringBuilder();
+			sql.append(" SELECT n_number, en_email, n_title, n_date, store_name ");
+			sql.append(" FROM tb_notice ");
+			sql.append(" ORDER BY n_number desc ");
+			pstmt=con.prepareStatement(sql.toString());
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<NoticeDTO>();
+				do {
+					NoticeDTO dto = new NoticeDTO();
 					dto.setN_number(rs.getInt("n_number"));
 					dto.setEn_email(rs.getString("en_email"));
 					dto.setN_title(rs.getString("n_title"));
-					dto.setN_contents(rs.getString("n_content"));
 					dto.setN_date(rs.getString("n_date"));
-				}
-				
-			}catch (Exception e) {
-				System.out.println("Notice_read 실패 : " + e);
-			}
-			
-			return dto;
-		}//Notice_read() end
-		
-		public NoticeDTO Notice_modify(int n_number) {
-			NoticeDTO dto=null;
-			try {
-				con=dbopen.getConnection();
-				sql=new StringBuilder();
-				sql.append(" SELECT n_number, en_email, n_title, n_content, n_date");
-				sql.append(" FROM tb_notice ");
-				sql.append(" WHERE n_number=? ");
-				sql.append(" ORDER BY n_number DESC ");
-				pstmt=con.prepareStatement(sql.toString());
-				pstmt.setInt(1, n_number);
-				rs=pstmt.executeQuery();
-				if(rs.next()) {
-					dto = new NoticeDTO();
-					dto.setN_number(rs.getInt("n_number"));
-					dto.setEn_email(rs.getString("en_email"));
-					dto.setN_title(rs.getString("n_title"));
-					dto.setN_contents(rs.getString("n_content"));
-					dto.setN_date(rs.getString("n_date"));
-				}
-				
-			}catch (Exception e) {
-				System.out.println("Notice_read 실패 : " + e);
-			}
-			
-			return dto;
-		}//Notice_read() end
-		public int notice_modify_post(NoticeDTO noticeDTO) {
-			sql=new StringBuilder();
-			sql.append("Update tb_notice SET en_mail=?, n_title=?, n_contents=?, n_date)=?");
-			sql.append(" WHERE n_number = ? ");
-			try {
-				con=dbopen.getConnection();
-				pstmt = con.prepareStatement(sql.toString());
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-				pstmt.setString(1, noticeDTO.getEn_email());
-				pstmt.setString(2, noticeDTO.getN_title());
-				pstmt.setString(3, noticeDTO.getN_contents());
-				pstmt.setString(4, LocalDateTime.now().format(formatter));
-				pstmt.setInt(5, noticeDTO.getN_number());
+					dto.setStore_name(rs.getString("store_name"));
 					
-				return pstmt.executeUpdate();
-			} catch (Exception e) {
-				e.printStackTrace();
+					list.add(dto);
+				}while(rs.next());
 			}
-			return -1;
+		}catch (Exception e) {
+			System.out.println("noticeNew list 실패 :"+e);
+		}finally {
+			DBClose.close(con, pstmt, rs);
 		}
 		
-		public int notice_delete(NoticeDTO noticeDTO) {
+		return list;
+	}
+	
+	public NoticeDTO read(int n_number) {
+		NoticeDTO dto = null;
+		try {
+			con=dbopen.getConnection();
 			sql=new StringBuilder();
-			sql.append("delete from tb_notice WHERE n_number = ?");
-			try {
-				con=dbopen.getConnection();
-				pstmt = con.prepareStatement(sql.toString());
-				pstmt.setInt(1, noticeDTO.getN_number());
-				return pstmt.executeUpdate();
-			} catch (Exception e) {
-				e.printStackTrace();
+			sql.append(" SELECT n_number, en_email, n_title, n_content, n_date ");
+			sql.append(" FROM tb_notice ");
+			sql.append(" WHERE n_number=? ");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setInt(1, n_number);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				dto= new NoticeDTO();
+				dto.setN_number(rs.getInt("n_number"));
+				dto.setEn_email(rs.getString("en_email"));
+				dto.setN_title(rs.getString("n_title"));
+				dto.setN_content(rs.getString("n_content"));
+				dto.setN_date(rs.getString("n_date"));
 			}
-			return -1;
+		}catch (Exception e) {
+			System.out.println("notice read 실패  : "+e);
+		}finally {
+			DBClose.close(con, pstmt, rs);
+		}
+		return dto;
+	}
+	
+	public int modify(NoticeDTO dto) {
+		int cnt=0;
+		try {
+			con=dbopen.getConnection();
+			sql=new StringBuilder();
+			sql.append(" UPDATE tb_notice SET n_title=?, n_content=? ");
+			sql.append(" WHERE n_number=? ");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, dto.getN_title());
+			pstmt.setString(2, dto.getN_content());
+			cnt=pstmt.executeUpdate();
+		}catch (Exception e) {
+			System.out.println("place modify 실패 : "+e);
+		}finally {
+			DBClose.close(con, pstmt);
 		}
 		
+		return cnt;
+		
+	}
+		
+	
+	public ArrayList<NoticeDTO> storelist(String uid){
+		ArrayList<NoticeDTO> storelist = null;
+		try {
+			con = dbopen.getConnection();
+			sql=new StringBuilder();
+			sql.append(" SELECT store_name, store_no FROM tb_store_info WHERE en_email=? ");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, uid);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				storelist = new ArrayList<NoticeDTO>();
+				do {
+					NoticeDTO dto = new NoticeDTO();
+					dto.setStore_no(rs.getInt("store_no"));
+					dto.setStore_name(rs.getString("store_name"));
+					storelist.add(dto);
+				}while(rs.next());
+				
+			}
+			
+		}catch (Exception e) {
+			System.out.println("noticedao storelist 실패 : "+e);
+		}finally {
+			DBClose.close(con, pstmt, rs);
+	
+		}
+		
+		
+		return storelist;
+	}
+	
+	public int write(NoticeDTO dto) {
+		int cnt=0;
+		try {
+			String store_name="";
+			con=dbopen.getConnection();
+			sql=new StringBuilder();
+			sql.append(" SELECT store_name FROM tb_store_info WHERE store_no = ? ");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setInt(1, dto.getStore_no());
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				store_name = rs.getString("store_name");
+			}
+			
+		
+			sql=new StringBuilder();
+			sql.append(" INSERT INTO tb_notice (en_email, n_title, n_content ,store_name) ");
+			sql.append(" VALUES (?, ?, ?, ?) ");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, dto.getEn_email());
+			pstmt.setString(2, dto.getN_title());
+			pstmt.setString(3, dto.getN_content());
+			pstmt.setString(4, store_name);
+			
+			cnt=pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			System.out.println("noticedao write 실패 : "+e);
+		}finally {
+			DBClose.close(con, pstmt,rs);
+			
+		}
+				
+				
+		return cnt;
+	}
 	
 }

@@ -93,9 +93,9 @@ public class ReserveCont {
 	
 	@RequestMapping(value = "/reserve", method = RequestMethod.GET)
 	@ResponseBody
-	public ArrayList<ReserveDTO> resAjax() throws Exception {
+	public ArrayList<StoreDTO> resAjax() throws Exception {
 		//store_no, store_name, store_address, room_count, desk_count, box_count
-		ArrayList<ReserveDTO> storeList = null;
+		ArrayList<StoreDTO> storeList = null;
 		try {
 			storeList = dao.storeList(); //매장정보
 		} catch (Exception e) {
@@ -120,11 +120,10 @@ public class ReserveCont {
 	
 	@RequestMapping(value = "/resChk", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public int resChkAjax(@RequestBody List<UpdateReserveDTO> updateDto) throws Exception{
+	public int resChkAjax(@RequestBody List<ReserveDTO> updateDto) throws Exception{
 		int cnt=0;
 		try {			
 			updateDto.toString();
-			//System.out.println(updateDto.toString());
 			
 			int store_no = updateDto.get(0).getStore_no();
 			for(int i=0; i<updateDto.size(); i++) {
@@ -144,21 +143,25 @@ public class ReserveCont {
 	
 	@RequestMapping(value = "/reserveIns", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public int resIns(@RequestBody List<ReserveListDTO> reserveDTO) throws Exception{
+	public int resIns(@RequestBody List<ReserveDTO> reserveDTO) throws Exception{
 		int cnt=0;
 		try {			
 			reserveDTO.toString();
-			
+			String in_email, seat_code, res_date, times, res_end_date;
+			int store_no, total;
 			for(int i=0; i<reserveDTO.size(); i++) {
-				String in_email=reserveDTO.get(i).getIn_email();
-				int store_no=reserveDTO.get(i).getStore_no();
-				String seat_code=reserveDTO.get(i).getSeat_code();
-				String res_date=reserveDTO.get(i).getRes_date();
-				String end_date=reserveDTO.get(i).getEnd_date();
-				String times=reserveDTO.get(i).getTimes();
-				int total = reserveDTO.get(i).getTotal();
-				
-				cnt += dao.resIns(in_email,store_no,seat_code,res_date,end_date,times,total);
+				in_email=reserveDTO.get(i).getIn_email();
+				store_no=reserveDTO.get(i).getStore_no();
+				seat_code=reserveDTO.get(i).getSeat_code();
+				res_date=reserveDTO.get(i).getRes_date();
+				total = reserveDTO.get(i).getTotal();
+				if(seat_code.indexOf("locker") != 0) {
+					times=reserveDTO.get(i).getTimes();
+					cnt = dao.resSeatIns(in_email,store_no,seat_code,res_date,times,total);
+				}else {
+					res_end_date=reserveDTO.get(i).getRes_end_date();
+					cnt = dao.resLockerIns(in_email,store_no,seat_code,res_date,res_end_date,total);
+				}
 			}
 		}catch (Exception e) {
 			System.out.println("resListAjax 실패 : "+e);
